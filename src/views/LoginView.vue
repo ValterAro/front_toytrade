@@ -3,12 +3,12 @@
     <div class="col-2">
       <form>
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Kasutajanimi">
+          <input v-model="username" type="text" class="form-control" placeholder="Kasutajanimi">
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control" placeholder="Parool">
+          <input v-model="password" type="password" class="form-control" placeholder="Parool">
         </div>
-        <button type="submit" class="btn btn-primary">Logi sisse</button>
+        <button v-on:click="sendLoginRequest" type="submit" class="btn btn-primary">Logi sisse</button>
       </form>
     </div>
   </div>
@@ -18,6 +18,27 @@
 
 <script>
 export default {
-  name: "LoginView"
+  name: "LoginView",
+  data: function () {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  methods: {
+    sendLoginRequest: function () {
+      this.$http.get("/login", {
+            params: {
+              username: this.username,
+              password: this.password
+            }
+          }
+      ).then(response => {
+        alert(response.data.roleName)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+  }
 }
 </script>
