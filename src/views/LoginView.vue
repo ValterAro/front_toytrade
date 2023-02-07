@@ -24,7 +24,6 @@
         <p class="mt-4">Konto juba olemas? <a href="" v-on:click.prevent="isLogin = true">Logi sisse!</a></p>
       </form>
     </div>
-    <p v-for="toy in toys">{{ toy.name }}</p>
   </div>
 
 
