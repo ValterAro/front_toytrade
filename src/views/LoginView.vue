@@ -36,6 +36,7 @@ export default {
       ).then(response => {
         alert(response.data.roleName)
       }).catch(error => {
+        alert(error.response.data.errorCode);
         console.log(error)
       })
     },
