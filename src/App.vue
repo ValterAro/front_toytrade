@@ -1,12 +1,25 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Avaleht</router-link> |
+      <router-link to="/">Avaleht</router-link>
+      |
       <router-link to="/login">Logi sisse</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
+
+
+<script>
+export default {
+  name: "App",
+  mounted() {
+    document.title = "Mänguasjavahetus";
+  },
+};
+
+
+</script>
 
 <style>
 #app {
