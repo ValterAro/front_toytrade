@@ -12,12 +12,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="toy in toys" :key="toy.category.id">
+      <tr v-for="toy in toys" :key="toy.categoryId">
         <td>{{ toy.name }}</td>
         <td>{{ toy.description }}</td>
-        <td>{{ toy.category.name }}</td>
-        <td>{{ toy.condition.name }}</td>
-        <td>{{ toy.city.name }}</td>
+        <td>{{ toy.categoryName }}</td>
+        <td>{{ toy.conditionName }}</td>
+        <td>{{ toy.cityName }}</td>
         <td>{{ toy.picture }}</td>
       </tr>
       </tbody>
@@ -34,24 +34,12 @@ export default {
           id: 0,
           name: '',
           description: '',
-          category: [
-            {
-              categoryId: 0,
-              categoryName: ''
-            }
-          ],
-          condition: [
-            {
-              conditionId: 0,
-              conditionName: ''
-            }
-          ],
-          city: [
-            {
-              cityId: 0,
-              cityName: '',
-            }
-          ],
+          categoryId: 0,
+          categoryName: '',
+          conditionId: 0,
+          conditionName: '',
+          cityId: 0,
+          cityName: '',
           picture: ''
         }
       ],
@@ -68,7 +56,6 @@ export default {
           }
       ).then(response => {
         this.toys = response.data
-        alert(this.toys)
       }).catch(error => {
         console.log(error)
       })
