@@ -1,31 +1,31 @@
 <template>
 
-    <div class="row justify-content-center">
-      <div class="col-2 ">
-        <form v-if="isLogin">
-          <div class="mb-3">
-            <input v-model="username" type="text" class="form-control" placeholder="Kasutajanimi">
-          </div>
-          <div class="mb-3">
-            <input v-model="password" type="password" class="form-control" placeholder="Parool">
-          </div>
-          <button v-on:click="sendLoginRequest" type="submit" class="btn btn-primary">Logi sisse</button>
-          <p class="mt-4">Pole veel kontot? <a href="" v-on:click.prevent="isLogin = false">Registreeru!</a></p>
+  <div class="row justify-content-center">
+    <div class="col-2 ">
+      <form v-if="isLogin">
+        <div class="mb-3">
+          <input v-model="username" type="text" class="form-control" placeholder="Kasutajanimi">
+        </div>
+        <div class="mb-3">
+          <input v-model="password" type="password" class="form-control" placeholder="Parool">
+        </div>
+        <button v-on:click="sendLoginRequest" type="submit" class="btn btn-primary">Logi sisse</button>
+        <p class="mt-4">Pole veel kontot? <a href="" v-on:click.prevent="isLogin = false">Registreeru!</a></p>
 
-        </form>
-        <form v-else>
-          <div class="mb-3">
-            <input v-model="username" type="text" class="form-control" placeholder="Kasutajanimi">
-          </div>
-          <div class="mb-3">
-            <input v-model="password" type="password" class="form-control" placeholder="Parool">
-          </div>
-          <button v-on:click="sendRegisterRequest" type="submit" class="btn btn-primary">Registreeru</button>
-          <p class="mt-4">Konto juba olemas? <a href="" v-on:click.prevent="isLogin = true">Logi sisse!</a></p>
-        </form>
-      </div>
+      </form>
+      <form v-else>
+        <div class="mb-3">
+          <input v-model="username" type="text" class="form-control" placeholder="Kasutajanimi">
+        </div>
+        <div class="mb-3">
+          <input v-model="password" type="password" class="form-control" placeholder="Parool">
+        </div>
+        <button v-on:click="sendRegisterRequest" type="submit" class="btn btn-primary">Registreeru</button>
+        <p class="mt-4">Konto juba olemas? <a href="" v-on:click.prevent="isLogin = true">Logi sisse!</a></p>
+      </form>
     </div>
-
+    <p v-for="toy in toys">{{ toy.name }}</p>
+  </div>
 
 
 </template>
@@ -41,11 +41,12 @@ export default {
         username: '',
         password: ''
       },
-      isLogin: true
+      isLogin: true,
+      categoryId: 1
     }
   },
   methods: {
-    sendLoginRequest: function () {
+   sendLoginRequest: function () {
       this.$http.get("/login", {
             params: {
               username: this.username,
@@ -69,9 +70,8 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-    }
-
-  ,register: function () {
+    },
+    register: function () {
       this.isLogin = false
     }
   }
