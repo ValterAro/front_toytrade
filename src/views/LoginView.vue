@@ -33,6 +33,7 @@
 export default {
   name: "LoginView",
   data: function () {
+
     return {
       username: '',
       password: '',
