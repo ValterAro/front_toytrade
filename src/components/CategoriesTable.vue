@@ -1,16 +1,20 @@
 <template>
   <div class="col-2 text-start"><h5>Filtreeri:</h5>
-    <div class="form-check">
-      <input v-model="isCheckAll" v-on:click="checkAll" class="form-check-input" type="checkbox" ref="allCategories" id="allCategories">
-      <label class="form-check-label" for="allCategories">Kõik</label>
+    <div class="form-check mt-3">
+      <input v-model="isCheckAll" v-on:click="checkAll" class="form-check-input" type="checkbox"
+             id="allCategoriesCheckbox">
+      <label class="form-check-label" for="allCategoriesCheckbox">Kõik</label>
     </div>
     <div v-for="category in categories" class="form-check">
-      <input v-model="allCategories" v-on:change="updateCheckAll" class="form-check-input" type="checkbox">
+      <input v-model="selectedCategories" v-on:change="updateCheckAll" v-bind:value="category.categoryId"
+             class="form-check-input" type="checkbox">
       <label class="form-check-label">
-        {{ category.name }}
+        {{ category.categoryName }}
       </label>
     </div>
-
+    <button type="button" v-on:click="setCategoryFilters" class="btn btn-outline-dark mt-3">Filtreeri</button>
+    <br>
+    {{ selectedCategories }}
   </div>
 </template>
 <script>
@@ -19,54 +23,62 @@ export default {
   data: function () {
     return {
       isCheckAll: false,
+      selectedCategories: [],
+      selectedCategory: "",
       categories: [
         {
-          id: 0,
-          name: ''
+          categoryId: 0,
+          categoryName: ''
         }
-      ],
-      allCategories: []
-  }
+      ]
+    }
   },
   methods: {
     getAllCategories: function () {
       this.$http.get("/categories")
           .then(response => {
             this.categories = response.data
-            console.log(response.data)
           })
           .catch(error => {
-            console.log(error)
           })
     },
-    changeCategorySelection: function () {
-      if (this.$refs.allCategories.checked) {
-        console.log("C")
-        this.$refs.others.forEach(select => select.checked = true)
-        // this.$el.querySelectorAll(".check-others").checked = true
-      } else {
-        // this.$el.querySelectorAll(".check-others").checked = false
-        console.log("U")
-      }
-    },
     checkAll: function () {
-      this.isCheckAll = !this.isCheckAll
-      this.allCategories  = []
-
+      this.isCheckAll = !this.isCheckAll;
+      this.selectedCategories = [];
       if (this.isCheckAll) {
-        for (var key in this.categories.id) {
-          this.allCategories.push(this.categories.id[key])
-          console.log(this.categories.id[key])
+        for (let i = 0; i < this.categories.length; i++) {
+          this.selectedCategories.push(this.categories[i].categoryId);
         }
       }
     },
     updateCheckAll: function () {
-      if (this.categories.length == this.allCategories.length) {
+      if (this.selectedCategories.length === this.categories.length) {
         this.isCheckAll = true;
       } else {
-        this.isCheckAll = false
+        this.isCheckAll = false;
       }
-    }
+    },
+    setCategoryFilters: function () {
+      this.$http.post("/trades/trade", this.selectedCategories
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    // getFilteredToys: function () {
+    //   this.$http.get("/trade/trade", {
+    //         params: {
+    //           categories: this.selectedCategories
+    //         }
+    //       }
+    //   ).then(response => {
+    //     console.log(response.data)
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // },
   },
   beforeMount() {
     this.getAllCategories()

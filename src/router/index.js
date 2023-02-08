@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from "@/views/LoginView.vue";
 import TradesView from "@/views/TradesView.vue";
-import RegisterView from "@/views/RegisterView.vue";
+import ToyView from "@/views/ToyView.vue";
 import FaqView from "@/views/FaqView.vue";
 
 Vue.use(VueRouter)
@@ -25,9 +25,9 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/register',
-    name: 'register',
-    component: RegisterView
+    path: '/toy',
+    name: 'toy',
+    component: ToyView
   },
   {
     path: '/faq',
