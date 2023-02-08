@@ -6,13 +6,13 @@
       <label class="form-check-label" for="allCategoriesCheckbox">Kõik</label>
     </div>
     <div v-for="category in categories" class="form-check">
-      <input v-model="selectedCategories" v-on:change="updateCheckAll" v-bind:value="category.id"
+      <input v-model="selectedCategories" v-on:change="updateCheckAll" v-bind:value="category.categoryId"
              class="form-check-input" type="checkbox">
       <label class="form-check-label">
-        {{ category.name }}
+        {{ category.categoryName }}
       </label>
     </div>
-    <button type="button" v-on:click="" class="btn btn-outline-dark mt-3">Filtreeri</button>
+    <button type="button" v-on:click="setCategoryFilters" class="btn btn-outline-dark mt-3">Filtreeri</button>
     <br>
     {{ selectedCategories }}
   </div>
@@ -27,8 +27,8 @@ export default {
       selectedCategory: "",
       categories: [
         {
-          id: 0,
-          name: ''
+          categoryId: 0,
+          categoryName: ''
         }
       ]
     }
@@ -47,7 +47,7 @@ export default {
       this.selectedCategories = [];
       if (this.isCheckAll) {
         for (let i = 0; i < this.categories.length; i++) {
-          this.selectedCategories.push(this.categories[i].id);
+          this.selectedCategories.push(this.categories[i].categoryId);
         }
       }
     },
@@ -58,6 +58,27 @@ export default {
         this.isCheckAll = false;
       }
     },
+    setCategoryFilters: function () {
+      this.$http.post("/trades/trade", this.selectedCategories
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    // getFilteredToys: function () {
+    //   this.$http.get("/trade/trade", {
+    //         params: {
+    //           categories: this.selectedCategories
+    //         }
+    //       }
+    //   ).then(response => {
+    //     console.log(response.data)
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // },
   },
   beforeMount() {
     this.getAllCategories()
