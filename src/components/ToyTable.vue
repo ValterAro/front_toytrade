@@ -43,7 +43,7 @@ export default {
           picture: ''
         }
       ],
-      categoryId: 1,
+      categoryId: 0,
     }
   },
   methods: {
