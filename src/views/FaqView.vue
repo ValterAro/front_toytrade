@@ -1,6 +1,7 @@
 <template>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
+      <br><br>
       <h3>Korduma kippuvad küsimused</h3> <br>
       Registreerimisel saad 3 vahetuspunkti.<br>
       Iga edukalt ära antud asja eest saad juurde 1 vahetuspunkti.<br>
