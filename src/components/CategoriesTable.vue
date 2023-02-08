@@ -1,15 +1,16 @@
 <template>
   <div class="col-2 text-start"><h5>Filtreeri:</h5>
-    <div class="form-check">
-      <input v-model="isCheckAll" v-on:click="checkAll" class="form-check-input" type="checkbox" ref="allCategories" id="allCategories">
+    <div class="form-check mt-3">
+      <input v-model="isCheckAll" v-on:click="checkAll" class="form-check-input" type="checkbox" id="allCategories">
       <label class="form-check-label" for="allCategories">Kõik</label>
     </div>
-    <div v-for="category in categories" class="form-check">
-      <input v-model="allCategories" v-on:change="updateCheckAll" class="form-check-input" type="checkbox">
+    <div v-for="categoryName in categoryNames" class="form-check">
+      <input v-model="selectedCategories" v-on:change="updateCheckAll" v-bind:value="categoryName" class="form-check-input" type="checkbox">
       <label class="form-check-label">
-        {{ category.name }}
+        {{ categoryName }}
       </label>
     </div>
+    <button type="button" class="btn btn-outline-dark mt-3">Filtreeri</button>
 
   </div>
 </template>
@@ -19,13 +20,15 @@ export default {
   data: function () {
     return {
       isCheckAll: false,
+      categoryNames: [],
+      selectedCategories: [],
+      selectedCategory: "",
       categories: [
         {
           id: 0,
           name: ''
         }
-      ],
-      allCategories: []
+      ]
   }
   },
   methods: {
@@ -33,40 +36,29 @@ export default {
       this.$http.get("/categories")
           .then(response => {
             this.categories = response.data
-            console.log(response.data)
+            for (let i = 0; i < this.categories.length; i++) {
+              this.categoryNames.push(this.categories[i].name)
+            }
           })
           .catch(error => {
-            console.log(error)
           })
     },
-    changeCategorySelection: function () {
-      if (this.$refs.allCategories.checked) {
-        console.log("C")
-        this.$refs.others.forEach(select => select.checked = true)
-        // this.$el.querySelectorAll(".check-others").checked = true
-      } else {
-        // this.$el.querySelectorAll(".check-others").checked = false
-        console.log("U")
-      }
-    },
-    checkAll: function () {
-      this.isCheckAll = !this.isCheckAll
-      this.allCategories  = []
-
-      if (this.isCheckAll) {
-        for (var key in this.categories.id) {
-          this.allCategories.push(this.categories.id[key])
-          console.log(this.categories.id[key])
+    checkAll: function(){
+      this.isCheckAll = !this.isCheckAll;
+      this.selectedCategories = [];
+      if(this.isCheckAll){
+        for (let i in this.categoryNames) {
+          this.selectedCategories.push(this.categoryNames[i]);
         }
       }
     },
-    updateCheckAll: function () {
-      if (this.categories.length == this.allCategories.length) {
+    updateCheckAll: function(){
+      if(this.selectedCategories.length == this.categoryNames.length){
         this.isCheckAll = true;
-      } else {
-        this.isCheckAll = false
+      }else{
+        this.isCheckAll = false;
       }
-    }
+    },
   },
   beforeMount() {
     this.getAllCategories()

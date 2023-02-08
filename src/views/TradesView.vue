@@ -8,10 +8,11 @@
 <script>
 import ToyTable from "@/components/ToyTable.vue";
 import CategoriesTable from "@/components/CategoriesTable.vue";
+import CheckboxComponent from "@/components/CheckboxComponent.vue";
 
 export default {
   name: "TradesView",
-  components: {CategoriesTable, ToyTable},
+  components: {CheckboxComponent, CategoriesTable, ToyTable},
   data: function () {
     return {}
   },
