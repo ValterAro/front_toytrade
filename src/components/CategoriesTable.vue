@@ -1,17 +1,20 @@
 <template>
   <div class="col-2 text-start"><h5>Filtreeri:</h5>
     <div class="form-check mt-3">
-      <input v-model="isCheckAll" v-on:click="checkAll" class="form-check-input" type="checkbox" id="allCategories">
-      <label class="form-check-label" for="allCategories">Kõik</label>
+      <input v-model="isCheckAll" v-on:click="checkAll" class="form-check-input" type="checkbox"
+             id="allCategoriesCheckbox">
+      <label class="form-check-label" for="allCategoriesCheckbox">Kõik</label>
     </div>
-    <div v-for="categoryName in categoryNames" class="form-check">
-      <input v-model="selectedCategories" v-on:change="updateCheckAll" v-bind:value="categoryName" class="form-check-input" type="checkbox">
+    <div v-for="category in categories" class="form-check">
+      <input v-model="selectedCategories" v-on:change="updateCheckAll" v-bind:value="category.id"
+             class="form-check-input" type="checkbox">
       <label class="form-check-label">
-        {{ categoryName }}
+        {{ category.name }}
       </label>
     </div>
-    <button type="button" class="btn btn-outline-dark mt-3">Filtreeri</button>
-
+    <button type="button" v-on:click="" class="btn btn-outline-dark mt-3">Filtreeri</button>
+    <br>
+    {{ selectedCategories }}
   </div>
 </template>
 <script>
@@ -20,7 +23,6 @@ export default {
   data: function () {
     return {
       isCheckAll: false,
-      categoryNames: [],
       selectedCategories: [],
       selectedCategory: "",
       categories: [
@@ -29,33 +31,30 @@ export default {
           name: ''
         }
       ]
-  }
+    }
   },
   methods: {
     getAllCategories: function () {
       this.$http.get("/categories")
           .then(response => {
             this.categories = response.data
-            for (let i = 0; i < this.categories.length; i++) {
-              this.categoryNames.push(this.categories[i].name)
-            }
           })
           .catch(error => {
           })
     },
-    checkAll: function(){
+    checkAll: function () {
       this.isCheckAll = !this.isCheckAll;
       this.selectedCategories = [];
-      if(this.isCheckAll){
-        for (let i in this.categoryNames) {
-          this.selectedCategories.push(this.categoryNames[i]);
+      if (this.isCheckAll) {
+        for (let i = 0; i < this.categories.length; i++) {
+          this.selectedCategories.push(this.categories[i].id);
         }
       }
     },
-    updateCheckAll: function(){
-      if(this.selectedCategories.length == this.categoryNames.length){
+    updateCheckAll: function () {
+      if (this.selectedCategories.length === this.categories.length) {
         this.isCheckAll = true;
-      }else{
+      } else {
         this.isCheckAll = false;
       }
     },
