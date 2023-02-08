@@ -12,7 +12,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="toy in toys" :key="toy.categoryId">
+      <tr v-for="toy in toys">
         <td>{{ toy.name }}</td>
         <td>{{ toy.description }}</td>
         <td>{{ toy.categoryName }}</td>
