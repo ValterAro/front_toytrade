@@ -10,7 +10,7 @@
           <input v-model="password" type="password" class="form-control" placeholder="Parool">
         </div>
         <button v-on:click="sendLoginRequest" type="submit" class="btn btn-primary">Logi sisse</button>
-        <p class="mt-4">Pole veel kontot? <a href="/register">Registreeru!</a></p>
+        <p class="mt-4">Pole veel kontot? <router-link to="/register">Registreeru</router-link>!</p>
 
       </form>
     </div>

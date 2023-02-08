@@ -12,7 +12,7 @@
           <input v-model="userDto.mobile" type="text" class="form-control" placeholder="Telefon">
         </div>
         <button v-on:click="sendRegisterRequest" type="submit" class="btn btn-primary">Registreeru</button>
-        <p class="mt-4">Konto juba olemas? <a href="" v-on:click.prevent="isLogin = true">Logi sisse!</a></p>
+        <p class="mt-4">Konto juba olemas? <router-link to="/login">Logi sisse</router-link>!</p>
       </form>
     </div>
   </div>
