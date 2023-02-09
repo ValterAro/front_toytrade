@@ -1,7 +1,7 @@
 <template>
-  <div class="col-6">
-    <table class="table table-dark table-hover">
-      <thead>
+  <div class="col">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
       <tr>
         <th scope="col">Mänguasi</th>
         <th scope="col">Kirjeldus</th>
@@ -47,7 +47,10 @@ export default {
           conditionName: '',
           cityId: 0,
           cityName: '',
-          picture: ''
+          picture: '',
+          userId: 0,
+          userUserName: '',
+          status: ''
         }
       ],
       categoryId: 0,
@@ -77,7 +80,8 @@ export default {
       }).catch(error => {
 
       })
-    },getAllCategories: function () {
+    },
+    getAllCategories: function () {
       this.$http.get("/categories")
           .then(response => {
             this.categories = response.data
@@ -87,8 +91,8 @@ export default {
     }
   },
   beforeMount() {
-    this.getToys()
     this.getAllCategories()
+    this.getToys()
   }
 }
 </script>
