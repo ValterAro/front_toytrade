@@ -105,7 +105,7 @@ export default {
       this.toyDto.cityId = this.cityId;
       this.toyDto.description = this.description;
       this.toyDto.picture = this.picture;
-      this.toyDto.userId = 2;
+      this.toyDto.userId = this.userId;
 
       this.$http.post("/toy", this.toyDto
       ).then(response => {

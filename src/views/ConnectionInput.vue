@@ -12,6 +12,15 @@
 </template>
 <script>
 export default {
-  name: 'ConnectionInput'
+  name: 'ConnectionInput',
+  data: function () {
+    return {
+
+    }
+
+  },
+  methods: {
+
+  }
 }
 </script>

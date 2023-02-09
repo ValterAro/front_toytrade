@@ -25,6 +25,11 @@ export default {
   data: function () {
 
     return {
+      loginResponse: {
+        userId: '',
+        roleName: '',
+      },
+      message: '',
       username: '',
       password: '',
       userDto: {
@@ -43,11 +48,19 @@ export default {
             }
           }
       ).then(response => {
-        alert(response.data.roleName)
+        this.loginResponse = response.data
+
+        sessionStorage.setItem('userId', this.loginResponse.userId)
+        sessionStorage.setItem('roleName', this.loginResponse.roleName)
+        localStorage.setItem('lang', 'EST')
+        this.$emit('emitLoginSuccessEvent')
+        this.$router.push({name: 'toy'})
+
       }).catch(error => {
-        alert(error.response.data.errorCode);
-        console.log(error)
-      })
+        this.message = error.response.data.message
+        alert(this.message)
+      });
+
     }
   }
 }

@@ -13,13 +13,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="toy in toys" class="text-start">
+      <tr v-for="toy in toys" :key="toy.userId" class="text-start">
         <td>{{ toy.name }}</td>
         <td>{{ toy.description }}</td>
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>
         <td>{{ toy.cityName }}</td>
-        <td>{{ toy.userUsername}}</td>
+        <td>{{ toy.userUsername }}</td>
         <td><img :src="toy.picture" class="img-thumbnail"></td>
       </tr>
       </tbody>
@@ -28,7 +28,7 @@
 </template>
 <script>
 export default {
-  name: 'ToyTable',
+  name: "MyToyTable",
   data: function () {
     return {
       categories: [
@@ -53,34 +53,18 @@ export default {
           picture: ''
         }
       ],
-      categoryId: 0,
     }
   },
   methods: {
-    getToys: function () {
-      this.$http.get("/trade/all"
+    getMyToys: function () {
+      this.$http.get("/trade/me", sessionStorage.getItem('userId')
       ).then(response => {
         this.toys = response.data
       }).catch(error => {
         console.log(error)
       })
     },
-    setCategoryFilters: function (selectedCategories) {
-      this.categories.forEach(category => category.isSelected = false)
-      for (let i = 0; i < this.categories.length; i++) {
-        for (let j = 0; j <= selectedCategories.length; j++) {
-          if (this.categories[i].categoryId === selectedCategories[j]) {
-            this.categories[i].isSelected = true;
-          }
-        }
-      }
-      this.$http.post("/trade/trades", this.categories
-      ).then(response => {
-        this.toys = response.data
-      }).catch(error => {
-
-      })
-    },getAllCategories: function () {
+    getAllCategories: function () {
       this.$http.get("/categories")
           .then(response => {
             this.categories = response.data
@@ -90,8 +74,7 @@ export default {
     }
   },
   beforeMount() {
-    this.getToys()
-    this.getAllCategories()
+    this.getMyToys()
   }
 }
 </script>

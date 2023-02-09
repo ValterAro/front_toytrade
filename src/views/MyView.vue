@@ -19,18 +19,18 @@
         </div>
       </div>
       <div class="col-8">
-        <ToyTable ref="toyTable"/>
+        <MyToyTable ref="myToyTable"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ToyTable from "@/components/ToyTable.vue";
+import MyToyTable from "@/components/MyToyTable.vue";
 import ConnectionInput from "@/views/ConnectionInput.vue";
 
 export default {
   name: "MyView",
-  components: {ConnectionInput, ToyTable}
+  components: {MyToyTable, ConnectionInput}
 }
 </script>
