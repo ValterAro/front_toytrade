@@ -12,14 +12,14 @@
         {{ category.categoryName }}
       </label>
     </div>
-    <button type="button" v-on:click="setCategoryFilters" class="btn btn-outline-dark mt-3">Filtreeri</button>
-    <br>
-    {{ selectedCategories }}
+    <button type="button" v-on:click="emitSelectedCategories" class="btn btn-outline-dark mt-3">Filtreeri</button>
+
   </div>
 </template>
+
 <script>
 export default {
-  name: 'CategoriesTable',
+  name: "CategoriesInput",
   data: function () {
     return {
       isCheckAll: false,
@@ -28,9 +28,11 @@ export default {
       categories: [
         {
           categoryId: 0,
-          categoryName: ''
+          categoryName: '',
+          isSelected: false
         }
-      ]
+      ],
+
     }
   },
   methods: {
@@ -58,27 +60,11 @@ export default {
         this.isCheckAll = false;
       }
     },
-    setCategoryFilters: function () {
-      this.$http.post("/trades/trade", this.selectedCategories
-      ).then(response => {
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
 
-    // getFilteredToys: function () {
-    //   this.$http.get("/trade/trade", {
-    //         params: {
-    //           categories: this.selectedCategories
-    //         }
-    //       }
-    //   ).then(response => {
-    //     console.log(response.data)
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // },
+    emitSelectedCategories: function () {
+      this.$emit('emitSelectedCategoriesEvent', this.selectedCategories)
+    }
+
   },
   beforeMount() {
     this.getAllCategories()
