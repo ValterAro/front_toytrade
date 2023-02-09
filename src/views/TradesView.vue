@@ -11,7 +11,6 @@
 
 <script>
 import ToyTable from "@/components/ToyTable.vue";
-import CategoriesTable from "@/components/CategoriesTable.vue";
 import CategoriesInput from "@/components/CategoriesInput.vue";
 
 export default {
