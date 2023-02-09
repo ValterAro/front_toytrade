@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Avaleht</router-link>
-      |
-      <router-link to="/trade/trades">Teiste asjad</router-link>
-      |
+      <router-link to="/">Avaleht</router-link>      |
+      <router-link to="/trade/trades">Teiste asjad</router-link>      |
+      <router-link to="/trade/me">Minu asjad</router-link>      |
       <router-link to="/login">Logi sisse</router-link>      |
       <router-link to="/toy">Lisa asi</router-link>    |
       <router-link to="/faq">KKK</router-link>

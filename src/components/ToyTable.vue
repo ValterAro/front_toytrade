@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6">
+  <div>
     <table class="table table-dark table-hover">
       <thead>
       <tr>
@@ -18,7 +18,7 @@
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>
         <td>{{ toy.cityName }}</td>
-        <td><img src="toy.picture" class="img-thumbnail" ></td>
+        <td><img :src="toy.picture" class="img-thumbnail"></td>
       </tr>
       </tbody>
     </table>
