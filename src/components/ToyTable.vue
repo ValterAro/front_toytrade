@@ -8,16 +8,18 @@
         <th scope="col">Kategooria</th>
         <th scope="col">Seisukord</th>
         <th scope="col">Asukoht</th>
+        <th scope="col">Müüja</th>
         <th scope="col">Pilt</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="toy in toys" class="text-start">
+      <tr v-for="toy in toys" :key="toy.userId" class="text-start">
         <td>{{ toy.name }}</td>
         <td>{{ toy.description }}</td>
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>
         <td>{{ toy.cityName }}</td>
+        <td>{{ toy.userId}}</td>
         <td><img :src="toy.picture" class="img-thumbnail"></td>
       </tr>
       </tbody>
@@ -47,6 +49,7 @@ export default {
           conditionName: '',
           cityId: 0,
           cityName: '',
+          userId: '',
           picture: ''
         }
       ],
@@ -54,6 +57,10 @@ export default {
     }
   },
   methods: {
+    getMyToys: function (userId) {
+      userId = this.toys.userId
+    },
+
     getToys: function () {
       this.$http.get("/trade/all"
       ).then(response => {
