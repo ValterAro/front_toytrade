@@ -18,7 +18,7 @@
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>
         <td>{{ toy.cityName }}</td>
-        <td>{{ toy.picture }}</td>
+        <td><img class="img-thumbnail" :src="toy.picture" /></td>
       </tr>
       </tbody>
     </table>

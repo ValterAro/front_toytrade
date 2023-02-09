@@ -6,6 +6,7 @@ import TradesView from "@/views/TradesView.vue";
 import ToyView from "@/views/ToyView.vue";
 import FaqView from "@/views/FaqView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import AdminView from "@/views/AdminView.vue";
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/faq',
     name: 'faq',
     component: FaqView
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminView
   }
 ]
 

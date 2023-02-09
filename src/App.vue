@@ -7,7 +7,8 @@
       |
       <router-link to="/login">Logi sisse</router-link>      |
       <router-link to="/toy">Lisa asi</router-link>    |
-      <router-link to="/faq">KKK</router-link>
+      <router-link to="/faq">KKK</router-link>    |
+      <router-link to="/admin">Admin</router-link>
     </nav>
     <router-view/>
   </div>
