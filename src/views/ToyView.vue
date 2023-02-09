@@ -33,7 +33,7 @@
       </div>
       <br>
       <div>
-        <input class="form-control" type="file" id="formFile">
+        <ImageInput @emitBase64Event="setAtmRequestPicture"/>
 
       </div>
       <br>
@@ -49,8 +49,11 @@
 
 <script>
 
+import ImageInput from "@/views/ImageInput.vue";
+
 export default {
   name: "ToyView",
+  components: {ImageInput},
   data: function () {
     return {
 
@@ -74,9 +77,8 @@ export default {
         categoryName: '',
         name: '',
         description: '',
-        picture: [''
-        ],
-        status: ''
+        picture: '',
+        status: 'A'
       },
       categories: {
         categoryId: '',
@@ -111,6 +113,9 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    setAtmRequestPicture: function (pictureBase64Data) {
+      this.picture = pictureBase64Data
     },
 
     getAllCategories: function () {
@@ -150,6 +155,4 @@ export default {
 }
 </script>
 
-<style scoped>
 
-</style>
