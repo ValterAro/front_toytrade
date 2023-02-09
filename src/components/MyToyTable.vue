@@ -56,22 +56,20 @@ export default {
     }
   },
   methods: {
+
+
     getMyToys: function () {
-      this.$http.get("/trade/me", sessionStorage.getItem('userId')
+      this.$http.get("/trade/me", {
+            params: {
+              userId: sessionStorage.getItem('userId'),
+            }
+          }
       ).then(response => {
         this.toys = response.data
       }).catch(error => {
         console.log(error)
       })
     },
-    getAllCategories: function () {
-      this.$http.get("/categories")
-          .then(response => {
-            this.categories = response.data
-          })
-          .catch(error => {
-          })
-    }
   },
   beforeMount() {
     this.getMyToys()
