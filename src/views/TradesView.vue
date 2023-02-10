@@ -2,9 +2,8 @@
   <div>
   <div class="row justify-content-center">
     <CategoriesInput @emitSelectedCategoriesEvent="setSelectedCategories"/>
-    <div class="col-6">
-      <ToyTable ref="toyTable"/>
-    </div>
+    <ToyTable class="col-6" ref="toyTable"/>
+
   </div>
 
   </div>

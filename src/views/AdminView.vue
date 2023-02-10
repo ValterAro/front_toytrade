@@ -2,48 +2,38 @@
   <div class="container">
     <div class="row">
       <div class="col-2 pe-4 text-start">
-        <div class="list-group">
-          <a href="#" v-on:click.prevent="setSelectedMenuItem" id="usersMenuItem"
-             class="list-group-item list-group-item-action active">Kasutajad</a>
-          <a href="#" v-on:click.prevent="setSelectedMenuItem" id="toysMenuItem"
-             class="list-group-item list-group-item-action">Mänguasjad</a>
-          <a href="#" v-on:click.prevent="setSelectedMenuItem" id="categoriesMenuItem"
-             class="list-group-item list-group-item-action">Kategooriad</a>
-          <a href="#" v-on:click.prevent="setSelectedMenuItem" id="conditionsMenuItem"
-             class="list-group-item list-group-item-action">Seisukorrad</a>
-          <a href="#" v-on:click.prevent="setSelectedMenuItem" id="citiesMenuItem"
-             class="list-group-item list-group-item-action">Asukohad</a>
-          <a href="#" v-on:click.prevent="setSelectedMenuItem" id="transactionsMenuItem"
-             class="list-group-item list-group-item-action">Tehingud</a>
-        </div>
-
+        <AdminMenu @emitSelectedMenuItemEvent="setSelectedMenuItem"/>
       </div>
       <div class="col-7 text-start">
-        <UserTable v-if="selectedItem === 'usersMenuItem'"/>
+        <UsersTable v-if="selectedItem === 'usersMenuItem'"/>
         <ToyTable v-else-if="selectedItem === 'toysMenuItem'"/>
+        <CategoriesTable v-else-if="selectedItem === 'categoriesMenuItem'"/>
+        <ConditionsTable v-else-if="selectedItem === 'conditionsMenuItem'"/>
+        <CitiesTable v-else-if="selectedItem === 'citiesMenuItem'"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import UserTable from "@/components/UserTable.vue";
+import UsersTable from "@/components/UsersTable.vue";
 import ToyTable from "@/components/ToyTable.vue";
+import CategoriesTable from "@/components/CategoriesTable.vue";
+import ConditionsTable from "@/components/ConditionsTable.vue";
+import AdminMenu from "@/components/AdminMenu.vue";
+import CitiesTable from "@/components/CitiesTable.vue";
 
 export default {
   name: "AdminView",
-  components: {ToyTable, UserTable},
+  components: {CitiesTable, AdminMenu, ConditionsTable, CategoriesTable, ToyTable, UsersTable},
   data: function () {
     return {
       selectedItem: ''
     }
   },
   methods: {
-    setSelectedMenuItem: function (event) {
-      this.$el.querySelectorAll('.list-group-item').forEach(activeClass => activeClass.classList.remove('active'))
-      event.target.classList.toggle('active')
-      this.selectedItem = event.target.id
-      console.log(this.selectedItem)
+    setSelectedMenuItem: function (selectedMenuItem) {
+      this.selectedItem = selectedMenuItem
     }
   }
 }
