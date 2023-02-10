@@ -49,8 +49,6 @@ export default {
           conditionName: '',
           cityId: 0,
           cityName: '',
-          userId: '',
-          picture: ''
           picture: '',
           userId: 0,
           userUserName: '',
