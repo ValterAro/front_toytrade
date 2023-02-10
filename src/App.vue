@@ -4,7 +4,7 @@
       <router-link to="/">| Avaleht | </router-link>
 
       <router-link to="/trade/trades">Teiste asjad | </router-link>
-
+      <router-link v-if="userLoggedIn" to="/trade/me">Minu asjad | </router-link>
       <router-link v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja | </router-link>
 
       <router-link v-if="!userLoggedIn" to="/login">Logi sisse | </router-link>
