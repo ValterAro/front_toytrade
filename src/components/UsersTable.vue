@@ -8,6 +8,7 @@
         <th scope="col">Telefon</th>
         <th scope="col">Punkte</th>
         <th scope="col">Staatus</th>
+        <th scope="col"></th>
       </tr>
       </thead>
       <tbody>
@@ -17,6 +18,7 @@
         <td>{{user.mobile}}</td>
         <td>{{user.points}}</td>
         <td>{{user.status}}</td>
+        <td>Nupud</td>
       </tr>
 
       </tbody>
