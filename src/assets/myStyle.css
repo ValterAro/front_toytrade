@@ -44,7 +44,11 @@ font-weight: 400;
     border-radius: 0.375rem;
 }
 
-.parcelDropdown img, label {
+.parcelDropdown img {
+    display: none;
+}
+
+.parcelDropdown label {
     display: none;
 }
 

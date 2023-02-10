@@ -19,7 +19,7 @@ export default {
   name: "ConfirmationView",
   data: function () {
     return {
-      toyId: 7,
+      toyId: this.$route.query.toyId,
       toy: {
         id: 0,
         userId: 0,
