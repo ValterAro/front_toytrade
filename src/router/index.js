@@ -6,6 +6,7 @@ import TradesView from "@/views/TradesView.vue";
 import ToyView from "@/views/ToyView.vue";
 import FaqView from "@/views/FaqView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import MyView from "@/views/MyView.vue";
 import AdminView from "@/views/AdminView.vue";
 
 Vue.use(VueRouter)
@@ -20,6 +21,11 @@ const routes = [
     path: '/trade/trades',
     name: 'trades',
     component: TradesView
+  },
+  {
+    path: '/trade/me',
+    name: 'trades',
+    component: MyView
   },
   {
     path: '/login',
