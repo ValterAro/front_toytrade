@@ -70,9 +70,12 @@ export default {
         console.log(error)
       })
     },
+
+
   },
   beforeMount() {
     this.getMyToys()
+
   }
 }
 </script>
