@@ -1,4 +1,37 @@
-.list-group-item.active {
-    background-color: #212529;
-    border-color: var(--bs-table-bg);
+.float-lg-end {
+    padding-right: 40px;
+}
+.img-thumbnail {
+    width: 100px;
+    height: 100px;
+}
+.input-group {
+
+    color: black;
+    border: aquamarine;
+}
+.form-select {
+    padding-right: 10px;
+
+
+}
+.col-3 {
+    padding: 10px;
+    width: 500px;
+    color: black;
+    border: dot-dash black;
+    lighting-color: aliceblue;
+    justify-content: right;
+
+}
+.input-group-text {
+
+}
+.form-control {
+    background-color: aliceblue;
+
+}
+.col-6 {
+    max-height: 300px;
+    max-width: 300px;
 }

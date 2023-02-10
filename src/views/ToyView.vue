@@ -1,43 +1,37 @@
 <template>
   <div>
-    <div>
-      <div class="col-3">
+    <div class="me-auto float-lg-end">
+      <div class="col-3 flex-md-row justify-content-center">
         <div class="input-group">
-
-          <input v-model="name" type="text" class="form-control" placeholder="Nimi">
-
+          <span class="input-group-text">Nimi</span>
+          <input v-model="name" type="text" class="form-control">
         </div>
         <br>
         <div class="dropdown">
-
-          <select v-model="categoryId" class="form-select"
-                  aria-label="Default select example">
-            <option value="0">Kategooriad</option>
+          <select v-model="categoryId" class="form-select col-3">
+            <option value="0" disabled>Kategooriad</option>
             <option v-for="category in categories" :value="category.categoryId">{{ category.categoryName }}</option>
           </select>
 
         </div>
         <br>
-        <select v-model="conditionId" class="form-select"
-                aria-label="Default select example">
-          <option value="0">Seisukord</option>
+        <select v-model="conditionId" class="form-select col-3">
+          <option value="0" disabled>Seisukord</option>
           <option v-for="condition in conditions" :value="condition.conditionId">{{ condition.conditionName }}</option>
         </select>
         <br>
-        <select v-model="cityId" class="form-select"
-                aria-label="Default select example">
-          <option value="0">Linn</option>
+        <select v-model="cityId" class="form-select col-3">
+          <option value="0" disabled>Linn</option>
           <option v-for="city in cities" :value="city.cityId">{{ city.cityName }}</option>
         </select>
 
       </div>
       <br>
       <div>
-        <ImageInput @emitBase64Event="setAtmRequestPicture"/>
-
+        <ImageInput class=" col-3 " @emitBase64Event="setAtmRequestPicture"/>
       </div>
       <br>
-      <div class="input-group">
+      <div class="input-group col-3">
         <span class="input-group-text">Kirjeldus</span>
         <textarea v-model="description" class="form-control" aria-label="With textarea"></textarea>
       </div>
