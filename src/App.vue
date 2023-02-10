@@ -12,6 +12,7 @@
       <router-link v-if="userLoggedIn" to="/toy">Lisa asi</router-link>
       <router-link to="/faq">KKK</router-link>    |
       <router-link to="/admin">Admin</router-link>
+      <router-link to="/confirmation">Confirmation</router-link>
     </nav>
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>
