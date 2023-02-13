@@ -12,6 +12,7 @@
         <CitiesTable v-else-if="selectedItem === 'citiesMenuItem'"/>
       </div>
     </div>
+    <Test/>
   </div>
 </template>
 
@@ -22,10 +23,11 @@ import CategoriesTable from "@/components/CategoriesTable.vue";
 import ConditionsTable from "@/components/ConditionsTable.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
 import CitiesTable from "@/components/CitiesTable.vue";
+import Test from "@/components/Test.vue";
 
 export default {
   name: "AdminView",
-  components: {CitiesTable, AdminMenu, ConditionsTable, CategoriesTable, ToyTable, UsersTable},
+  components: {Test, CitiesTable, AdminMenu, ConditionsTable, CategoriesTable, ToyTable, UsersTable},
   data: function () {
     return {
       selectedItem: ''

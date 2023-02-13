@@ -60,3 +60,7 @@ font-weight: 400;
     border-radius: 0.375rem;
     min-height: 30px;
 }
+
+.disabled {
+    display: none;
+}
