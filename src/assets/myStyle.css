@@ -35,3 +35,28 @@
     max-height: 300px;
     max-width: 300px;
 }
+
+.parcelDropdown {
+white-space: nowrap;
+font-size: 1rem;
+font-weight: 400;
+    line-height: 1.5;
+    border-radius: 0.375rem;
+}
+
+.parcelDropdown img {
+    display: none;
+}
+
+.parcelDropdown label {
+    display: none;
+}
+
+#omniva_select2 {
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border-radius: 0.375rem;
+    min-height: 30px;
+}

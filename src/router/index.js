@@ -8,6 +8,7 @@ import FaqView from "@/views/FaqView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import MyView from "@/views/MyView.vue";
 import AdminView from "@/views/AdminView.vue";
+import ConfirmationView from "@/views/ConfirmationView.vue";
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminView
+  },
+  {
+    path: '/confirmation',
+    name: 'confirmation',
+    component: ConfirmationView
   }
 ]
 
