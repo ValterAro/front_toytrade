@@ -25,7 +25,7 @@ const routes = [
   },
   {
     path: '/trade/me',
-    name: 'trades',
+    name: 'mytrades',
     component: MyView
   },
   {

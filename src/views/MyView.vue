@@ -36,11 +36,6 @@ import MyPoints from "@/components/MyPoints.vue";
 
 export default {
   name: "MyView",
-  components: {MyPoints, MyToyTable, ConnectionInput},
-  methods: {
-    NavigateToAddToy: function () {
-
-    }
-  }
+  components: {MyPoints, MyToyTable, ConnectionInput}
 }
 </script>

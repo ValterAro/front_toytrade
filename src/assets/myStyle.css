@@ -64,3 +64,36 @@ font-weight: 400;
 .disabled {
     display: none;
 }
+
+.actionButton:hover {
+    cursor: pointer;
+}
+
+[v-cloak] {
+    display: none;
+}
+.edit {
+    display: none;
+}
+.editing .edit {
+    display: inline;
+}
+.editing .view {
+    display: none;
+}
+
+input[type="number" i] {
+     max-width: 60px;
+}
+
+.tableInput {
+    max-width: 150px;
+}
+
+.fa-circle-check {
+    color: darkgreen;
+}
+
+.fa-circle-xmark {
+    color: darkred;
+}

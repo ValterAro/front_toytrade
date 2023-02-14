@@ -13,7 +13,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="toy in toys" :key="toy.userId" class="text-start">
+      <tr v-for="toy in toys" :key="toy.id" class="text-start">
         <td>{{ toy.name }}</td>
         <td>{{ toy.description }}</td>
         <td>{{ toy.categoryName }}</td>
