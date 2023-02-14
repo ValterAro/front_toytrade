@@ -12,7 +12,6 @@
         <CitiesTable v-else-if="selectedItem === 'citiesMenuItem'"/>
       </div>
     </div>
-    <Test/>
   </div>
 </template>
 
@@ -30,7 +29,7 @@ export default {
   components: {Test, CitiesTable, AdminMenu, ConditionsTable, CategoriesTable, ToyTable, UsersTable},
   data: function () {
     return {
-      selectedItem: ''
+      selectedItem: 'usersMenuItem'
     }
   },
   methods: {

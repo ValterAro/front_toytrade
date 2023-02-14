@@ -8,14 +8,18 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-2">
-        <h3>Punktid: 2</h3>
+        <div>
+          <MyPoints/>
+        </div>
         <br>
         <div class="dropdown">
           <ConnectionInput/>
         </div>
         <div>
           <br><br><br><br><br><br>
-          <button type="button" class="btn btn-primary">Tahan lisada mänguasja</button>
+          <router-link :to="{name: 'toy'}">
+            <button type="button" class="btn btn-primary">Tahan lisada mänguasja</button>
+          </router-link>
         </div>
       </div>
       <div class="col-8">
@@ -28,9 +32,10 @@
 <script>
 import MyToyTable from "@/components/MyToyTable.vue";
 import ConnectionInput from "@/views/ConnectionInput.vue";
+import MyPoints from "@/components/MyPoints.vue";
 
 export default {
   name: "MyView",
-  components: {MyToyTable, ConnectionInput}
+  components: {MyPoints, MyToyTable, ConnectionInput}
 }
 </script>
