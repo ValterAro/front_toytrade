@@ -25,6 +25,14 @@
       <div class="col-8">
         <MyToyTable ref="myToyTable"/>
       </div>
+      <div class="col-12">
+        <br>
+        <h3>Minu vahetused</h3>
+        <br>
+      </div>
+      <div class="col-8">
+        <MyTransactionTable/>
+      </div>
     </div>
   </div>
 </template>
@@ -33,9 +41,15 @@
 import MyToyTable from "@/components/MyToyTable.vue";
 import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
+import MyTransactionTable from "@/views/MyTransactionTable.vue";
 
 export default {
   name: "MyView",
-  components: {MyPoints, MyToyTable, ConnectionInput}
+  components: {MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  methods: {
+    NavigateToAddToy: function () {
+
+    }
+  }
 }
 </script>
