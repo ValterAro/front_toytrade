@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">| Avaleht | </router-link>
-
-      <router-link to="/trade/trades">Teiste asjad | </router-link>
-      <router-link v-if="userLoggedIn" to="/trade/me">Minu asjad | </router-link>
-      <router-link v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja | </router-link>
-
-      <router-link v-if="!userLoggedIn" to="/login">Logi sisse | </router-link>
-
-      <router-link v-if="userLoggedIn" to="/toy">Lisa asi |</router-link>
-      <router-link to="/faq"> KKK</router-link>    |
-      <router-link to="/admin">Admin</router-link>
-      <router-link to="/confirmation">Confirmation</router-link>
+    <nav class="text-uppercase mx-3">
+      <router-link class="mx-1 text-decoration-none" to="/">Avaleht</router-link>
+      <router-link class="mx-1 text-decoration-none" to="/trade/trades">Kõik mänguasjad</router-link>
+      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>
+      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>
+      <router-link class="mx-1 text-decoration-none" to="/faq">KKK</router-link>
+      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>
+      <router-link class="mx-1 text-decoration-none" to="/confirmation">Confirmation</router-link>
+      <router-link class="mx-1 text-decoration-none" v-if="!userLoggedIn" to="/login">Logi sisse</router-link>
+      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>
     </nav>
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>

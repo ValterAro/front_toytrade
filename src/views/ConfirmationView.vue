@@ -6,9 +6,19 @@
       </div>
       <div class="col-4 text-start">
         <p>Soovid toodet <b>{{toy.name}}</b></p>
-        <p>Andja telefoninumber: <span>toote nimi</span></p>
-        <div id="omniva_container2" class="parcelDropdown"></div>
-        <button type="button" class="btn btn-outline-dark mt-3 float-end">Kinnitan</button>
+        <p>Andja: <b>{{ toy.userUsername }}</b></p>
+        <p>Andja telefoninumber: <b>{{ toy.userMobile }}</b></p>
+        <div class="parcelDropdown">
+
+        <select v-model="transaction.parcelPoint">
+          <option selected disabled style="font-weight: bold" class="parcelDropdown">-- Vali pakiautomaat --</option>
+          <option v-for="parcelPoint in parcelPoints">
+            {{parcelPoint}}
+          </option>
+        </select>
+        </div>
+
+        <button v-on:click="confirmTransaction" type="button" class="btn btn-outline-dark mt-3 float-end">Kinnitan</button>
       </div>
     </div>
   </div>
@@ -24,6 +34,7 @@ export default {
         id: 0,
         userId: 0,
         userUsername: '',
+        userMobile: '',
         cityId: 0,
         cityName: '',
         conditionId: 0,
@@ -34,6 +45,20 @@ export default {
         description: '',
         picture: '',
         status: ''
+      },
+      locations: [
+        {
+          NAME: '',
+          A0_NAME: ''
+        }
+
+      ],
+      parcelPoints: [
+      ],
+      transaction: {
+        toyId: 0,
+        buyerId: 0,
+        parcelPoint: ''
       }
     }
   },
@@ -50,20 +75,37 @@ export default {
         console.log(error)
       })
     },
-    omnivaWidget: function () {
-      var wd2 = new OmnivaWidget({
-        compact_mode: true,
-        show_offices: false,
-        custom_html: false,
-        id: 2,
-        selection_value: '',
-      });
+    getParcelPoints: function () {
+      this.$http.get("https://www.omniva.ee/locations.json")
+          .then(response => {
+            this.locations = response.data
+            for (let i = 0; i < this.locations.length; i++) {
+              if (this.locations[i].A0_NAME === 'EE') {
+                this.parcelPoints.push(this.locations[i].NAME)
+              }
+            }
+            // this.parcelPoints.shift()
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+    confirmTransaction: function () {
+      this.transaction.buyerId = sessionStorage.getItem('userId')
+      this.transaction.toyId = this.toyId
+      this.$http.post("/trade/transaction", this.transaction
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
-    }
   },
   beforeMount() {
     this.getToy()
-    this.omnivaWidget()
+
+    this.getParcelPoints()
 
   }
 }

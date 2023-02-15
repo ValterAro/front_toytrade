@@ -2,7 +2,7 @@
   <div>
     <div class="custom-file">
       <div class="input-group">
-        <input v-on:change="handleImage" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+        <input v-on:change="handleImage" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/x-png,image/jpeg,image/gif">
       </div>
     </div>
   </div>

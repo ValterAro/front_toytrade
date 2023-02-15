@@ -8,7 +8,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="category in categories" :key="category.categoryId" :class="{editing: category == editedCategory}"
+      <tr v-for="category in categories" :key="category.categoryId" :class="{editing: category === editedCategory}"
           v-cloak>
         <td>
           <div class="view">
@@ -80,10 +80,8 @@ export default {
       this.editedCategory = category
     },
     saveData(category) {
-      this.category.id = category.categoryId
-      this.category.name = category.categoryName
-      let userId = user.id
-      this.updateUserInfo(userId)
+      this.category.categoryName = category.categoryName
+      this.updateCategory(category.categoryId)
       this.editedCategory = null;
     },
     cancelEdit() {
@@ -108,6 +106,18 @@ export default {
       this.$http.post("/categories", this.category
       ).then(response => {
         this.isAdd = false
+        this.getAllCategories()
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    updateCategory: function (categoryId) {
+      this.$http.put("/categories", this.category, {
+            params: {
+              categoryId: categoryId
+            }
+          }
+      ).then(response => {
         this.getAllCategories()
       }).catch(error => {
         console.log(error)

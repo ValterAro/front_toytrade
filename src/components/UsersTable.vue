@@ -26,7 +26,7 @@
           </div>
           <div class="edit">
             <select class="form-select form-select-sm" v-model="previousRole">
-              <option v-for="role in roles" v-model="role.id" :key="role.id" >{{role.name}}</option>
+              <option v-for="role in roles" v-model="role.id" :key="role.id" >{{role.id}}{{role.name}}</option>
             </select>
           </div>
         </td>
@@ -114,7 +114,7 @@ export default {
       console.log(this.userId)
       this.user.username = user.username
 
-      this.user.roleId = user.roleId
+      this.user.roleId =
       console.log(user.roleId)
       this.user.mobile = user.mobile
       this.user.points = user.points

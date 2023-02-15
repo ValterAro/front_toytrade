@@ -36,23 +36,7 @@
     max-width: 300px;
 }
 
-.parcelDropdown {
-white-space: nowrap;
-font-size: 1rem;
-font-weight: 400;
-    line-height: 1.5;
-    border-radius: 0.375rem;
-}
-
-.parcelDropdown img {
-    display: none;
-}
-
-.parcelDropdown label {
-    display: none;
-}
-
-#omniva_select2 {
+.parcelDropdown select {
     white-space: nowrap;
     font-size: 1rem;
     font-weight: 400;
@@ -96,4 +80,9 @@ input[type="number" i] {
 
 .fa-circle-xmark {
     color: darkred;
+}
+
+.list-group-item.active {
+    background-color: #212529;
+    border-color: #212529;
 }

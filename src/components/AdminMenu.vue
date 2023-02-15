@@ -11,8 +11,6 @@
        class="list-group-item list-group-item-action">Seisukorrad</a>
     <a href="#" v-on:click.prevent="emitSelectedMenuItem" id="citiesMenuItem"
        class="list-group-item list-group-item-action">Asukohad</a>
-    <a href="#" v-on:click.prevent="emitSelectedMenuItem" id="transactionsMenuItem"
-       class="list-group-item list-group-item-action">Tehingud</a>
   </div>
 </template>
 <script>

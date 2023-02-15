@@ -41,7 +41,7 @@
 import MyToyTable from "@/components/MyToyTable.vue";
 import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
-import MyTransactionTable from "@/views/MyTransactionTable.vue";
+import MyTransactionTable from "@/components/MyTransactionTable.vue";
 
 export default {
   name: "MyView",

@@ -136,9 +136,7 @@ export default {
         console.log(error)
       })
 
-    },
-
-
+    }
   },
   beforeMount() {
     this.getAllCategories()
