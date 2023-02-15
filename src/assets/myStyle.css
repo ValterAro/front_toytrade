@@ -2,8 +2,9 @@
     padding-right: 40px;
 }
 .img-thumbnail {
-    width: 100px;
-    height: 100px;
+    width: 350px;
+    height: 350px;
+    border-color: white;
 }
 .input-group {
 
@@ -22,6 +23,8 @@
     border: dot-dash black;
     lighting-color: aliceblue;
     justify-content: right;
+    width: 500px;
+    padding: 3px;
 
 }
 .input-group-text {
@@ -36,6 +39,16 @@
     max-width: 300px;
 }
 
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px; }
+
 .parcelDropdown select {
     white-space: nowrap;
     font-size: 1rem;
@@ -47,6 +60,11 @@
 
 .disabled {
     display: none;
+}
+
+#nupp {
+    padding: 50px;
+    justify-content: center;
 }
 
 .actionButton:hover {

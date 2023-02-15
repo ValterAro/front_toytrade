@@ -10,6 +10,10 @@
 <script>
 export default {
   name: 'ImageInput',
+  props: {
+    isEdit: Boolean,
+    isView: Boolean
+  },
   data: function () {
     return {
       pictureDataBase64: String

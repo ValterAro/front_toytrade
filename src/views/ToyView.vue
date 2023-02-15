@@ -1,41 +1,21 @@
 <template>
   <div>
-    <div class="me-auto float-lg-end">
-      <div class="col-3 flex-md-row justify-content-center">
-        <div class="input-group">
-          <span class="input-group-text">Nimi</span>
-          <input v-model="name" type="text" class="form-control">
+    <div class="float-container">
+      <div class="float-child">
+        <div class="blue">
+          <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>
         </div>
-        <br>
-        <div class="dropdown">
-          <select v-model="categoryId" class="form-select col-3">
-            <option value="0" disabled>Kategooriad</option>
-            <option v-for="category in categories" :value="category.categoryId">{{ category.categoryName }}</option>
-          </select>
+      </div>
 
+      <div class="float-child">
+        <div v-if="!isEdit && !isEdit">
+          <ToyForm @emitBase64Event="displayPicture"/>
         </div>
-        <br>
-        <select v-model="conditionId" class="form-select col-3">
-          <option value="0" disabled>Seisukord</option>
-          <option v-for="condition in conditions" :value="condition.conditionId">{{ condition.conditionName }}</option>
-        </select>
-        <br>
-        <select v-model="cityId" class="form-select col-3">
-          <option value="0" disabled>Linn</option>
-          <option v-for="city in cities" :value="city.cityId">{{ city.cityName }}</option>
-        </select>
+        <div v-if="isEdit || isView">
+          <ToyFormFilled @emitPictureEvent="displayPictureFromDatabase" @emitBase64Event="displayPicture" :toy-id-from-query="toyIdFromQuery"/>
+        </div>
+      </div>
 
-      </div>
-      <br>
-      <div>
-        <ImageInput class=" col-3 " @emitBase64Event="setAtmRequestPicture"/>
-      </div>
-      <br>
-      <div class="input-group col-3">
-        <span class="input-group-text">Kirjeldus</span>
-        <textarea v-model="description" class="form-control" aria-label="With textarea"></textarea>
-      </div>
-      <button v-on:click="sendAddRequest" type="button" class="btn btn-primary">Lisa</button>
     </div>
   </div>
 
@@ -43,108 +23,78 @@
 
 <script>
 
-import ImageInput from "@/views/ImageInput.vue";
+import ToyForm from "@/components/ToyForm.vue";
+import ToyFormFilled from "@/components/ToyFormFilled.vue";
 
 export default {
   name: "ToyView",
-  components: {ImageInput},
+  components: {ToyFormFilled, ToyForm},
   data: function () {
     return {
 
-      name: '',
-      categoryId: 0,
-      conditionId: 0,
-      cityId: 0,
+      isView: false,
+      isEdit: false,
+      toyIdFromQuery: this.$route.query.toyId,
+
+      userIdFromSession: sessionStorage.getItem('userId'),
       description: '',
-      picture: '',
+      displayedPicture: '',
+      userId: 0,
 
-
-      toyDto: {
-        id: 0,
+      toyById: {
         userId: 0,
-        userUsername: '',
-        cityId: 0,
-        cityName: '',
-        conditionId: 0,
-        conditionName: '',
-        categoryId: 0,
-        categoryName: '',
-        name: '',
-        description: '',
-        picture: '',
-        status: 'A'
-      },
-      categories: {
-        categoryId: '',
-        categoryName: ''
-      },
-      conditions: {
-        conditionId: '',
-        conditionName: ''
-      },
-      cities: {
-        cityId: '',
-        cityName: ''
       }
 
-
     }
   },
-  methods: {
+      methods: {
 
-    sendAddRequest: function () {
-      this.toyDto.name = this.name;
-      this.toyDto.categoryId = this.categoryId;
-      this.toyDto.conditionId = this.conditionId;
-      this.toyDto.cityId = this.cityId;
-      this.toyDto.description = this.description;
-      this.toyDto.picture = this.picture;
-      this.toyDto.userId =  sessionStorage.getItem('userId')
+         displayPictureFromDatabase: function(pictureBase64Data){
+           this.displayedPicture = pictureBase64Data
+         },
 
-      this.$http.post("/toy", this.toyDto
-      ).then(response => {
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-    setAtmRequestPicture: function (pictureBase64Data) {
-      this.picture = pictureBase64Data
-    },
+         displayPicture: function(pictureBase64Data) {
+          this.displayedPicture = pictureBase64Data
+         },
 
-    getAllCategories: function () {
-      this.$http.get("/categories")
-          .then(response => {
-            this.categories = response.data
+        getToyById() {
+          this.$http.get("/toy", {
+                params: {
+                  toyId: this.toyIdFromQuery
+                }
+              }
+          ).then(response => {
+            this.toyById.userId = response.data.userId
+
           }).catch(error => {
-        console.log(error)
-      })
-    },
-    getAllConditions: function () {
-      this.$http.get("/conditions")
-          .then(response => {
-            this.conditions = response.data
-          }).catch(error => {
-        console.log(error)
-      })
-    },
-    getAllCities: function () {
-      this.$http.get("/cities")
-          .then(response => {
-            this.cities = response.data
-          }).catch(error => {
-        console.log(error)
-      })
+            console.log(error)
+          })
+        },
+
+
+        checkIfViewOrEdit: function () {
+          if (this.toyIdFromQuery !== '' && sessionStorage.getItem('userId') === this.toy.userId) {
+            this.isEdit = true;
+            console.log(this.isEdit)
+            if (this.toyIdFromQuery !== '' && sessionStorage.getItem('userId') !== this.toy.userId) {
+              this.isEdit = false;
+              this.isView = true;
+
+            }
+          }
+        },
+
+      },
+      beforeMount() {
+
+    this.getToyById()
+        this.checkIfViewOrEdit()
+        alert(this.isView + " " + " " + this.isEdit + " " + this.toy.userId)
+
+      }
 
     }
-  },
-  beforeMount() {
-    this.getAllCategories()
-    this.getAllCities()
-    this.getAllConditions()
-  }
 
-}
 </script>
 
 
