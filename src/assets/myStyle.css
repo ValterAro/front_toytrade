@@ -1,11 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    /*background: linear-gradient(120deg,#B3E5FC, #ffffff);*/
-    background-image: url("Toys.jpg");
-    background-size: cover; /* Resize the background image to cover the entire container */
-    background-color: #cccccc;
-    /*height: 100vh;*/
+    background: linear-gradient(120deg,#B3E5FC, #ffffff) fixed;
+    height: 100vh;
     /*overflow: hidden;*/
 }
 .center{
@@ -214,4 +211,11 @@ input[type="number" i] {
 .bg-white {
     opacity: .95;
     padding: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #868686;
 }
