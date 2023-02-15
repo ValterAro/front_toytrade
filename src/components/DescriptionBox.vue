@@ -2,7 +2,7 @@
   <div>
     <div class="input-group col-3">
       <span class="input-group-text">Kirjeldus</span>
-      <textarea v-model="changedDescription" class="form-control" aria-label="With textarea"></textarea>
+      <textarea v-model="changedDescription" :disabled="isView" class="form-control" aria-label="With textarea"></textarea>
     </div>
   </div>
 </template>
@@ -10,7 +10,8 @@
 export default {
   name: 'DescriptionBox',
   props: {
-    selectedToy: {}
+    isView: Boolean,
+    isEdit: Boolean
   },
   data: function() {
     return {

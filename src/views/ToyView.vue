@@ -3,16 +3,17 @@
     <div class="float-container">
       <div class="float-child">
         <div class="blue">
-          <object :data="this.displayedPicture" type="image/jpeg" class="img-large"></object>
+          <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>
         </div>
       </div>
 
       <div class="float-child">
-        <div v-if="!isEdit && !isEdit">
+        <div v-if="!isEdit && !isView">
           <ToyForm @emitBase64Event="displayPicture"/>
         </div>
         <div v-if="isEdit || isView">
-          <ToyFormFilled @emitPictureEvent="displayPictureFromDatabase" @emitBase64Event="displayPicture" :toy-id-from-query="toyIdFromQuery"/>
+          <ToyFormFilled @emitPictureEvent="displayPictureFromDatabase" @emitBase64Event="displayPicture"
+                         :toy-id-from-query="toyIdFromQuery" :is-edit="isEdit" :is-view="isView"/>
         </div>
       </div>
 
@@ -39,61 +40,74 @@ export default {
       userIdFromSession: sessionStorage.getItem('userId'),
       description: '',
       displayedPicture: '',
-      userId: 0,
+      // userId: 0,
 
       toyById: {
+        id: 0,
         userId: 0,
+        userUsername: '',
+        cityId: 0,
+        cityName: '',
+        conditionId: 0,
+        conditionName: '',
+        categoryId: 0,
+        categoryName: '',
+        name: '',
+        description: '',
+        picture: '',
+        status: ''
       }
 
     }
   },
-      methods: {
+  methods: {
 
-         displayPictureFromDatabase: function(pictureBase64Data){
-           this.displayedPicture = pictureBase64Data
-         },
+    displayPictureFromDatabase: function (pictureBase64Data) {
+      this.displayedPicture = pictureBase64Data
+    },
 
-         displayPicture: function(pictureBase64Data) {
-          this.displayedPicture = pictureBase64Data
-         },
-
-        getToyById() {
-          this.$http.get("/toy", {
-                params: {
-                  toyId: this.toyIdFromQuery
-                }
-              }
-          ).then(response => {
-            this.toyById.userId = response.data.userId
-
-          }).catch(error => {
-            console.log(error)
-          })
-        },
+    displayPicture: function (pictureBase64Data) {
+      this.displayedPicture = pictureBase64Data
+    },
 
 
-        checkIfViewOrEdit: function () {
-          if (this.toyIdFromQuery !== '' && sessionStorage.getItem('userId') === this.toy.userId) {
-            this.isEdit = true;
-            console.log(this.isEdit)
-            if (this.toyIdFromQuery !== '' && sessionStorage.getItem('userId') !== this.toy.userId) {
-              this.isEdit = false;
-              this.isView = true;
-
+    getToyById() {
+      this.$http.get("/toy", {
+            params: {
+              toyId: this.toyIdFromQuery
             }
           }
-        },
-
-      },
-      beforeMount() {
-
-    this.getToyById()
+      ).then(response => {
+        this.toyById = response.data
         this.checkIfViewOrEdit()
-        alert(this.isView + " " + " " + this.isEdit + " " + this.toy.userId)
+        this.alertMessage();
+
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+
+    checkIfViewOrEdit: function () {
+      console.log(this.userIdFromSession)
+      console.log(this.toyById.userId)
+      if (this.userIdFromSession == this.toyById.userId) {
+        this.isEdit = true;
+
+      } else if (this.userIdFromSession != this.toyById.userId) {
+        this.isView = true;
 
       }
-
     }
+  },
+
+  beforeMount() {
+    if (typeof this.toyIdFromQuery !== 'undefined') {
+      this.getToyById()
+    }
+  }
+
+}
 
 </script>
 

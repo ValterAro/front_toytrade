@@ -21,7 +21,7 @@
     <option v-for="city in cities" :value="city.cityId">{{ city.cityName }}</option>
   </select><br>
     <div>
-      <ImageInput class="col-5" v-on="$listeners" @emitBase64Event="setToyRequestPicture"/>
+      <ImageInput class=" col-3" v-on="$listeners" @emitBase64Event="setToyRequestPicture"/>
     </div>
     <br>
     <div class="input-group col-3">

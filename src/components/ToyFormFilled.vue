@@ -3,19 +3,20 @@
   <div>
     <NameInput ref="toyName" :is-view="isView" @emitToyNameEvent="setToyNameEmitRequest"/>
     <br>
-    <CategoryDropdown ref="categoryDropdown" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
+    <CategoryDropdown ref="categoryDropdown" :is-view="isView" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
     <br>
-    <ConditionDropdown ref="conditionsDropdown" @emitConditionIdEvent="setConditionIdEmitRequest"/>
+    <ConditionDropdown ref="conditionsDropdown" :is-view="isView" @emitConditionIdEvent="setConditionIdEmitRequest"/>
     <br>
-    <CityDropdown ref="citiesDropdown" @emitCityIdEvent="setCityIdEmitRequest"/>
+    <CityDropdown ref="citiesDropdown" :is-view="isView" @emitCityIdEvent="setCityIdEmitRequest"/>
     <br>
-    <DescriptionBox ref="descriptionBox" @emitDescriptionInputEvent="setDescription" />
+    <DescriptionBox ref="descriptionBox" :is-view="isView" @emitDescriptionInputEvent="setDescription" />
     <div>
-    <ImageInput class="col-3" v-on="$listeners" @emitBase64Event="setToyRequestPicture"/>
+    <ImageInput class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
     </div>
     <div>
-      <button v-on:click="updateToy" type="button" class="btn btn-primary">Muuda</button>
-      <button v-on:click="putToyUpdate" type="button" class="btn btn-primary">Kinnita</button>
+      <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-primary">Muuda</button>
+      <button v-if="isView" type="button" class="btn btn-primary"><router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale</router-link></button>
+
     </div>
   </div>
   </div>
@@ -32,12 +33,14 @@ import DescriptionBox from "@/components/DescriptionBox.vue";
 export default {
   name: 'ToyFormFilled',
   components: {DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
+  props: {
+    isView: false,
+    isEdit: false
+  },
   data: function () {
     return {
       toyIdFromQuery: this.$route.query.toyId,
       addedPicture: '',
-      isEdit: true,
-      isView: true,
 
       selectedToy: {
         id: 0,
@@ -99,10 +102,13 @@ export default {
     },
     updateToy: function () {
       this.callToyRequestEmits()
+      this.putToyUpdate()
     },
 
 
-
+    alertMessage: function () {
+      alert(this.isView + " " + this.isEdit)
+    },
     emitPicture: function () {
       this.$emit('emitPictureEvent', this.selectedToy.picture)
     },

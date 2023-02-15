@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="dropdown">
-      <select v-model="selectedCategoryId" class="form-select col-3" aria-label="Default select example">
+      <select v-model="selectedCategoryId" :disabled="isView" class="form-select col-3" aria-label="Default select example">
         <option value="0">Kategooriad</option>
-        <option v-for="category in categories" :value="category.categoryId">{{category.categoryName}}</option>
+        <option :selected="isView" :disabled="isView" v-for="category in categories" :value="category.categoryId">{{category.categoryName}}</option>
       </select>
     </div>
   </div>
@@ -42,9 +42,9 @@ export default {
     },
 
     emitSelectedCategoryId: function () {
-      if (this.isEdit) {
+
         this.$emit('emitCategoryIdEvent', this.selectedCategoryId)
-      }
+
     },
 
     setSelectedCategoryId(categoryId) {

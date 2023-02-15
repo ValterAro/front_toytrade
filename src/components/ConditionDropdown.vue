@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="dropdown">
-      <select v-model="selectedConditionId" class="form-select col-3" aria-label="Default select example">
+      <select v-model="selectedConditionId" :disabled="isView" class="form-select col-3" aria-label="Default select example">
         <option value="0" disabled>Seisukord</option>
-        <option v-for="condition in conditions" :value="condition.conditionId">{{condition.conditionName}}</option>
+        <option :selected="isView" :disabled="isView" v-for="condition in conditions" :value="condition.conditionId">{{condition.conditionName}}</option>
       </select>
     </div>
   </div>
@@ -42,9 +42,9 @@ export default {
     },
 
     emitSelectedConditionId: function () {
-      if (this.isEdit) {
+
         this.$emit('emitConditionIdEvent', this.selectedConditionId)
-      }
+
     },
 
     setSelectedConditionId(conditionId) {
