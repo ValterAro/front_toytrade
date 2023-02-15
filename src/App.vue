@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <nav class="text-uppercase mx-3">
-      <router-link class="mx-1 text-decoration-none" to="/">Avaleht</router-link>
-      <router-link class="mx-1 text-decoration-none" to="/trade/trades">Kõik mänguasjad</router-link>
-      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>
-      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>
-      <router-link class="mx-1 text-decoration-none" to="/faq">KKK</router-link>
-      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>
-      <router-link class="mx-1 text-decoration-none" to="/confirmation">Confirmation</router-link>
-      <router-link class="mx-1 text-decoration-none" v-if="!userLoggedIn" to="/login">Logi sisse</router-link>
-      <router-link class="mx-1 text-decoration-none" v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>
+    <nav class="navbar bg-white sticky-top py-3 mb-5">
+<!--      <a class="navbar-brand" href="#">-->
+<!--        <img src="@/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">-->
+<!--      </a>-->
+      <router-link class="text-decoration-none" to="/">Avaleht</router-link>
+      <router-link class="text-decoration-none" to="/trade/trades">Kõik mänguasjad</router-link>
+      <router-link class="text-decoration-none" v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>
+      <router-link class="text-decoration-none" v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>
+      <router-link class="text-decoration-none" to="/faq">KKK</router-link>
+      <router-link class="text-decoration-none" v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>
+      <router-link class="text-decoration-none" to="/confirmation">Confirmation</router-link>
+      <router-link class="text-decoration-none" v-if="!userLoggedIn" to="/login">Logi sisse</router-link>
+      <router-link class="text-decoration-none" v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>
     </nav>
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>

@@ -11,10 +11,6 @@
         <div>
           <MyPoints/>
         </div>
-        <br>
-        <div class="dropdown">
-          <ConnectionInput/>
-        </div>
         <div>
           <br><br><br><br><br><br>
           <router-link :to="{name: 'toy'}">

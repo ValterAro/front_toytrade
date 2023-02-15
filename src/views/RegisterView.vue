@@ -1,19 +1,30 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-2 ">
-      <form>
-        <div class="mb-3">
-          <input v-model="userDto.username" type="text" class="form-control" placeholder="Kasutajanimi">
-        </div>
-        <div class="mb-3">
-          <input v-model="userDto.password" type="password" class="form-control" placeholder="Parool">
-        </div>
-        <div class="mb-3">
-          <input v-model="userDto.mobile" type="text" class="form-control" placeholder="Telefon">
-        </div>
-        <button v-on:click="sendRegisterRequest" type="submit" class="btn btn-primary">Registreeru</button>
-        <p class="mt-4">Konto juba olemas? <router-link to="/login">Logi sisse</router-link>!</p>
-      </form>
+      <div class="center">
+        <font-awesome-icon icon="fa-solid fa-user-plus" class="login-icon fs-1 circle-icon" />
+        <form>
+          <div class="txt_field">
+            <input v-model="userDto.username" type="text" required>
+            <span></span>
+            <label>Kasutajanimi</label>
+          </div>
+          <div class="txt_field">
+            <input v-model="userDto.password" type="password" required>
+            <span></span>
+            <label>Parool</label>
+          </div>
+          <div class="txt_field">
+            <input v-model="userDto.mobile" type="text" required>
+            <span></span>
+            <label>Telefon</label>
+          </div>
+          <input v-on:click="sendRegisterRequest" type="submit" value="Registreeru">
+          <div class="signup_link">
+            Konto juba olemas? <router-link to="/login">Logi sisse</router-link>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

@@ -26,7 +26,7 @@
           </div>
           <div class="edit">
             <select class="form-select form-select-sm" v-model="previousRole">
-              <option v-for="role in roles" v-model="role.id" :key="role.id" >{{role.id}}{{role.name}}</option>
+              <option v-for="role in roles" v-model="role.id" :key="role.id" :value="role.id" >{{role.name}}</option>
             </select>
           </div>
         </td>

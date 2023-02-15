@@ -1,18 +1,25 @@
 <template>
-
   <div class="row justify-content-center">
     <div class="col-2 ">
-      <form>
-        <div class="mb-3">
-          <input v-model="username" type="text" class="form-control" placeholder="Kasutajanimi">
-        </div>
-        <div class="mb-3">
-          <input v-model="password" type="password" class="form-control" placeholder="Parool">
-        </div>
-        <button v-on:click="sendLoginRequest" type="submit" class="btn btn-primary">Logi sisse</button>
-        <p class="mt-4">Pole veel kontot? <router-link to="/register">Registreeru</router-link>!</p>
-
-      </form>
+      <div class="center">
+        <font-awesome-icon icon="fa-solid fa-user" class="login-icon fs-1 circle-icon" />
+        <form>
+          <div class="txt_field">
+            <input v-model="username" type="text" required>
+            <span></span>
+            <label>Kasutajanimi</label>
+          </div>
+          <div class="txt_field">
+            <input v-model="password" type="password" required>
+            <span></span>
+            <label>Parool</label>
+          </div>
+          <input v-on:click="sendLoginRequest" type="submit" value="Logi sisse">
+          <div class="signup_link">
+            Pole veel kontot? <router-link to="/register">Registreeru</router-link>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -54,7 +61,7 @@ export default {
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
-        this.$router.push({name: 'toy'})
+        this.$router.push({name: 'mytrades'})
 
       }).catch(error => {
         this.message = error.response.data.message

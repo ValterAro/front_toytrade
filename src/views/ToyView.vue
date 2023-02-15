@@ -3,7 +3,7 @@
     <div class="float-container">
       <div class="float-child">
         <div class="blue">
-          <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>
+          <object :data="this.displayedPicture" type="image/jpeg" class="img-large"></object>
         </div>
       </div>
 
