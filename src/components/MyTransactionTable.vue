@@ -83,12 +83,16 @@ export default {
         }
     ).then(response => {
       this.getMyTransactions()
+      this.emitPointChange()
       console.log(response.data)
     }).catch(error => {
       console.log(error)
     })
 
   },
+    emitPointChange: function () {
+      this.$emit('emitPointChangeEvent')
+    },
 
     getMyUsername: function () {
       this.$http.get("/trade/my-username", {

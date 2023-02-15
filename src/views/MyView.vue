@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
       <div class="col-2">
         <div>
-          <MyPoints/>
+          <MyPoints ref="myPoints" :key="componentKey" />
         </div>
         <div>
           <br><br><br><br><br><br>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col-8">
-        <MyToyTable ref="myToyTable"/>
+        <MyToyTable  ref="myToyTable"/>
       </div>
       <div class="col-12">
         <br>
@@ -27,7 +27,7 @@
         <br>
       </div>
       <div class="col-8">
-        <MyTransactionTable/>
+        <MyTransactionTable @emitPointChangeEvent="updatePoints"/>
       </div>
     </div>
   </div>
@@ -38,14 +38,26 @@ import MyToyTable from "@/components/MyToyTable.vue";
 import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
 import MyTransactionTable from "@/components/MyTransactionTable.vue";
+// import {ref} from "vue";
+// const componentKey = ref(0);
+// const forceRerender = () => {
+//   componentKey.value += 1;
+// }
 
 export default {
   name: "MyView",
   components: {MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  data() {
+    return {
+    }
+  },
   methods: {
     NavigateToAddToy: function () {
 
-    }
+    },
+    updatePoints() {
+      this.$refs.myPoints.getMyPoints();
+    },
   }
 }
 </script>
