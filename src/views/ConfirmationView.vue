@@ -58,7 +58,7 @@ export default {
       transaction: {
         toyId: 0,
         buyerId: 0,
-        parcelPoint: ''
+        parcelPoint: '-- Vali pakiautomaat --'
       }
     }
   },
@@ -84,7 +84,7 @@ export default {
                 this.parcelPoints.push(this.locations[i].NAME)
               }
             }
-            // this.parcelPoints.shift()
+            this.parcelPoints.shift()
           })
           .catch(error => {
             console.log(error)
@@ -95,7 +95,7 @@ export default {
       this.transaction.toyId = this.toyId
       this.$http.post("/trade/transaction", this.transaction
       ).then(response => {
-        console.log(response.data)
+        this.$router.push({name: 'mytrades'})
       }).catch(error => {
         console.log(error)
       })

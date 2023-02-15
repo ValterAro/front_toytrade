@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="float-container">
+    <div>
       <div class="float-child">
         <div class="blue">
           <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>

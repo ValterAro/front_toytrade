@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <nav class="navbar bg-white sticky-top py-3 mb-5">
-<!--      <a class="navbar-brand" href="#">-->
-<!--        <img src="@/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">-->
-<!--      </a>-->
-      <router-link class="text-decoration-none" to="/">Avaleht</router-link>
-      <router-link class="text-decoration-none" to="/trade/trades">Kõik mänguasjad</router-link>
-      <router-link class="text-decoration-none" v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>
-      <router-link class="text-decoration-none" v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>
-      <router-link class="text-decoration-none" to="/faq">KKK</router-link>
-      <router-link class="text-decoration-none" v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>
-      <router-link class="text-decoration-none" to="/confirmation">Confirmation</router-link>
-      <router-link class="text-decoration-none" v-if="!userLoggedIn" to="/login">Logi sisse</router-link>
-      <router-link class="text-decoration-none" v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>
+<div class="container">
+    <nav class="navbar bg-white sticky-top mb-5">
+      <router-link class="navbar-brand" to="/"><img src="@/assets/toys_logo.png" alt="Logo" height="24" class="d-inline-block align-text-top"></router-link>
+      <router-link to="/trade/trades">Kõik mänguasjad</router-link>
+      <router-link v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>
+      <router-link v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>
+      <router-link to="/faq">KKK</router-link>
+      <router-link v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>
+      <router-link v-if="!userLoggedIn" to="/login">Logi sisse</router-link>
+      <router-link v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>
     </nav>
+</div>
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
+
   </div>
+
 </template>
 
 
@@ -63,20 +63,12 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
   color: #2c3e50;
 }
 
