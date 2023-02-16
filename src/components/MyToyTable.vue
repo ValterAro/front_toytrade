@@ -14,7 +14,7 @@
       </thead>
       <tbody>
       <tr v-for="toy in toys" :key="toy.id" class="text-start">
-        <td>{{ toy.name }}</td>
+        <td><router-link :to="{name: 'toy', query: {toyId:toy.id}}">{{ toy.name }}</router-link></td>
         <td>{{ toy.description }}</td>
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>

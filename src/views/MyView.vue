@@ -9,6 +9,9 @@
     <div class="row justify-content-center">
       <div class="col-2">
         <div>
+          <UserName/>
+        </div>
+        <div>
           <MyPoints/>
         </div>
         <div>
@@ -25,8 +28,7 @@
         </div>
       </div>
       <div class="col-8">
-
-        <MyToyTable ref="myToyTable"/>
+        <MyToyTable  ref="myToyTable"/>
       </div>
       <div class="col-12">
         <br>
@@ -34,7 +36,7 @@
         <br>
       </div>
       <div class="col-8">
-        <MyTransactionTable/>
+        <MyTransactionTable @emitPointChangeEvent="updatePoints"/>
       </div>
     </div>
   </div>
@@ -46,10 +48,11 @@ import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
 import MyTransactionTable from "@/components/MyTransactionTable.vue";
 import Modal from "@/components/Modal.vue";
+import UserName from "@/views/UserName.vue";
 
 export default {
   name: "MyView",
-  components: {Modal, MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
   data: function () {
     return {
       showModal: false
@@ -58,7 +61,10 @@ export default {
   methods: {
     NavigateToAddToy: function () {
 
-    }
+    },
+    updatePoints() {
+      this.$refs.myPoints.getMyPoints();
+    },
   }
 }
 </script>
