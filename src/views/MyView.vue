@@ -9,10 +9,13 @@
     <div class="row justify-content-center">
       <div class="col-2">
         <div>
-          <MyPoints ref="myPoints" :key="componentKey" />
+          <UserName/>
         </div>
         <div>
-          <br><br><br><br><br><br>
+          <MyPoints/>
+        </div>
+        <div>
+          <br><br><br><br>
           <router-link :to="{name: 'toy'}">
             <button type="button" class="btn btn-primary">Tahan lisada mänguasja</button>
           </router-link>
@@ -35,9 +38,9 @@
 
 <script>
 import MyToyTable from "@/components/MyToyTable.vue";
-import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
 import MyTransactionTable from "@/components/MyTransactionTable.vue";
+import UserName from "@/views/UserName.vue";
 // import {ref} from "vue";
 // const componentKey = ref(0);
 // const forceRerender = () => {
@@ -46,7 +49,7 @@ import MyTransactionTable from "@/components/MyTransactionTable.vue";
 
 export default {
   name: "MyView",
-  components: {MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  components: {UserName, MyTransactionTable, MyPoints, MyToyTable},
   data() {
     return {
     }
