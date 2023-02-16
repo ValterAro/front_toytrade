@@ -54,15 +54,20 @@ export default {
   components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable},
   data: function () {
     return {
-      showModal: false
+      showModal: false,
+      userInfo: {
+        username: '',
+        mobile: '',
+        password: ''
+      }
     }
   },
   methods: {
     updatePoints() {
       this.$refs.myPoints.getMyPoints();
     },
-    setUserInfo: function () {
-      
+    setUserInfo: function (userInfo) {
+      this.userInfo = userInfo
     }
   }
 }

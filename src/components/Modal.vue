@@ -35,10 +35,6 @@
         <div class="modal-footer">
           <slot name="footer">
             <input type="submit" value="Muuda" v-on:click="emitUserInfo">
-            <button
-                class="modal-default-button"
-                @click="$emit('close')"
-            >OK</button>
           </slot>
         </div>
       </div>
@@ -63,6 +59,7 @@ export default {
   methods: {
     emitUserInfo: function () {
       this.$emit('emitUserInfoEvent', this.user)
+      this.$emit('close')
     }
   }
 }
