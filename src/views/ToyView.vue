@@ -24,8 +24,8 @@
 
 <script>
 
-import ToyForm from "@/components/ToyForm.vue";
-import ToyFormFilled from "@/components/ToyFormFilled.vue";
+import ToyForm from "@/components/toy/ToyForm.vue";
+import ToyFormFilled from "@/components/toy/ToyFormFilled.vue";
 
 export default {
   name: "ToyView",

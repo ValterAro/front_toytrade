@@ -1,10 +1,21 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(120deg,#B3E5FC, #ffffff) fixed;
+    /*background: linear-gradient(120deg,#B3E5FC, #ffffff) fixed;*/
     height: 100vh;
+    background: white url("@/assets/background.jpg") no-repeat fixed top;
+    background-size: 100%;
+
     /*overflow: hidden;*/
 }
+h1 {
+    position: relative;
+    color: #ffffff;
+    font-size: 14rem;
+    line-height: 0.9;
+    text-align: center;
+}
+
 .center{
     position: absolute;
     top: 50%;
@@ -13,12 +24,13 @@ body {
     width: 400px;
     background: white;
     border-radius: 10px;
-    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
 }
 .center h1{
     text-align: center;
     padding: 20px 0;
     border-bottom: 1px solid silver;
+
 }
 .center form{
     padding: 0 40px;
@@ -200,6 +212,7 @@ input[type="number" i] {
     background: #ffffff;
     padding:30px;
     border-radius: 50%;
+    box-shadow: 5px 5px 10px rgb(0 0 0 / 5%);
 }
 .login-icon {
     translate: 0% -50%;
@@ -217,5 +230,19 @@ nav a {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: normal;
-    color: #868686;
+    color: white;
+}
+
+.alert {
+    border: none !important;
+    border-radius: 0;
+}
+
+.menu {
+    background-color: #028bcc;
+}
+
+.nav-item {
+    padding-left: 10px;
+    padding-right: 10px;
 }

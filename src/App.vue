@@ -1,16 +1,44 @@
 <template>
   <div id="app">
-<div class="container">
-    <nav class="navbar bg-white sticky-top mb-5">
-      <router-link class="navbar-brand" to="/"><img src="@/assets/toys_logo.png" alt="Logo" height="24" class="d-inline-block align-text-top"></router-link>
-      <router-link to="/trade/trades">Kõik mänguasjad</router-link>
-      <router-link v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>
-      <router-link v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>
-      <router-link to="/faq">KKK</router-link>
-      <router-link v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>
-      <router-link v-if="!userLoggedIn" to="/login">Logi sisse</router-link>
-      <router-link v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>
+<div class="container-fluid menu">
+  <div class="col-auto mx-auto">
+    <nav class="navbar sticky-top mb-5 justify-content-center align-middle">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <router-link class="navbar-brand" to="/"><img src="@/assets/toys_logo.png" alt="Logo" height="24" class="d-inline-block align-text-top"></router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/trade/trades">Kõik mänguasjad</router-link>
+        </li>
+        <li v-if="userLoggedIn"  class="nav-item">
+          <router-link to="/trade/me">Minu profiil</router-link>
+        </li>
+        <li v-if="userLoggedIn" class="nav-item">
+          <router-link to="/toy">Lisa mänguasi</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/faq">KKK</router-link>
+        </li>
+        <li v-if="userLoggedIn && isAdmin" class="nav-item">
+          <router-link  to="/admin">Administraator</router-link>
+        </li>
+        <li v-if="!userLoggedIn" class="nav-item">
+          <router-link to="/login">Logi sisse</router-link>
+        </li>
+        <li v-if="userLoggedIn" v-on:click="resetSessionStorage" class="nav-item">
+          <router-link to="/">Logi välja</router-link>
+        </li>
+      </ul>
+<!--      <router-link class="navbar-brand" to="/"><img src="@/assets/toys_logo.png" alt="Logo" height="24" class="d-inline-block align-text-top"></router-link>-->
+<!--      <router-link to="/trade/trades">Kõik mänguasjad</router-link>-->
+<!--      <router-link v-if="userLoggedIn" to="/trade/me">Minu profiil</router-link>-->
+<!--      <router-link v-if="userLoggedIn" to="/toy">Lisa mänguasi</router-link>-->
+<!--      <router-link to="/faq">KKK</router-link>-->
+<!--      <router-link v-if="userLoggedIn && isAdmin" to="/admin">Administraator</router-link>-->
+<!--      <router-link v-if="!userLoggedIn" to="/login">Logi sisse</router-link>-->
+<!--      <router-link v-if="userLoggedIn" v-on:click.native="resetSessionStorage" to="/">Logi välja</router-link>-->
     </nav>
+  </div>
 </div>
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
 

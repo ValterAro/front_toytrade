@@ -25,9 +25,9 @@
 
 import ImageInput from "@/components/ImageInput.vue"
 import NameInput from "@/components/NameInput.vue";
-import CategoryDropdown from "@/components/CategoryDropdown.vue";
-import ConditionDropdown from "@/components/ConditionDropdown.vue";
-import CityDropdown from "@/components/CityDropdown.vue";
+import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
+import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
+import CityDropdown from "@/components/city/CityDropdown.vue";
 import DescriptionBox from "@/components/DescriptionBox.vue";
 
 export default {

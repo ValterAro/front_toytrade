@@ -12,6 +12,12 @@
           <MyPoints/>
         </div>
         <div>
+          <button id="show-modal" class="btn btn-primary" v-on:click="showModal = true">Muuda andmeid</button>
+          <Teleport to="body">
+            <modal :show="showModal" @close="showModal = false"></modal>
+          </Teleport>
+        </div>
+        <div>
           <br><br><br><br><br><br>
           <router-link :to="{name: 'toy'}">
             <button type="button" class="btn btn-primary">Tahan lisada mänguasja</button>
@@ -19,6 +25,7 @@
         </div>
       </div>
       <div class="col-8">
+
         <MyToyTable ref="myToyTable"/>
       </div>
       <div class="col-12">
@@ -38,10 +45,16 @@ import MyToyTable from "@/components/MyToyTable.vue";
 import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
 import MyTransactionTable from "@/components/MyTransactionTable.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: "MyView",
-  components: {MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  components: {Modal, MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  data: function () {
+    return {
+      showModal: false
+    }
+  },
   methods: {
     NavigateToAddToy: function () {
 

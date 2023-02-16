@@ -93,12 +93,17 @@ export default {
     confirmTransaction: function () {
       this.transaction.buyerId = sessionStorage.getItem('userId')
       this.transaction.toyId = this.toyId
-      this.$http.post("/trade/transaction", this.transaction
-      ).then(response => {
-        this.$router.push({name: 'mytrades'})
-      }).catch(error => {
-        console.log(error)
-      })
+      if (this.transaction.parcelPoint === '-- Vali pakiautomaat --') {
+        //errormessage
+      } else {
+        this.$http.post("/trade/transaction", this.transaction
+        ).then(response => {
+          this.$router.push({name: 'mytrades'})
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+
     },
 
   },
