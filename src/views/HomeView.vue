@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1>Kõik töötab, võib koju minna!</h1>
-
   </div>
 </template>
 

@@ -1,22 +1,11 @@
 <template>
   <div>
-    <div v-if="isView || isEdit">
+    <div>
       <div class="dropdown">
         <select v-model="selectedCityId" :disabled="isView" class="form-select col-3"
                 aria-label="Default select example">>
           <option value="0" disabled>Linn</option>
           <option :selected="isView" :disabled="isView" v-for="city in cities" :value="city.cityId">
-            {{ city.cityName }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div>
-      <div class="dropdown">
-        <select v-model="selectedCityId" class="form-select col-3"
-                aria-label="Default select example">>
-          <option value="0" disabled>Linn</option>
-          <option v-for="city in cities" :value="city.cityId">
             {{ city.cityName }}
           </option>
         </select>

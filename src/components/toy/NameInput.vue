@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div v-if="isEdit || isView">
-      <input v-model="toyName" :disabled="isView" type="text" class="form-control" placeholder="Nimi">
-    </div>
     <div>
-      <input v-model="toyName" type="text" class="form-control" placeholder="Nimi">
+      <input v-model="toyName" :disabled="isView" type="text" class="form-control" placeholder="Nimi">
     </div>
   </div>
 </template>

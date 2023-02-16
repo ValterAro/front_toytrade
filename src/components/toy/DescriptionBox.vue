@@ -1,16 +1,9 @@
 <template>
   <div>
-    <div v-if="isView || isEdit">
-      <div class="input-group col-3">
-        <span class="input-group-text">Kirjeldus</span>
-        <textarea v-model="changedDescription" :disabled="isView" class="form-control"
-                  aria-label="With textarea"></textarea>
-      </div>
-    </div>
     <div>
       <div class="input-group col-3">
         <span class="input-group-text">Kirjeldus</span>
-        <textarea v-model="changedDescription" class="form-control"
+        <textarea v-model="changedDescription" :disabled="isView" class="form-control"
                   aria-label="With textarea"></textarea>
       </div>
     </div>
