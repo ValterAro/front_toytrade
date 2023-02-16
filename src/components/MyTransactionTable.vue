@@ -70,6 +70,7 @@ export default {
           }
       ).then(response => {
         this.getMyTransactions()
+        alert('Kinnitatud, mänguasi välja saadetud!')
         console.log(response.data)
       }).catch(error => {
         console.log(error)
@@ -84,6 +85,7 @@ export default {
     ).then(response => {
       this.getMyTransactions()
       this.emitPointChange()
+      alert('Kinnitatud, mänguasi kätte saadud!')
       console.log(response.data)
     }).catch(error => {
       console.log(error)

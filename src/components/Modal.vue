@@ -14,17 +14,17 @@
           <slot name="body">
             <form>
               <div class="txt_field">
-                <input type="text" required>
+                <input v-model="user.username" type="text" required>
                 <span></span>
                 <label>Kasutajanimi</label>
               </div>
               <div class="txt_field">
-                <input type="password" required>
+                <input v-model="user.password" type="password" required>
                 <span></span>
                 <label>Parool</label>
               </div>
               <div class="txt_field">
-                <input type="text" required>
+                <input v-model="user.mobile" type="text" required>
                 <span></span>
                 <label>Telefon</label>
               </div>
@@ -34,7 +34,7 @@
 
         <div class="modal-footer">
           <slot name="footer">
-            <input type="submit" value="Muuda">
+            <input type="submit" value="Muuda" v-on:click="emitUserInfo">
             <button
                 class="modal-default-button"
                 @click="$emit('close')"
@@ -49,6 +49,21 @@
 export default {
   props: {
     show: Boolean
+  },
+  data: function () {
+    return {
+      user: {
+        username: '',
+        password: '',
+        mobile: ''
+      }
+
+    }
+  },
+  methods: {
+    emitUserInfo: function () {
+      this.$emit('emitUserInfoEvent', this.user)
+    }
   }
 }
 </script>

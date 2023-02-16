@@ -16,9 +16,9 @@
         </div>
         <div>
           <button id="show-modal" class="btn btn-primary" v-on:click="showModal = true">Muuda andmeid</button>
-          <Teleport to="body">
-            <modal :show="showModal" @close="showModal = false"></modal>
-          </Teleport>
+          <div>
+            <modal :show="showModal" @close="showModal = false" @emitUserInfoEvent="setUserInfo"></modal>
+          </div>
         </div>
         <div>
           <br><br><br><br><br><br>
@@ -44,7 +44,6 @@
 
 <script>
 import MyToyTable from "@/components/MyToyTable.vue";
-import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
 import MyTransactionTable from "@/components/MyTransactionTable.vue";
 import Modal from "@/components/Modal.vue";
@@ -52,19 +51,38 @@ import UserName from "@/views/UserName.vue";
 
 export default {
   name: "MyView",
-  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable},
   data: function () {
     return {
-      showModal: false
+      showModal: false,
+      userId: sessionStorage.getItem('userId'),
+      userInfo: {
+        username: '',
+        password: '',
+        mobile: ''
+      }
     }
   },
   methods: {
-    NavigateToAddToy: function () {
-
+    updateUser: function () {
+      this.$http.put("/my-user-edit", this.userId, {
+            params: {
+              userInfo: this.userInfo
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     },
     updatePoints() {
       this.$refs.myPoints.getMyPoints();
     },
+    setUserInfo: function (userInfo) {
+      this.userInfo = userInfo
+      this.updateUser()
+    }
   }
 }
 </script>
