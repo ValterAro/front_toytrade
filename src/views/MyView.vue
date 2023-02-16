@@ -43,25 +43,21 @@
 </template>
 
 <script>
-import MyToyTable from "@/components/MyToyTable.vue";
-import ConnectionInput from "@/views/ConnectionInput.vue";
-import MyPoints from "@/components/MyPoints.vue";
-import MyTransactionTable from "@/components/MyTransactionTable.vue";
+import MyToyTable from "@/components/my/MyToyTable.vue";
+import MyPoints from "@/components/my/MyPoints.vue";
+import MyTransactionTable from "@/components/my/MyTransactionTable.vue";
 import Modal from "@/components/Modal.vue";
-import UserName from "@/views/UserName.vue";
+import UserName from "@/components/my/UserName.vue";
 
 export default {
   name: "MyView",
-  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable},
   data: function () {
     return {
       showModal: false
     }
   },
   methods: {
-    NavigateToAddToy: function () {
-
-    },
     updatePoints() {
       this.$refs.myPoints.getMyPoints();
     },

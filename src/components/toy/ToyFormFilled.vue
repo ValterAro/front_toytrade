@@ -24,11 +24,11 @@
 <script>
 
 import ImageInput from "@/components/ImageInput.vue"
-import NameInput from "@/components/NameInput.vue";
+import NameInput from "@/components/toy/NameInput.vue";
 import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
 import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
 import CityDropdown from "@/components/city/CityDropdown.vue";
-import DescriptionBox from "@/components/DescriptionBox.vue";
+import DescriptionBox from "@/components/toy/DescriptionBox.vue";
 
 export default {
   name: 'ToyFormFilled',

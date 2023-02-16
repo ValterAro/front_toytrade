@@ -3,7 +3,8 @@
     <div>
       <div class="float-child">
         <div class="blue">
-          <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>
+<!--          <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>-->
+          <img :src="this.displayedPicture" class="img-fluid" />
         </div>
       </div>
 
