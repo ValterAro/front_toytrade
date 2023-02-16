@@ -4,9 +4,9 @@
       <thead>
       <tr>
         <th scope="col">Mänguasi</th>
-        <th scope="col">Müüja</th>
-        <th scope="col">Ostja</th>
-        <th scope="col">Ostja telefon</th>
+        <th scope="col">Andja</th>
+        <th scope="col">Saaja</th>
+        <th scope="col">Saaja telefon</th>
         <th scope="col">Postiautomaat</th>
         <th scope="col">Tehingu staatus</th>
       </tr>

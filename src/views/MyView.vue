@@ -15,7 +15,13 @@
           <MyPoints/>
         </div>
         <div>
-          <br><br><br><br>
+          <button id="show-modal" class="btn btn-primary" v-on:click="showModal = true">Muuda andmeid</button>
+          <Teleport to="body">
+            <modal :show="showModal" @close="showModal = false"></modal>
+          </Teleport>
+        </div>
+        <div>
+          <br><br><br><br><br><br>
           <router-link :to="{name: 'toy'}">
             <button type="button" class="btn btn-primary">Tahan lisada mänguasja</button>
           </router-link>
@@ -38,20 +44,18 @@
 
 <script>
 import MyToyTable from "@/components/MyToyTable.vue";
+import ConnectionInput from "@/views/ConnectionInput.vue";
 import MyPoints from "@/components/MyPoints.vue";
 import MyTransactionTable from "@/components/MyTransactionTable.vue";
+import Modal from "@/components/Modal.vue";
 import UserName from "@/views/UserName.vue";
-// import {ref} from "vue";
-// const componentKey = ref(0);
-// const forceRerender = () => {
-//   componentKey.value += 1;
-// }
 
 export default {
   name: "MyView",
-  components: {UserName, MyTransactionTable, MyPoints, MyToyTable},
-  data() {
+  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable, ConnectionInput},
+  data: function () {
     return {
+      showModal: false
     }
   },
   methods: {

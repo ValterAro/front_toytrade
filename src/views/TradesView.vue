@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import ToyTable from "@/components/ToyTable.vue";
-import CategoriesInput from "@/components/CategoriesInput.vue";
+import ToyTable from "@/components/toy/ToyTable.vue";
+import CategoriesInput from "@/components/category/CategoriesInput.vue";
 
 export default {
   name: "TradesView",

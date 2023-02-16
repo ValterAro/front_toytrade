@@ -25,7 +25,7 @@
             {{ user.roleName }}
           </div>
           <div class="edit">
-            <select class="form-select form-select-sm" v-model="previousRole">
+            <select class="form-select form-select-sm" v-model="previousRoleId">
               <option v-for="role in roles" v-model="role.id" :key="role.id" :value="role.id" >{{role.name}}</option>
             </select>
           </div>
@@ -73,7 +73,7 @@ export default {
       disabled: true,
       isEdit: false,
       editedUser: null,
-      previousRole: '',
+      previousRoleId: 0,
       userId: 1,
       users: [
         {
@@ -106,15 +106,15 @@ export default {
     },
     editData(user) {
       this.editedUser = user
-      this.previousRole = user.roleName
-      console.log(this.previousRole)
+      this.previousRoleId = user.roleId
+      console.log(this.previousRoleId)
     },
     saveData(user) {
       this.userId = user.userId
       console.log(this.userId)
       this.user.username = user.username
 
-      this.user.roleId =
+      this.user.roleId = this.previousRoleId
       console.log(user.roleId)
       this.user.mobile = user.mobile
       this.user.points = user.points
@@ -146,7 +146,7 @@ export default {
             }
           }
       ).then(response => {
-        console.log(response.data)
+        this.getAllUsers()
       }).catch(error => {
         console.log(error)
       })
