@@ -3,6 +3,7 @@
     <div class="col-2 ">
       <div class="center">
         <font-awesome-icon icon="fa-solid fa-user" class="login-icon fs-1 circle-icon" />
+        <AlertDanger :alert-message="messageError"/>
         <form>
           <div class="txt_field">
             <input v-model="username" type="text" required>
@@ -27,11 +28,15 @@
 </template>
 
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: "LoginView",
+  components: {AlertDanger},
   data: function () {
 
     return {
+      messageError: '',
       loginResponse: {
         userId: '',
         roleName: '',
@@ -64,8 +69,7 @@ export default {
         this.$router.push({name: 'mytrades'})
 
       }).catch(error => {
-        this.message = error.response.data.message
-        alert(this.message)
+        this.messageError = error.response.data.message
       });
 
     }

@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
     <h1>Kõik töötab, võib koju minna!</h1>
 
   </div>

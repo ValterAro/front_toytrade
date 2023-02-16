@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="float-container">
+    <div>
       <div class="float-child">
         <div class="blue">
           <object :data="this.displayedPicture" type="image/jpeg" class="img-thumbnail"></object>
@@ -24,8 +24,8 @@
 
 <script>
 
-import ToyForm from "@/components/ToyForm.vue";
-import ToyFormFilled from "@/components/ToyFormFilled.vue";
+import ToyForm from "@/components/toy/ToyForm.vue";
+import ToyFormFilled from "@/components/toy/ToyFormFilled.vue";
 
 export default {
   name: "ToyView",

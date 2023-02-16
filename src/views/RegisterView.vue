@@ -3,6 +3,8 @@
     <div class="col-2 ">
       <div class="center">
         <font-awesome-icon icon="fa-solid fa-user-plus" class="login-icon fs-1 circle-icon" />
+        <AlertDanger :alert-message="messageError"/>
+        <AlertSuccess :alert-message="messageSuccess"/>
         <form>
           <div class="txt_field">
             <input v-model="userDto.username" type="text" required>
@@ -30,10 +32,16 @@
 </template>
 
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 export default {
   name: "RegisterView",
+  components: {AlertSuccess, AlertDanger},
   data: function () {
     return {
+      messageError: '',
+      messageSuccess: '',
       userDto: {
         username: '',
         password: '',
@@ -45,9 +53,12 @@ export default {
     sendRegisterRequest: function () {
       this.$http.post("/register", this.userDto
       ).then(response => {
-        console.log(response.data)
+        this.messageSuccess = 'Kasutaja edukalt lisatud!'
+        setTimeout(() => {
+          this.$router.push({name: 'login'})
+        }, 2000)
       }).catch(error => {
-        console.log(error)
+        this.alertMessage = error.response.data.message
       })
     }
   }

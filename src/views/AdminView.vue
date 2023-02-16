@@ -17,11 +17,11 @@
 
 <script>
 import UsersTable from "@/components/UsersTable.vue";
-import ToyTable from "@/components/ToyTable.vue";
-import CategoriesTable from "@/components/CategoriesTable.vue";
-import ConditionsTable from "@/components/ConditionsTable.vue";
+import ToyTable from "@/components/toy/ToyTable.vue";
+import CategoriesTable from "@/components/category/CategoriesTable.vue";
+import ConditionsTable from "@/components/condition/ConditionsTable.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
-import CitiesTable from "@/components/CitiesTable.vue";
+import CitiesTable from "@/components/city/CitiesTable.vue";
 
 export default {
   name: "AdminView",
