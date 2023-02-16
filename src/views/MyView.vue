@@ -16,9 +16,9 @@
         </div>
         <div>
           <button id="show-modal" class="btn btn-primary" v-on:click="showModal = true">Muuda andmeid</button>
-          <Teleport to="body">
-            <modal :show="showModal" @close="showModal = false"></modal>
-          </Teleport>
+          <div>
+            <modal :show="showModal" @close="showModal = false" @emitUserInfoEvent="setUserInfo"></modal>
+          </div>
         </div>
         <div>
           <br><br><br><br><br><br>
@@ -61,6 +61,9 @@ export default {
     updatePoints() {
       this.$refs.myPoints.getMyPoints();
     },
+    setUserInfo: function () {
+      
+    }
   }
 }
 </script>
