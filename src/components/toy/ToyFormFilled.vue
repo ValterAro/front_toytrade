@@ -9,17 +9,22 @@
     <br>
     <CityDropdown ref="citiesDropdown" :is-view="isView" @emitCityIdEvent="setCityIdEmitRequest"/>
     <br>
-    <DescriptionBox ref="descriptionBox" :is-view="isView" @emitDescriptionInputEvent="setDescription" />
+    <DescriptionBox ref="descriptionBox" :is-view="isView" @emitDescriptionInputEvent="setDescription"/>
     <div>
-    <ImageInput class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
+      <ImageInput ref="pictureInput" class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
     </div>
+    <br>
     <div>
       <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-primary">Muuda</button>
-      <button v-if="isView" type="button" class="btn btn-primary"><router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale</router-link></button>
+      <button v-if="isView" type="button" class="btn btn-primary">
+        <router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale
+        </router-link>
+      </button>
+      <button v-if="isEdit" v-on:click="deleteToy" type="button" class="btn btn-primary">Kustuta</button>
 
     </div>
   </div>
-  </div>
+</div>
 </template>
 <script>
 
@@ -27,7 +32,7 @@ import ImageInput from "@/components/ImageInput.vue"
 import NameInput from "@/components/toy/NameInput.vue";
 import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
 import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
-import CityDropdown from "@/components/city/CityDropdown.vue";
+import CityDropdown from "@/components/toy/CityDropdown.vue";
 import DescriptionBox from "@/components/toy/DescriptionBox.vue";
 
 export default {
@@ -91,6 +96,10 @@ export default {
     setDescription: function(descriptionInput) {
       this.updatedToy.description = descriptionInput
     },
+    setToyRequestPicture: function (pictureBase64Data) {
+      this.picture = pictureBase64Data
+      this.updatedToy.picture = pictureBase64Data
+    },
 
     callToyRequestEmits: function () {
       this.$refs.toyName.emitToyName()
@@ -102,20 +111,46 @@ export default {
     },
     updateToy: function () {
       this.callToyRequestEmits()
+      if (this.allRequiredFieldsAreFilled()) {
       this.putToyUpdate()
+      }
+      else {
+        alert('k6ik v2ljad peavad olema täidetud')
+      }
     },
 
-
-    alertMessage: function () {
-      alert(this.isView + " " + this.isEdit)
+    deleteToy: function () {
+      this.$http.delete("/toy", {
+            params: {
+              toyId: this.toyIdFromQuery,
+            }
+          }
+      ).then(response => {
+        alert('lelu edukalt kustutatud')
+        this.timeoutAndReloadPage(2000)
+      }).catch(error => {
+        console.log(error)
+      })
     },
+    allRequiredFieldsAreFilled: function () {
+      return this.updatedToy.cityId > 0 &&
+          this.updatedToy.name !== '' &&
+          this.selectedToy.picture !== '' &&
+          this.updatedToy.description !== '' &&
+          this.updatedToy.categoryId > 0 &&
+          this.updatedToy.conditionId > 0
+
+    },
+    timeoutAndReloadPage: function (timeOut) {
+      setTimeout(() => {
+        this.$router.go(0)
+      }, timeOut)
+    },
+
     emitPicture: function () {
       this.$emit('emitPictureEvent', this.selectedToy.picture)
     },
-    setToyRequestPicture: function (pictureBase64Data) {
-      this.picture = pictureBase64Data
-      this.updatedToy.picture = pictureBase64Data
-    },
+
     getToyById() {
       this.$http.get("/toy", {
             params: {
@@ -124,11 +159,15 @@ export default {
           }
       ).then(response => {
         this.selectedToy = response.data
+        if (this.selectedToy.status !== "A") {
+          this.$router.push({name: 'mytrades'})}
+        else {
         this.$refs.toyName.setToyName(this.selectedToy.name)
         this.$refs.categoryDropdown.setSelectedCategoryId(this.selectedToy.categoryId)
         this.$refs.citiesDropdown.setSelectedCityId(this.selectedToy.cityId)
         this.$refs.conditionsDropdown.setSelectedConditionId(this.selectedToy.conditionId)
-        this.$refs.descriptionBox.setDescriptionBoxValue(this.selectedToy.description)
+        this.$refs.descriptionBox.setDescriptionBoxValue(this.selectedToy.description)}
+        this.updatedToy.picture = this.selectedToy.picture
         this.emitPicture()
 
       }).catch(error => {
@@ -142,7 +181,8 @@ export default {
             }
           }
       ).then(response => {
-        console.log(response.data)
+        alert('lelu edukalt muudetud')
+        this.$router.push({name: 'mytrades'})
       }).catch(error => {
         console.log(error)
       })
