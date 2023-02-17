@@ -1,46 +1,40 @@
 <template>
   <div>
-    <div class="input-group col-3">
-      <span class="input-group-text">Nimi</span>
-      <input v-model="name" type="text" class="form-control">
-    </div>
-    <br>
-    <div class="dropdown">
-      <select v-model="categoryId" class="form-select col-3">
-        <option value="0" disabled>Kategooriad</option>
-        <option v-for="category in categories" :value="category.categoryId">{{ category.categoryName }}</option>
-      </select>
+    <div>
+      <NameInput ref="toyName" :is-view="isView" :is-edit="isEdit" @emitToyNameEvent="setToyNameEmitRequest"/>
+      <br>
+      <CategoryDropdown ref="categoryDropdown" :is-view="isView" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
+      <br>
+      <ConditionDropdown ref="conditionsDropdown" :is-view="isView" @emitConditionIdEvent="setConditionIdEmitRequest"/>
+      <br>
+      <CityDropdown ref="citiesDropdown" :is-view="isView" @emitCityIdEvent="setCityIdEmitRequest"/>
+      <br>
+      <DescriptionBox ref="descriptionBox" :is-view="isView" @emitDescriptionInputEvent="setDescription"/>
+      <br>
+      <div>
+        <ImageInput class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
+      </div>
 
     </div>
-    <br><select v-model="conditionId" class="form-select col-3">
-    <option value="0" disabled>Seisukord</option>
-    <option v-for="condition in conditions" :value="condition.conditionId">{{ condition.conditionName }}
-    </option>
-  </select><br><select v-model="cityId" class="form-select col-3">
-    <option value="0" disabled>Linn</option>
-    <option v-for="city in cities" :value="city.cityId">{{ city.cityName }}</option>
-  </select><br>
-    <div>
-      <ImageInput class=" col-3" v-on="$listeners" @emitBase64Event="setToyRequestPicture"/>
-    </div>
-    <br>
-    <div class="input-group col-3">
-      <span class="input-group-text">Kirjeldus</span>
-      <textarea v-model="description" class="form-control" aria-label="With textarea"></textarea>
-    </div>
-    <div>
-      <button v-on:click="sendAddRequest" type="button" class="btn btn-primary">Lisa</button>
-    </div>
+  <div class="float-end">
+    <button v-on:click="checkAndPost" type="button" class="btn btn-blue">Lisa</button>
   </div>
+  </div>
+
 </template>
 <script>
 import ImageInput from "@/components/ImageInput.vue"
+import DescriptionBox from "@/components/toy/DescriptionBox.vue";
+import CityDropdown from "@/components/toy/CityDropdown.vue";
+import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
+import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
+import NameInput from "@/components/toy/NameInput.vue";
+
 
 export default {
   name: 'ToyForm',
-  components: {ImageInput},
-  props: {
-  },
+  components: {DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
+  props: {},
   data: function () {
     return {
 
@@ -59,23 +53,6 @@ export default {
       toyId: '',
       userId: 0,
       picture: '',
-
-      // toy: {
-      //   id: 0,
-      //   userId: 0,
-      //   userUsername: '',
-      //   cityId: 0,
-      //   cityName: '',
-      //   conditionId: 0,
-      //   conditionName: '',
-      //   categoryId: 0,
-      //   categoryName: '',
-      //   name: '',
-      //   description: '',
-      //   picture: '',
-      //   status: '',
-      // },
-
 
       toyDto: {
         id: 0,
@@ -112,26 +89,50 @@ export default {
       this.picture = pictureBase64Data
     },
 
-    // getToyById() {
-    //   this.$http.get("/toy", {
-    //         params: {
-    //           toyId: this.toyIdFromQuery
-    //         }
-    //    }
-    //   ).then(response => {
-    //     this.toy.cityName = response.data.cityName
-    //     this.toy.userId = response.data.userId
-    //     this.toy.conditionName = response.data.conditionName
-    //     this.toy.categoryName = response.data.categoryName
-    //     this.toy.picture = response.data.picture
-    //     this.toy.condtionId = response.data.conditionId
-    //     this.toy.description = response.data.description
-    //     this.toy.status = response.data.status
-    //     this.toy.name = response.data.name
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // },
+
+    setToyNameEmitRequest: function (toyName) {
+      this.name = toyName
+    },
+    setCategoryIdEmitRequest: function (categoryId) {
+      this.categoryId = categoryId
+    },
+    setCityIdEmitRequest: function (cityId) {
+      this.cityId = cityId
+    },
+    setConditionIdEmitRequest: function (conditionId) {
+      this.conditionId = conditionId
+    },
+    setDescription: function(descriptionInput) {
+      this.description = descriptionInput
+    },
+
+    callToyRequestEmits: function () {
+      this.$refs.toyName.emitToyName()
+      this.$refs.categoryDropdown.emitSelectedCategoryId()
+      this.$refs.citiesDropdown.emitSelectedCityId()
+      this.$refs.conditionsDropdown.emitSelectedConditionId()
+      this.$refs.descriptionBox.emitChangedDescription()
+
+    },
+
+    checkAndPost: function () {
+      this.callToyRequestEmits()
+      if (this.allRequiredFieldsAreFilled()) {
+        this.sendAddRequest()
+      } else {
+        alert('täida k6ik v2ljad')
+      }
+    },
+    allRequiredFieldsAreFilled: function () {
+      return this.cityId > 0 &&
+          this.name !== '' &&
+          this.picture !== '' &&
+          this.description !== '' &&
+          this.categoryId > 0 &&
+          this.conditionId > 0
+
+    },
+
 
     sendAddRequest: function () {
       this.toyDto.name = this.name;
@@ -146,40 +147,13 @@ export default {
       ).then(response => {
         console.log(response.data)
         alert("lelu edukalt lisatud")
+        this.$router.push({name: 'mytrades'})
       }).catch(error => {
         console.log(error)
       })
     },
-    getAllCategories: function () {
-      this.$http.get("/categories")
-          .then(response => {
-            this.categories = response.data
-          }).catch(error => {
-        console.log(error)
-      })
-    },
-    getAllConditions: function () {
-      this.$http.get("/conditions")
-          .then(response => {
-            this.conditions = response.data
-          }).catch(error => {
-        console.log(error)
-      })
-    },
-    getAllCities: function () {
-      this.$http.get("/cities")
-          .then(response => {
-            this.cities = response.data
-          }).catch(error => {
-        console.log(error)
-      })
-    },
-
   },
-    beforeMount() {
-      this.getAllCategories()
-      this.getAllConditions()
-      this.getAllCities()
-    }
+  beforeMount() {
   }
+}
 </script>

@@ -1,8 +1,11 @@
 <template>
   <div>
-    <div class="input-group col-3">
-      <span class="input-group-text">Kirjeldus</span>
-      <textarea v-model="changedDescription" :disabled="isView" class="form-control" aria-label="With textarea"></textarea>
+    <div>
+      <div class="input-group col-3">
+        <span class="input-group-text">Kirjeldus</span>
+        <textarea v-model="changedDescription" :disabled="isView" class="form-control"
+                  aria-label="With textarea"></textarea>
+      </div>
     </div>
   </div>
 </template>
@@ -13,7 +16,7 @@ export default {
     isView: Boolean,
     isEdit: Boolean
   },
-  data: function() {
+  data: function () {
     return {
 
       changedDescription: '',

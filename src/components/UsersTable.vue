@@ -1,7 +1,7 @@
 <template>
   <div>
-    <table class="table table-bordered table-striped">
-      <thead class="table-dark">
+    <table class="table table-striped box-shadow">
+      <thead>
       <tr>
         <th scope="col">Kasutajanimi</th>
         <th scope="col">Roll</th>

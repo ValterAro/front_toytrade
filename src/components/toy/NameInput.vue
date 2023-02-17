@@ -1,14 +1,16 @@
 <template>
   <div>
-    <span class="input-group-text">Nimi</span>
-    <input v-model="toyName" :disabled="isView" type="text" class="form-control">
+    <div>
+      <input v-model="toyName" :disabled="isView" type="text" class="form-control" placeholder="Nimi">
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: 'NameInput',
   props: {
-    isView: Boolean
+    isView: Boolean,
+    isEdit: Boolean
   },
   data: function () {
     return {

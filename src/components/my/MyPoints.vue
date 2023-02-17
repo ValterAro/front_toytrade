@@ -1,30 +1,32 @@
 <template>
-  <h3>Kasutaja: {{username}}</h3>
+  <div class="fs-5">
+    Punkte: {{points}}
+  </div>
 </template>
 <script>
 export default {
-  name: 'UserName',
+  name: 'MyPoints',
   data: function () {
     return {
-      username: ''
+      points: 0,
     }
   },
   methods:{
-    getMyUsername: function () {
-      this.$http.get("/trade/my-username", {
+    getMyPoints: function () {
+      this.$http.get("/trade/myPoints", {
             params: {
               userId: sessionStorage.getItem('userId'),
             }
           }
       ).then(response => {
-        this.username = response.data
+        this.points = response.data
       }).catch(error => {
         console.log(error)
       })
     },
   },
   beforeMount() {
-    this.getMyUsername()
+    this.getMyPoints()
   }
 }
 </script>
