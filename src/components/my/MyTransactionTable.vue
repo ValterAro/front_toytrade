@@ -9,6 +9,7 @@
         <th scope="col">Saaja telefon</th>
         <th scope="col">Postiautomaat</th>
         <th scope="col">Tehingu staatus</th>
+        <th scope="col">Viimase tegevuse aeg</th>
       </tr>
       </thead>
       <tbody>
@@ -19,6 +20,7 @@
         <td>{{transaction.buyerMobile}}</td>
         <td>{{transaction.parcelPoint}}</td>
         <td>{{transaction.status}}</td>
+        <td>{{transaction.timeChanged}}</td>
         <button v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-light">Välja saadetud</button>
         <button v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-light">Kätte saadud</button>
       </tr>
@@ -42,6 +44,7 @@ export default {
           buyerUsername: '',
           buyerMobile:'',
           parcelPoint: '',
+          timeChanged: '',
           status: ''
         }
       ]
@@ -70,6 +73,7 @@ export default {
           }
       ).then(response => {
         this.getMyTransactions()
+        alert('Kinnitatud, mänguasi välja saadetud!')
         console.log(response.data)
       }).catch(error => {
         console.log(error)
@@ -84,6 +88,7 @@ export default {
     ).then(response => {
       this.getMyTransactions()
       this.emitPointChange()
+      alert('Kinnitatud, mänguasi kätte saadud!')
       console.log(response.data)
     }).catch(error => {
       console.log(error)
