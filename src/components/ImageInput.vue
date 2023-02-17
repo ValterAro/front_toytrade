@@ -1,8 +1,11 @@
 <template>
   <div>
     <div class="custom-file">
-      <div class="input-group">
-        <input v-on:change="handleImage" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/x-png,image/jpeg,image/gif">
+      <div class="input-group my-4">
+        <label for="inputGroupFile04" refs="inputGroupFile04" class="file-btn btn-blue">Vali pilt</label>
+          <input v-on:change="handleImage" type="file" hidden class="form-control" id="inputGroupFile04"
+                 aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/x-png,image/jpeg,image/gif">
+
       </div>
     </div>
   </div>

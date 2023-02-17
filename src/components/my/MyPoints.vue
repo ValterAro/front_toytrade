@@ -1,5 +1,7 @@
 <template>
-  <h3>Minu punktid: {{points}}</h3>
+  <div class="fs-5">
+    Punkte: {{points}}
+  </div>
 </template>
 <script>
 export default {

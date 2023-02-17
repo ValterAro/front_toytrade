@@ -1,35 +1,26 @@
 <template>
-  <div>
+  <div class="container-fluid my-5">
     <div class="row justify-content-center">
-      <div class="col-12">
-        <h3>Minu asjad</h3>
-        <br>
+      <div class="col-2 mx-5 pb-3 back-white box-shadow text-center h-100">
+        <div>
+          <UserName @emitUserInfoEvent="emitUserInfo" />
+          <!--        <MyPoints/>-->
+          <div class="my-3">
+            <button id="show-modal" class="btn btn-blue"  v-on:click="showModal = true">Muudan andmeid</button>
+            <modal :show="showModal" ref="modal" @close="showModal = false" @emitUserInfoEvent="setUserInfo"></modal>
+          </div>
+          <div>
+            <router-link :to="{name: 'toy'}">
+              <button type="button" class="btn btn-outline-blue">Lisan mänguasja</button>
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 mx-4">
+        <MyToyTable ref="myToyTable"/>
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-2">
-        <div>
-          <UserName/>
-        </div>
-        <div>
-          <MyPoints/>
-        </div>
-        <div>
-          <button id="show-modal" class="btn btn-primary" v-on:click="showModal = true">Muuda andmeid</button>
-          <div>
-            <modal :show="showModal" @close="showModal = false" @emitUserInfoEvent="setUserInfo"></modal>
-          </div>
-        </div>
-        <div>
-          <br><br><br><br><br><br>
-          <router-link :to="{name: 'toy'}">
-            <button type="button" class="btn btn-primary">Tahan lisada mänguasja</button>
-          </router-link>
-        </div>
-      </div>
-      <div class="col-8">
-        <MyToyTable  ref="myToyTable"/>
-      </div>
       <div class="col-12">
         <br>
         <h3>Minu vahetused</h3>
@@ -55,19 +46,36 @@ export default {
   data: function () {
     return {
       showModal: false,
+      userId: sessionStorage.getItem('userId'),
       userInfo: {
         username: '',
-        mobile: '',
-        password: ''
+        password: '',
+        mobile: ''
       }
     }
   },
   methods: {
+    updateUser: function () {
+      this.$http.put("/my-user-edit", this.userInfo, {
+            params: {
+              userId: this.userId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     updatePoints() {
       this.$refs.myPoints.getMyPoints();
     },
     setUserInfo: function (userInfo) {
       this.userInfo = userInfo
+      this.updateUser()
+    },
+    emitUserInfo: function (userInfo) {
+      this.$refs.modal.populateInputs(userInfo)
     }
   }
 }

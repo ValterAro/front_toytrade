@@ -16,8 +16,8 @@
       </div>
 
     </div>
-  <div>
-    <button v-on:click="checkAndPost" type="button" class="btn btn-primary">Lisa</button>
+  <div class="float-end">
+    <button v-on:click="checkAndPost" type="button" class="btn btn-blue">Lisa</button>
   </div>
   </div>
 

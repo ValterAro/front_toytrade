@@ -1,34 +1,31 @@
 <template>
-  <div class="col">
-    <table class="table table-striped box-shadow">
-      <thead>
-      <tr>
-        <th scope="col">Mänguasi</th>
-        <th scope="col">Kirjeldus</th>
-        <th scope="col">Kategooria</th>
-        <th scope="col">Seisukord</th>
-        <th scope="col">Asukoht</th>
-        <th scope="col">Müüja</th>
-        <th scope="col">Pilt</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="toy in toys" class="text-start">
-        <td><router-link :to="{name: 'toy', query: {toyId:toy.id}}">{{ toy.name }}</router-link></td>
-        <td>{{ toy.description }}</td>
-        <td>{{ toy.categoryName }}</td>
-        <td>{{ toy.conditionName }}</td>
-        <td>{{ toy.cityName }}</td>
-        <td>{{ toy.userUsername}}</td>
-        <td><img :src="toy.picture" class="img-thumbnail"></td>
-      </tr>
-      </tbody>
-    </table>
+  <div>
+    <div class="row g-4 my-2 mx-auto">
+      <div v-for="toy in toys" class="col-4 product-item mx-3 px-3 text-start card-back">
+        <div class="product-img">
+          <img :src="toy.picture" alt="" style="max-height: 200px" class="img-fluid d-block mx-auto">
+          <div class="row btns w-100 mx-auto text-center">
+            <button type="button" class="col py-2">
+              <router-link :to="{name: 'toy', query: {toyId:toy.id}}" class="d-block text-white text-decoration-none py-2 product-name ">{{ toy.name }}</router-link>
+            </button>
+          </div>
+        </div>
+        <div class="product-info p-3">
+          <span class="product-type">{{ toy.categoryName }}</span>
+            <router-link :to="{name: 'toy', query: {toyId:toy.id}}" class="d-block text-dark py-2 product-name fw-bold text-decoration-none">{{ toy.name }}</router-link>
+          <span class="product-price">{{ toy.conditionName }}</span>
+          <div class="rating d-flex mt-1">
+            <span>{{ toy.description }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
 export default {
-  name: 'ToyTable',
+  name: "ToyList",
   data: function () {
     return {
       categories: [

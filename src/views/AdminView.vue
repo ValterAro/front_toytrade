@@ -1,10 +1,12 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-2 pe-4 text-start">
-        <AdminMenu @emitSelectedMenuItemEvent="setSelectedMenuItem"/>
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <div class="col-auto col-md-2 col-xl-2 px-0">
+        <div div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
+          <AdminMenu @emitSelectedMenuItemEvent="setSelectedMenuItem"/>
+        </div>
       </div>
-      <div class="col-7 text-start">
+      <div class="col-8 py-3 my-3">
         <UsersTable v-if="selectedItem === 'usersMenuItem'"/>
         <ToyTable v-else-if="selectedItem === 'toysMenuItem'"/>
         <CategoriesTable v-else-if="selectedItem === 'categoriesMenuItem'"/>

@@ -4,9 +4,8 @@
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header">
-            <h5>
-              Muuda andmeid
-            </h5>
+            <h5>Muuda andmeid</h5>
+            <button type="button" class="btn-close float-end" v-on:click.prevent="$emit('close')" aria-label="Close"></button>
           </slot>
         </div>
 
@@ -60,7 +59,16 @@ export default {
     emitUserInfo: function () {
       this.$emit('emitUserInfoEvent', this.user)
       this.$emit('close')
+    },
+    updateInfo: function () {
+      console.log(this.username)
+    },
+    populateInputs: function (userInfo) {
+      this.user = userInfo
     }
+  },
+  beforeMount() {
+    this.updateInfo()
   }
 }
 </script>
@@ -69,9 +77,9 @@ export default {
 <style>
 .modal-mask {
   position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
+  z-index: 9999;
+  top: 0%;
+  left: 0%;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -87,6 +95,8 @@ export default {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+  opacity: 1;
+  z-index: 100;
 }
 
 .modal-header h3 {
@@ -101,15 +111,6 @@ export default {
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter-from {
   opacity: 0;

@@ -14,13 +14,13 @@
       <ImageInput ref="pictureInput" class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
     </div>
     <br>
-    <div>
-      <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-primary">Muuda</button>
-      <button v-if="isView" type="button" class="btn btn-primary">
+    <div <div class="float-end">
+      <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-blue mx-2">Muuda</button>
+      <button v-if="isView" type="button" class="btn btn-blue">
         <router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale
         </router-link>
       </button>
-      <button v-if="isEdit" v-on:click="deleteToy" type="button" class="btn btn-primary">Kustuta</button>
+      <button v-if="isEdit" v-on:click="deleteToy" type="button" class="btn btn-outline-blue">Kustuta</button>
 
     </div>
   </div>
