@@ -1,6 +1,9 @@
 <template>
   <div class="text-start">
-    <div class="circle fs-2 float-end">{{ userInfo.points }}</div>
+    <div class="circle fs-2 float-end">
+      <span class="text-uppercase" style="font-size: 40%">Punkte</span><br>
+      {{ userInfo.points }}
+      </div>
     <div class="fs-5 py-3">
       <b>Tere, {{ userInfo.username }}</b>
     </div>

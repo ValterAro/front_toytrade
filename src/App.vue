@@ -65,7 +65,7 @@ export default {
     updateNavigationMenu: function () {
       this.userId = sessionStorage.getItem('userId'),
           this.roleName = sessionStorage.getItem('roleName')
-      this.userLoggedIn = this.userId != null;
+      this.userLoggedIn = this.userId !== '';
       this.isAdmin = this.roleName === 'admin'
     },
     resetSessionStorage: function () {

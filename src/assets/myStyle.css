@@ -458,6 +458,7 @@ nav a.active {
 
 .back-white {
     background: rgba(255,255,255,0.75);
+    min-width: 160px;
 }
 
 #leftMenu {
@@ -489,7 +490,7 @@ a {
 .circle {
     width: 80px;
     height: 80px;
-    line-height: 80px;
+    line-height: 24px;
     border-radius: 50%;
     text-align: center;
     background: #fff;

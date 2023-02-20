@@ -1,10 +1,12 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-4">
+  <div class="row justify-content-end">
+    <div class="col-6 pe-5">
       <img class="img-fluid" :src="toy.picture">
     </div>
-    <div class="col-4 text-start">
-      <p>Soovid toodet <b>{{ toy.name }}</b></p>
+    <div class="col-4 text-start back-white py-3 me-5">
+      <p class="fs-5">Soovid toodet <b>{{ toy.name }}</b></p>
+      <p>Seisukord <b>{{ toy.conditionName }}</b></p>
+      <p>Asukoht <b>{{ toy.cityName }}</b></p>
       <p>Andja: <b>{{ toy.userUsername }}</b></p>
       <p>Andja telefoninumber: <b>{{ toy.userMobile }}</b></p>
     </div>
@@ -12,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'toyInfo',
+  name: 'ToyInfo',
   data: function () {
     return {
       toyId: this.$route.query.toyId,

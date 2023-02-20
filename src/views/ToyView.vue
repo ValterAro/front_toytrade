@@ -80,7 +80,6 @@ export default {
       ).then(response => {
         this.toyById = response.data
         this.checkIfViewOrEdit()
-        this.alertMessage();
 
       }).catch(error => {
         console.log(error)

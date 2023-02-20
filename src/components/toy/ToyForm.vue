@@ -1,11 +1,14 @@
 <template>
   <div>
     <div>
+      <AlertSuccess :alert-message="messageSuccess"/>
+      <AlertDanger :alert-message="messageError"/>
       <NameInput ref="toyName" :is-view="isView" :is-edit="isEdit" @emitToyNameEvent="setToyNameEmitRequest"/>
       <br>
       <CategoryDropdown ref="categoryDropdown" :is-view="isView" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
       <br>
-      <ConditionDropdown ref="conditionsDropdown" :is-view="isView" @emitConditionIdEvent="setConditionIdEmitRequest"/>
+      <ConditionDropdown ref="conditionsDropdown" :is-view="isView"
+                         @emitConditionIdEvent="setConditionIdEmitRequest"/>
       <br>
       <CityDropdown ref="citiesDropdown" :is-view="isView" @emitCityIdEvent="setCityIdEmitRequest"/>
       <br>
@@ -16,9 +19,9 @@
       </div>
 
     </div>
-  <div class="float-end">
-    <button v-on:click="checkAndPost" type="button" class="btn btn-blue">Lisa</button>
-  </div>
+    <div class="float-end">
+      <button v-on:click="checkAndPost" type="button" class="btn btn-blue">Lisa</button>
+    </div>
   </div>
 
 </template>
@@ -29,15 +32,20 @@ import CityDropdown from "@/components/toy/CityDropdown.vue";
 import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
 import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
 import NameInput from "@/components/toy/NameInput.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 
 export default {
   name: 'ToyForm',
-  components: {DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
+  components: {
+    AlertDanger,
+    AlertSuccess, DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
   props: {},
   data: function () {
     return {
-
+      messageSuccess: '',
+      messageError: '',
       isView: false,
       isEdit: false,
       toyIdFromQuery: this.$route.query.toyId,
@@ -102,7 +110,7 @@ export default {
     setConditionIdEmitRequest: function (conditionId) {
       this.conditionId = conditionId
     },
-    setDescription: function(descriptionInput) {
+    setDescription: function (descriptionInput) {
       this.description = descriptionInput
     },
 
@@ -116,11 +124,13 @@ export default {
     },
 
     checkAndPost: function () {
+      this.messageError = ''
+      this.messageSuccess = ''
       this.callToyRequestEmits()
       if (this.allRequiredFieldsAreFilled()) {
         this.sendAddRequest()
       } else {
-        alert('täida k6ik v2ljad')
+        this.messageError = 'Täida kõik väljad'
       }
     },
     allRequiredFieldsAreFilled: function () {
@@ -145,9 +155,10 @@ export default {
 
       this.$http.post("/toy", this.toyDto
       ).then(response => {
-        console.log(response.data)
-        alert("lelu edukalt lisatud")
-        this.$router.push({name: 'mytrades'})
+        this.messageSuccess = 'Mänguasi edukalt lisatud!'
+        setTimeout(() => {
+          this.$router.push({name: 'mytrades'})
+        }, 2000)
       }).catch(error => {
         console.log(error)
       })
