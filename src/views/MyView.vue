@@ -26,7 +26,7 @@
         <h3>Minu vahetused</h3>
         <br>
       </div>
-      <div class="col-8">
+      <div class="col-10">
         <MyTransactionTable @emitPointChangeEvent="updatePoints"/>
       </div>
     </div>

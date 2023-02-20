@@ -1,6 +1,8 @@
 <template>
   <div>
     <div>
+      <AlertSuccess :alert-message="messageSuccess"/>
+      <AlertDanger :alert-message="messageError"/>
       <NameInput ref="toyName" :is-view="isView" @emitToyNameEvent="setToyNameEmitRequest"/>
       <br>
       <CategoryDropdown ref="categoryDropdown" :is-view="isView" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
@@ -35,16 +37,22 @@ import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
 import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
 import CityDropdown from "@/components/toy/CityDropdown.vue";
 import DescriptionBox from "@/components/toy/DescriptionBox.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
   name: 'ToyFormFilled',
-  components: {DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
+  components: {
+    AlertDanger,
+    AlertSuccess, DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
   props: {
     isView: false,
     isEdit: false,
   },
   data: function () {
     return {
+      messageSuccess: '',
+      messageError: '',
       toyIdFromQuery: this.$route.query.toyId,
       addedPicture: '',
       isLoggedIn: false,
@@ -111,22 +119,26 @@ export default {
 
     },
     updateToy: function () {
+      this.messageError = ''
+      this.messageSuccess = ''
       this.callToyRequestEmits()
       if (this.allRequiredFieldsAreFilled()) {
         this.putToyUpdate()
       } else {
-        alert('k6ik v2ljad peavad olema täidetud')
+        this.messageError = 'Täida kõik väljad'
       }
     },
 
     deleteToy: function () {
+      this.messageError = ''
+      this.messageSuccess = ''
       this.$http.delete("/toy", {
             params: {
               toyId: this.toyIdFromQuery,
             }
           }
       ).then(response => {
-        alert('lelu edukalt kustutatud')
+        this.messageSuccess = 'Mänguasi edukalt kustutatud'
         this.timeoutAndReloadPage(2000)
       }).catch(error => {
         console.log(error)
@@ -190,8 +202,10 @@ export default {
             }
           }
       ).then(response => {
-        alert('lelu edukalt muudetud')
-        this.$router.push({name: 'mytrades'})
+        this.messageSuccess = 'Mänguasi edukalt muudetud'
+        setTimeout(() => {
+          this.$router.push({name: 'mytrades'})
+        }, 2000)
       }).catch(error => {
         console.log(error)
       })

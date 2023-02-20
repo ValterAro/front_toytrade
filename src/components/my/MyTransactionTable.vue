@@ -1,6 +1,7 @@
 <template>
   <div>
-    <table class="table table-dark table-hover">
+    <AlertSuccess :alert-message="messageSuccess" />
+    <table class="table table-striped box-shadow">
       <thead>
       <tr>
         <th scope="col">Mänguasi</th>
@@ -10,6 +11,7 @@
         <th scope="col">Postiautomaat</th>
         <th scope="col">Tehingu staatus</th>
         <th scope="col">Viimase tegevuse aeg</th>
+        <th scope="col">Ootel tegevused</th>
       </tr>
       </thead>
       <tbody>
@@ -21,18 +23,24 @@
         <td>{{transaction.parcelPoint}}</td>
         <td>{{transaction.status}}</td>
         <td>{{transaction.timeChanged}}</td>
-        <button v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-light">Välja saadetud</button>
-        <button v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-light">Kätte saadud</button>
+        <td>
+          <button v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
+          <button v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
 </template>
 <script>
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 export default {
   name: 'MyTransactionTable',
+  components: {AlertSuccess},
   data: function () {
     return {
+      messageSuccess: '',
       waitingForBuyer:'Välja saadetud, ootab ostjani jõudmist',
       waitingForSeller:'Mänguasi ootab müüja poolt välja saatmist',
       username: '',
@@ -73,8 +81,8 @@ export default {
           }
       ).then(response => {
         this.getMyTransactions()
-        alert('Kinnitatud, mänguasi välja saadetud!')
-        console.log(response.data)
+        this.messageSuccess = 'Kinnitatud, mänguasi välja saadetud!'
+        this.timeoutAndReloadPage(2000)
       }).catch(error => {
         console.log(error)
       })
@@ -88,8 +96,8 @@ export default {
     ).then(response => {
       this.getMyTransactions()
       this.emitPointChange()
-      alert('Kinnitatud, mänguasi kätte saadud!')
-      console.log(response.data)
+      this.messageSuccess = 'Kinnitatud, mänguasi kätte saadud!'
+      this.timeoutAndReloadPage(2000)
     }).catch(error => {
       console.log(error)
     })
@@ -112,6 +120,11 @@ export default {
         console.log(error)
       })
     },
+    timeoutAndReloadPage: function (timeOut) {
+      setTimeout(() => {
+        this.$router.go(0)
+      }, timeOut)
+    }
 
 },
   beforeMount() {

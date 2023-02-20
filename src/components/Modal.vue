@@ -11,6 +11,7 @@
 
         <div class="modal-body">
           <slot name="body">
+            <AlertDanger :alert-message="messageError" />
             <form>
               <div class="txt_field">
                 <input v-model="user.username" type="text" required>
@@ -41,24 +42,32 @@
   </Transition>
 </template>
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
+  components: {AlertDanger},
   props: {
     show: Boolean
   },
   data: function () {
     return {
+      messageError: '',
       user: {
         username: '',
         password: '',
         mobile: ''
       }
-
     }
   },
   methods: {
     emitUserInfo: function () {
-      this.$emit('emitUserInfoEvent', this.user)
-      this.$emit('close')
+      this.messageError = ''
+      if (this.user.username === '' || this.user.password === '' || this.user.mobile === '') {
+        this.messageError = 'Täida kõik väljad'
+      } else {
+        this.$emit('emitUserInfoEvent', this.user)
+        this.$emit('close')
+      }
     },
     updateInfo: function () {
       console.log(this.username)
