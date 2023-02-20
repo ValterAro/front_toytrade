@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid my-5">
     <div class="row justify-content-center">
-      <div class="col-2 mx-5 pb-3 back-white box-shadow text-center h-100">
+      <div class="col-2 mx-5 pb-3 back-white box-shadow text-center h-100 my-5">
         <div>
           <UserName @emitUserInfoEvent="emitUserInfo" />
           <!--        <MyPoints/>-->

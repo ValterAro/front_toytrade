@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="transactionTable">
     <AlertSuccess :alert-message="messageSuccess" />
     <table class="table table-striped box-shadow">
       <thead>
@@ -24,8 +24,8 @@
         <td>{{transaction.status}}</td>
         <td>{{transaction.timeChanged}}</td>
         <td>
-          <button v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
-          <button v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
+          <button :id="'tr_'+transaction.transactionId" v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue action">Välja saadetud</button>
+          <button :id="'tr_'+transaction.transactionId" v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue action">Kätte saadud</button>
         </td>
       </tr>
       </tbody>
@@ -41,8 +41,8 @@ export default {
   data: function () {
     return {
       messageSuccess: '',
-      waitingForBuyer:'Välja saadetud, ootab ostjani jõudmist',
-      waitingForSeller:'Mänguasi ootab müüja poolt välja saatmist',
+      waitingForBuyer:'Välja saadetud, ootab saajani jõudmist',
+      waitingForSeller:'Mänguasi ootab andja poolt välja saatmist',
       username: '',
       transactions: [
         {
@@ -68,6 +68,7 @@ export default {
           }
       ).then(response => {
         this.transactions = response.data
+        console.log(this.$el.querySelectorAll('[id^=tr]'))
       }).catch(error => {
         console.log(error)
       })
@@ -125,12 +126,11 @@ export default {
         this.$router.go(0)
       }, timeOut)
     }
-
 },
   beforeMount() {
     this.getMyTransactions()
     this.getMyUsername()
-  }
 
+  }
 }
 </script>

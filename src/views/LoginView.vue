@@ -1,8 +1,9 @@
 <template>
   <div class="row justify-content-center">
+
     <div class="col-2 ">
       <div class="center">
-        <font-awesome-icon icon="fa-solid fa-user" class="login-icon fs-1 circle-icon" />
+        <font-awesome-icon icon="fa-solid fa-user" class="login-icon fs-1 circle-icon"/>
         <AlertDanger :alert-message="messageError"/>
         <form>
           <div class="txt_field">
@@ -17,7 +18,8 @@
           </div>
           <input v-on:click="login" type="submit" value="Logi sisse">
           <div class="signup_link">
-            Pole veel kontot? <router-link to="/register">Registreeru</router-link>
+            Pole veel kontot?
+            <router-link to="/register">Registreeru</router-link>
           </div>
         </form>
       </div>
@@ -59,7 +61,7 @@ export default {
         this.sendLoginRequest();
       }
     },
-   sendLoginRequest: function () {
+    sendLoginRequest: function () {
       this.$http.get("/login", {
             params: {
               username: this.username,

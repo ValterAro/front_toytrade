@@ -14,7 +14,7 @@
               <router-link to="/trade/trades" data-toggle="collapse" data-target=".navbar-collapse">Kõik mänguasjad</router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
-              <router-link to="/trade/me">Minu profiil</router-link>
+              <router-link to="/trade/me">Minu profiil<span class="badge text-bg-danger">4</span></router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
               <router-link to="/toy">Lisa mänguasi</router-link>
@@ -78,8 +78,6 @@ export default {
 
 
   }
-
-
 };
 
 </script>
