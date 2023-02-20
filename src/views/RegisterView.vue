@@ -21,7 +21,7 @@
             <span></span>
             <label>Telefon</label>
           </div>
-          <input v-on:click="sendRegisterRequest" type="submit" value="Registreeru">
+          <input v-on:click="register" type="submit" value="Registreeru">
           <div class="signup_link">
             Konto juba olemas? <router-link to="/login">Logi sisse</router-link>
           </div>
@@ -50,6 +50,14 @@ export default {
     }
   },
   methods: {
+    register: function () {
+      this.messageError = ''
+      if (this.userDto.username === '' || this.userDto.password === '' || this.userDto.mobile === '') {
+        this.messageError = 'Täida kõik väljad'
+      } else {
+        this.sendRegisterRequest()
+      }
+    },
     sendRegisterRequest: function () {
       this.$http.post("/register", this.userDto
       ).then(response => {
@@ -58,7 +66,7 @@ export default {
           this.$router.push({name: 'login'})
         }, 2000)
       }).catch(error => {
-        this.alertMessage = error.response.data.message
+        this.messageError = error.response.data.message
       })
     }
   }

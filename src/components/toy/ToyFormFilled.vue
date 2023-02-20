@@ -1,30 +1,31 @@
 <template>
-<div>
   <div>
-    <NameInput ref="toyName" :is-view="isView" @emitToyNameEvent="setToyNameEmitRequest"/>
-    <br>
-    <CategoryDropdown ref="categoryDropdown" :is-view="isView" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
-    <br>
-    <ConditionDropdown ref="conditionsDropdown" :is-view="isView" @emitConditionIdEvent="setConditionIdEmitRequest"/>
-    <br>
-    <CityDropdown ref="citiesDropdown" :is-view="isView" @emitCityIdEvent="setCityIdEmitRequest"/>
-    <br>
-    <DescriptionBox ref="descriptionBox" :is-view="isView" @emitDescriptionInputEvent="setDescription"/>
     <div>
-      <ImageInput ref="pictureInput" class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
-    </div>
-    <br>
-    <div <div class="float-end">
-      <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-blue mx-2">Muuda</button>
-      <button v-if="isView" type="button" class="btn btn-blue">
-        <router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale
-        </router-link>
-      </button>
-      <button v-if="isEdit" v-on:click="deleteToy" type="button" class="btn btn-outline-blue">Kustuta</button>
+      <NameInput ref="toyName" :is-view="isView" @emitToyNameEvent="setToyNameEmitRequest"/>
+      <br>
+      <CategoryDropdown ref="categoryDropdown" :is-view="isView" @emitCategoryIdEvent="setCategoryIdEmitRequest"/>
+      <br>
+      <ConditionDropdown ref="conditionsDropdown" :is-view="isView" @emitConditionIdEvent="setConditionIdEmitRequest"/>
+      <br>
+      <CityDropdown ref="citiesDropdown" :is-view="isView" @emitCityIdEvent="setCityIdEmitRequest"/>
+      <br>
+      <DescriptionBox ref="descriptionBox" :is-view="isView" @emitDescriptionInputEvent="setDescription"/>
+      <div v-if="isEdit">
+        <ImageInput ref="pictureInput" class="col-3" v-on="$listeners" :is-view="isView"
+                    @emitBase64Event="setToyRequestPicture"/>
+      </div>
+      <br>
+      <div class="float-end">
+        <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-blue mx-2">Muuda</button>
+        <button v-if="isView && isLoggedIn" type="button" class="btn btn-blue">
+          <router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale
+          </router-link>
+        </button>
+        <button v-if="isEdit" v-on:click="deleteToy" type="button" class="btn btn-outline-blue">Kustuta</button>
 
+      </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 
@@ -40,13 +41,13 @@ export default {
   components: {DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
   props: {
     isView: false,
-    isEdit: false
+    isEdit: false,
   },
   data: function () {
     return {
       toyIdFromQuery: this.$route.query.toyId,
       addedPicture: '',
-
+      isLoggedIn: false,
       selectedToy: {
         id: 0,
         userId: 0,
@@ -93,7 +94,7 @@ export default {
     setConditionIdEmitRequest: function (conditionId) {
       this.updatedToy.conditionId = conditionId
     },
-    setDescription: function(descriptionInput) {
+    setDescription: function (descriptionInput) {
       this.updatedToy.description = descriptionInput
     },
     setToyRequestPicture: function (pictureBase64Data) {
@@ -112,9 +113,8 @@ export default {
     updateToy: function () {
       this.callToyRequestEmits()
       if (this.allRequiredFieldsAreFilled()) {
-      this.putToyUpdate()
-      }
-      else {
+        this.putToyUpdate()
+      } else {
         alert('k6ik v2ljad peavad olema täidetud')
       }
     },
@@ -160,13 +160,14 @@ export default {
       ).then(response => {
         this.selectedToy = response.data
         if (this.selectedToy.status !== "A") {
-          this.$router.push({name: 'mytrades'})}
-        else {
-        this.$refs.toyName.setToyName(this.selectedToy.name)
-        this.$refs.categoryDropdown.setSelectedCategoryId(this.selectedToy.categoryId)
-        this.$refs.citiesDropdown.setSelectedCityId(this.selectedToy.cityId)
-        this.$refs.conditionsDropdown.setSelectedConditionId(this.selectedToy.conditionId)
-        this.$refs.descriptionBox.setDescriptionBoxValue(this.selectedToy.description)}
+          this.$router.push({name: 'mytrades'})
+        } else {
+          this.$refs.toyName.setToyName(this.selectedToy.name)
+          this.$refs.categoryDropdown.setSelectedCategoryId(this.selectedToy.categoryId)
+          this.$refs.citiesDropdown.setSelectedCityId(this.selectedToy.cityId)
+          this.$refs.conditionsDropdown.setSelectedConditionId(this.selectedToy.conditionId)
+          this.$refs.descriptionBox.setDescriptionBoxValue(this.selectedToy.description)
+        }
         this.updatedToy.picture = this.selectedToy.picture
         this.emitPicture()
 
@@ -174,6 +175,14 @@ export default {
         console.log(error)
       })
     },
+    isUserLoggedIn: function () {
+      if (sessionStorage.getItem('userId') !== '') {
+        this.isLoggedIn = true
+      } else {
+        this.isLoggedIn = false
+      }
+    },
+
     putToyUpdate: function () {
       this.$http.put("/toy", this.updatedToy, {
             params: {
@@ -191,6 +200,7 @@ export default {
   },
   beforeMount() {
     this.getToyById()
+    this.isUserLoggedIn()
   }
 }
 </script>

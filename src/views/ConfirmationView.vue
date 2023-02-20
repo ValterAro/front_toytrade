@@ -1,17 +1,11 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-8">
-        <toyInfo/>
-      </div>
-    </div>
+  <div class="container my-5">
+    <ToyInfo/>
+    <ParcelDropdown @emitSelectedParcelPointEvent="setSelectedParcelPoint" class=" my-3"/>
     <div class="row justify-content-end">
-      <div class="col-8 float-end">
-        <parcelDropdown @emitSelectedParcelPointEvent="setSelectedParcelPoint"/>
-        <div>
-          <button v-on:click="confirmTransaction" type="button" class="btn btn-outline-dark mt-3 float-end">Kinnitan
-          </button>
-        </div>
+      <div class="col-10 text-end me-5">
+        <button v-on:click="confirmTransaction" type="button" class="btn btn-blue mt-3 ">Kinnitan
+        </button>
       </div>
     </div>
 

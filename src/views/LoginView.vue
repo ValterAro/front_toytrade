@@ -15,7 +15,7 @@
             <span></span>
             <label>Parool</label>
           </div>
-          <input v-on:click="sendLoginRequest" type="submit" value="Logi sisse">
+          <input v-on:click="login" type="submit" value="Logi sisse">
           <div class="signup_link">
             Pole veel kontot? <router-link to="/register">Registreeru</router-link>
           </div>
@@ -23,7 +23,6 @@
       </div>
     </div>
   </div>
-
 
 </template>
 
@@ -52,6 +51,14 @@ export default {
     }
   },
   methods: {
+    login: function () {
+      this.messageError = ''
+      if (this.username === '' || this.password === '') {
+        this.messageError = 'Täida kõik väljad';
+      } else {
+        this.sendLoginRequest();
+      }
+    },
    sendLoginRequest: function () {
       this.$http.get("/login", {
             params: {
@@ -61,13 +68,10 @@ export default {
           }
       ).then(response => {
         this.loginResponse = response.data
-
         sessionStorage.setItem('userId', this.loginResponse.userId)
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
-        localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
         this.$router.push({name: 'mytrades'})
-
       }).catch(error => {
         this.messageError = error.response.data.message
       });
