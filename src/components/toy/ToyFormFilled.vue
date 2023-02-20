@@ -14,9 +14,9 @@
       <ImageInput ref="pictureInput" class="col-3" v-on="$listeners" :is-view="isView" @emitBase64Event="setToyRequestPicture"/>
     </div>
     <br>
-    <div <div class="float-end">
+    <div class="float-end">
       <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-blue mx-2">Muuda</button>
-      <button v-if="isView" type="button" class="btn btn-blue">
+      <button v-if="isView && points > 0" type="button" class="btn btn-blue">
         <router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale
         </router-link>
       </button>
@@ -34,9 +34,13 @@ import CategoryDropdown from "@/components/category/CategoryDropdown.vue";
 import ConditionDropdown from "@/components/condition/ConditionDropdown.vue";
 import CityDropdown from "@/components/toy/CityDropdown.vue";
 import DescriptionBox from "@/components/toy/DescriptionBox.vue";
+import myPoints from "@/components/my/MyPoints.vue";
+import MyPoints from "@/components/my/MyPoints.vue";
 
 export default {
   name: 'ToyFormFilled',
+  computed: {
+  },
   components: {DescriptionBox, CityDropdown, ConditionDropdown, CategoryDropdown, NameInput, ImageInput},
   props: {
     isView: false,
@@ -62,6 +66,7 @@ export default {
         picture: '',
         status: ''
       },
+      points: 0,
 
       updatedToy: {
         id: 0,
@@ -150,6 +155,18 @@ export default {
     emitPicture: function () {
       this.$emit('emitPictureEvent', this.selectedToy.picture)
     },
+    getMyPoints: function () {
+      this.$http.get("/trade/myPoints", {
+            params: {
+              userId: sessionStorage.getItem('userId'),
+            }
+          }
+      ).then(response => {
+        this.points = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
     getToyById() {
       this.$http.get("/toy", {
@@ -187,10 +204,16 @@ export default {
         console.log(error)
       })
     },
+    getPoints: function () {
+      this.$refs.MyPoints.getMyPoints
+    }
+
+
 
   },
   beforeMount() {
     this.getToyById()
+    this.getMyPoints()
   }
 }
 </script>
