@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarToggler">
           <ul class="navbar-nav">
             <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse">
-              <router-link to="/trade/trades" data-toggle="collapse" data-target=".navbar-collapse">Kõik mänguasjad</router-link>
+              <router-link to="/trade/all" data-toggle="collapse" data-target=".navbar-collapse">Kõik mänguasjad</router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
               <router-link to="/trade/me">Minu profiil<span class="badge text-bg-danger">4</span></router-link>
@@ -78,8 +78,6 @@ export default {
 
 
   }
-
-
 };
 
 </script>

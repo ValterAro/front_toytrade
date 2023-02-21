@@ -99,7 +99,7 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 2000)
-      this.$http.post("/trade/trades", this.categories
+      this.$http.post("/trade/filter", this.categories
       ).then(response => {
         this.toys = response.data
         if (this.toys.length === 0) {

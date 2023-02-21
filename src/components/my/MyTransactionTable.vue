@@ -21,11 +21,11 @@
         <td>{{transaction.buyerUsername}}</td>
         <td>{{transaction.buyerMobile}}</td>
         <td>{{transaction.parcelPoint}}</td>
-        <td>{{transaction.status}}</td>
+        <td>{{transaction.transactionStatusName}}</td>
         <td>{{transaction.timeChanged}}</td>
         <td>
-          <button :id="'tr_'+transaction.transactionId" v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue action">Välja saadetud</button>
-          <button :id="'tr_'+transaction.transactionId" v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue action">Kätte saadud</button>
+          <button v-if="transaction.sellerUsername === username && transaction.transactionStatusName === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
+          <button v-if="transaction.buyerUsername === username && transaction.transactionStatusName === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
         </td>
       </tr>
       </tbody>
@@ -53,7 +53,7 @@ export default {
           buyerMobile:'',
           parcelPoint: '',
           timeChanged: '',
-          status: ''
+          transactionStatusName: ''
         }
       ]
     }
@@ -109,7 +109,7 @@ export default {
     },
 
     getMyUsername: function () {
-      this.$http.get("/trade/my-username", {
+      this.$http.get("/users/my-name", {
             params: {
               userId: sessionStorage.getItem('userId'),
             }
