@@ -497,3 +497,7 @@ a {
     box-shadow: 5px 5px 10px rgb(0 0 0 / 5%);
     translate: 0% -50%;
 }
+
+.text-blue {
+    color: #028bcc;
+}

@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row flex-nowrap">
           <CategoriesInput class="my-3" @emitSelectedCategoriesEvent="setSelectedCategories"/>
-      <div class="col col-lg-10 col-md-12 col-sm-12 py-3 ms-5">
+      <div class="col col-lg-9 col-md-9 col-sm-12 py-3 ms-5">
         <ToyList ref="toyList"/>
       </div>
     </div>

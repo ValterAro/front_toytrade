@@ -19,7 +19,7 @@
       <br>
       <div class="float-end">
         <button v-if="isEdit" v-on:click="updateToy" type="button" class="btn btn-blue mx-2">Muuda</button>
-        <button v-if="isView && isLoggedIn" type="button" class="btn btn-blue">
+        <button v-if="isView && isLoggedIn && points > 0" type="button" class="btn btn-blue">
           <router-link class="text-light" :to="{name: 'confirmation', query: {toyId:selectedToy.id}}">Soovin endale
           </router-link>
         </button>
@@ -71,6 +71,7 @@ export default {
         picture: '',
         status: ''
       },
+      points: 0,
 
       updatedToy: {
         id: 0,
@@ -88,8 +89,6 @@ export default {
   },
 
   methods: {
-
-
     setToyNameEmitRequest: function (toyName) {
       this.updatedToy.name = toyName
     },
@@ -162,6 +161,18 @@ export default {
     emitPicture: function () {
       this.$emit('emitPictureEvent', this.selectedToy.picture)
     },
+    getMyPoints: function () {
+      this.$http.get("/trade/myPoints", {
+            params: {
+              userId: sessionStorage.getItem('userId'),
+            }
+          }
+      ).then(response => {
+        this.points = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
     getToyById() {
       this.$http.get("/toy", {
@@ -215,6 +226,7 @@ export default {
   beforeMount() {
     this.getToyById()
     this.isUserLoggedIn()
+    this.getMyPoints()
   }
 }
 </script>
