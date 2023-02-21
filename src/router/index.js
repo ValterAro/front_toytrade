@@ -19,7 +19,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/trade/trades',
+    path: '/trade/all',
     name: 'trades',
     component: TradesView
   },
