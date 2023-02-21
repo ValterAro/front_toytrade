@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     updateUser: function () {
-      this.$http.put("/my-user-edit", this.userInfo, {
+      this.$http.put("/users/me", this.userInfo, {
             params: {
               userId: this.userId
             }

@@ -52,7 +52,7 @@
           <font-awesome-icon icon="fa-solid fa-circle-check" class="px-2 fs-5 actionButton edit"
                              v-on:click="saveData(user)"/>
           <font-awesome-icon icon="fa-solid fa-user-slash" class="px-2 fs-5 actionButton view"
-                             v-on:click="deleteUser(user.id)"/>
+                             v-on:click="deleteUser(user.userId)"/>
           <font-awesome-icon icon="fa-solid fa-circle-xmark" class="px-2 fs-5 actionButton edit"
                              v-on:click="cancelEdit"/>
         </td>
@@ -131,7 +131,7 @@ export default {
           })
     },
     getAllUsers: function () {
-      this.$http.get("/users")
+      this.$http.get("/users/all")
           .then(response => {
             this.users = response.data
           })
