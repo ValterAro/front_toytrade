@@ -21,11 +21,11 @@
         <td>{{transaction.buyerUsername}}</td>
         <td>{{transaction.buyerMobile}}</td>
         <td>{{transaction.parcelPoint}}</td>
-        <td>{{transaction.status}}</td>
+        <td>{{transaction.transactionStatusName}}</td>
         <td>{{transaction.timeChanged}}</td>
         <td>
-          <button v-if="transaction.sellerUsername === username && transaction.status === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
-          <button v-if="transaction.buyerUsername === username && transaction.status === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
+          <button v-if="transaction.sellerUsername === username && transaction.transactionStatusName === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
+          <button v-if="transaction.buyerUsername === username && transaction.transactionStatusName === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
         </td>
       </tr>
       </tbody>
@@ -41,8 +41,8 @@ export default {
   data: function () {
     return {
       messageSuccess: '',
-      waitingForBuyer:'Välja saadetud, ootab ostjani jõudmist',
-      waitingForSeller:'Mänguasi ootab müüja poolt välja saatmist',
+      waitingForBuyer:'Välja saadetud, ootab saajani jõudmist',
+      waitingForSeller:'Mänguasi ootab andja poolt välja saatmist',
       username: '',
       transactions: [
         {
@@ -53,7 +53,7 @@ export default {
           buyerMobile:'',
           parcelPoint: '',
           timeChanged: '',
-          status: ''
+          transactionStatusName: ''
         }
       ]
     }
