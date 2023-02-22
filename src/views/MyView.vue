@@ -27,7 +27,7 @@
         <br>
       </div>
       <div class="col-10">
-        <MyTransactionTable @emitPointChangeEvent="updatePoints"/>
+        <MyTransactionTable @emitPointChangeEvent="updatePoints" @emitNeededActionsEvent="updateActions" />
       </div>
     </div>
   </div>
@@ -62,7 +62,6 @@ export default {
             }
           }
       ).then(response => {
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -76,6 +75,9 @@ export default {
     },
     emitUserInfo: function (userInfo) {
       this.$refs.modal.populateInputs(userInfo)
+    },
+    updateActions: function (numberOfActions) {
+      this.$emit('updateActionsEvent', numberOfActions)
     }
   }
 }

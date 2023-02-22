@@ -74,7 +74,7 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-      }, 2000)
+      }, 1000)
       this.$http.get("/trade/all"
       ).then(response => {
         this.toys = response.data
@@ -98,7 +98,7 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-      }, 2000)
+      }, 1000)
       this.$http.post("/trade/filter", this.categories
       ).then(response => {
         this.toys = response.data

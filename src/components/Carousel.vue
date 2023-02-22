@@ -12,13 +12,13 @@
           <div class="carousel-item active" data-bs-interval="3000">
             <img src="../assets/carousel-image-2.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>Enne</h5>
+              <h3>ENNE</h3>
             </div>
           </div>
           <div class="carousel-item" data-bs-interval="3000">
-            <img src="../assets/carousel-image-1.jpg" class="d-block w-100" alt="...">
+            <img src="../assets/carousel-image-3.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>Pärast</h5>
+              <h3>PÄRAST</h3>
             </div>
           </div>
         </div>
