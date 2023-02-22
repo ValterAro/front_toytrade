@@ -28,18 +28,6 @@ export default {
     }
   },
   methods: {
-    getMyUsername: function () {
-      this.$http.get("/users/my-name", {
-            params: {
-              userId: sessionStorage.getItem('userId')
-            }
-          }
-      ).then(response => {
-        this.username = response.data
-      }).catch(error => {
-        console.log(error)
-      })
-    },
     getUserInfo: function () {
       this.$http.get("/users/me", {
             params: {
@@ -55,7 +43,6 @@ export default {
     },
   },
   beforeMount() {
-    this.getMyUsername()
     this.getUserInfo()
   }
 }
