@@ -89,8 +89,6 @@ export default {
   },
 
   methods: {
-
-
     setToyNameEmitRequest: function (toyName) {
       this.updatedToy.name = toyName
     },
@@ -164,7 +162,7 @@ export default {
       this.$emit('emitPictureEvent', this.selectedToy.picture)
     },
     getMyPoints: function () {
-      this.$http.get("/trade/myPoints", {
+      this.$http.get("/users/points", {
             params: {
               userId: sessionStorage.getItem('userId'),
             }

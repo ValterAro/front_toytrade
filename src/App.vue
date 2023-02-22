@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-dark menu navbar-expand-lg nav-upper sticky-top">
       <div class="container-fluid">
-        <router-link to="/"><img src="@/assets/toytrade_logo.png" alt="Logo" height="36"
+        <router-link to="/"><img src="@/assets/LeluVahetus2.png" alt="Logo" height="60"
                                  class="d-inline-block align-text-top navbar-brand"></router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
                 aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,10 +11,12 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarToggler">
           <ul class="navbar-nav">
             <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse">
-              <router-link to="/trade/trades" data-toggle="collapse" data-target=".navbar-collapse">Kõik mänguasjad</router-link>
+              <router-link to="/trade/all" data-toggle="collapse" data-target=".navbar-collapse">Kõik mänguasjad
+              </router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
-              <router-link to="/trade/me">Minu profiil</router-link>
+              <router-link to="/trade/me">Minu profiil<span v-if="this.neededActions > 0" class="badge text-bg-danger">{{ this.neededActions }}</span>
+              </router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
               <router-link to="/toy">Lisa mänguasi</router-link>
@@ -35,12 +37,9 @@
         </div>
       </div>
     </nav>
-    <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
-
+    <router-view @updateActionsEvent="updateActions" @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>
-
 </template>
-
 
 <script>
 export default {
@@ -51,13 +50,13 @@ export default {
   },
   data: function () {
     return {
+      neededActions: 0,
       userLoggedIn: false,
       isAdmin: false,
       resetUserId: '',
       resetRoleName: '',
       userId: sessionStorage.getItem('userId'),
       roleName: sessionStorage.getItem('roleName')
-
     }
   },
   methods: {
@@ -71,15 +70,14 @@ export default {
     resetSessionStorage: function () {
       sessionStorage.setItem('userId', this.resetUserId);
       sessionStorage.setItem('roleName', this.resetRoleName)
-      this.userLoggedIn = false,
-          this.roleName = false
-
+      this.userLoggedIn = false
+      this.roleName = false
     },
-
+    updateActions: function (numberOfActions) {
+      this.neededActions = numberOfActions
+    }
 
   }
-
-
 };
 
 </script>

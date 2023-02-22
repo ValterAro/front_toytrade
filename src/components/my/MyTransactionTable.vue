@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="transactionTable">
     <AlertSuccess :alert-message="messageSuccess" />
     <table class="table table-striped box-shadow">
       <thead>
@@ -24,8 +24,8 @@
         <td>{{transaction.transactionStatusName}}</td>
         <td>{{transaction.timeChanged}}</td>
         <td>
-          <button v-if="transaction.sellerUsername === username && transaction.transactionStatusName === waitingForSeller" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
-          <button v-if="transaction.buyerUsername === username && transaction.transactionStatusName === waitingForBuyer" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
+          <button v-if="transaction.sellerUsername === username && transaction.transactionStatusId === toyWaiting" v-on:click="setToyTransactionToSent(transaction.transactionId)" type="button" class="btn btn-outline-blue">Välja saadetud</button>
+          <button v-if="transaction.buyerUsername === username && transaction.transactionStatusId === toySent" v-on:click="setToyTransactionToCompleted(transaction.transactionId)" type="button" class="btn btn-outline-blue">Kätte saadud</button>
         </td>
       </tr>
       </tbody>
@@ -41,8 +41,9 @@ export default {
   data: function () {
     return {
       messageSuccess: '',
-      waitingForBuyer:'Välja saadetud, ootab saajani jõudmist',
-      waitingForSeller:'Mänguasi ootab andja poolt välja saatmist',
+      toySent: 2,
+      toyWaiting: 1,
+      neededActions: 0,
       username: '',
       transactions: [
         {
@@ -53,11 +54,11 @@ export default {
           buyerMobile:'',
           parcelPoint: '',
           timeChanged: '',
-          transactionStatusName: ''
+          transactionStatusName: '',
+          transactionStatusId: ''
         }
       ]
     }
-
   },
   methods: {
     getMyTransactions: function () {
@@ -68,12 +69,18 @@ export default {
           }
       ).then(response => {
         this.transactions = response.data
+        this.neededActions = 0
+        for (let i = 0; i < this.transactions.length; i++) {
+          if (this.transactions[i].transactionStatusId === this.toyWaiting && this.transactions[i].sellerUsername === this.username || this.transactions[i].transactionStatusId === this.toySent && this.transactions[i].buyerUsername === this.username) {
+            this.neededActions += 1
+          }
+        }
+        this.$emit('emitNeededActionsEvent', this.neededActions)
       }).catch(error => {
         console.log(error)
       })
     },
     setToyTransactionToSent: function (transactionId) {
-      console.log(transactionId)
       this.$http.put("/trade/transaction-sent", null, {
             params: {
               toyTransactionId: transactionId
@@ -108,14 +115,13 @@ export default {
     },
 
     getMyUsername: function () {
-      this.$http.get("/trade/my-username", {
+      this.$http.get("/users/my-name", {
             params: {
               userId: sessionStorage.getItem('userId'),
             }
           }
       ).then(response => {
         this.username = response.data
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -124,13 +130,14 @@ export default {
       setTimeout(() => {
         this.$router.go(0)
       }, timeOut)
+    },
+    emitActionsChange: function () {
     }
-
 },
   beforeMount() {
     this.getMyTransactions()
     this.getMyUsername()
-  }
 
+  }
 }
 </script>

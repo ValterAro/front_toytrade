@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid my-5">
     <div class="row justify-content-center">
-      <div class="col-2 mx-5 pb-3 back-white box-shadow text-center h-100">
+      <div class="col-2 mx-5 pb-3 back-white box-shadow text-center h-100 my-5">
         <div>
           <UserName @emitUserInfoEvent="emitUserInfo" />
           <!--        <MyPoints/>-->
@@ -27,7 +27,7 @@
         <br>
       </div>
       <div class="col-10">
-        <MyTransactionTable @emitPointChangeEvent="updatePoints"/>
+        <MyTransactionTable @emitPointChangeEvent="updatePoints" @emitNeededActionsEvent="updateActions" />
       </div>
     </div>
   </div>
@@ -56,13 +56,12 @@ export default {
   },
   methods: {
     updateUser: function () {
-      this.$http.put("/my-user-edit", this.userInfo, {
+      this.$http.put("/users/me", this.userInfo, {
             params: {
               userId: this.userId
             }
           }
       ).then(response => {
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -76,6 +75,9 @@ export default {
     },
     emitUserInfo: function (userInfo) {
       this.$refs.modal.populateInputs(userInfo)
+    },
+    updateActions: function (numberOfActions) {
+      this.$emit('updateActionsEvent', numberOfActions)
     }
   }
 }

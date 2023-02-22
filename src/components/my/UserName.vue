@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getMyUsername: function () {
-      this.$http.get("/trade/my-username", {
+      this.$http.get("/users/my-name", {
             params: {
               userId: sessionStorage.getItem('userId')
             }

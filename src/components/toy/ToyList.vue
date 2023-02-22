@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="row g-4 my-2 mx-auto">
+    <div v-for="spinner in 3" v-show="loading" class="spinner-grow text-blue mx-2 my-5" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+
+    <div v-show="!loading" class="row g-4 my-2 mx-auto">
+      <AlertDanger :alert-message="messageError"/>
       <div v-for="toy in toys" class="col-4 product-item mx-3 px-3 text-start card-back">
         <div class="product-img">
           <img :src="toy.picture" alt="" style="max-height: 200px" class="img-fluid d-block mx-auto">
@@ -24,10 +30,15 @@
 </template>
 
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: "ToyList",
+  components: {AlertDanger},
   data: function () {
     return {
+      messageError: '',
+      loading: false,
       categories: [
         {
           categoryId: 0,
@@ -59,14 +70,23 @@ export default {
   methods: {
 
     getToys: function () {
+      this.messageError = ''
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000)
       this.$http.get("/trade/all"
       ).then(response => {
         this.toys = response.data
+        if (this.toys.length === 0) {
+          this.messageError = 'Ühtegi mänguasja ei leitud!'
+        }
       }).catch(error => {
         console.log(error)
       })
     },
     setCategoryFilters: function (selectedCategories) {
+      this.messageError = ''
       this.categories.forEach(category => category.isSelected = false)
       for (let i = 0; i < this.categories.length; i++) {
         for (let j = 0; j <= selectedCategories.length; j++) {
@@ -75,9 +95,16 @@ export default {
           }
         }
       }
-      this.$http.post("/trade/trades", this.categories
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000)
+      this.$http.post("/trade/filter", this.categories
       ).then(response => {
         this.toys = response.data
+        if (this.toys.length === 0) {
+          this.messageError = 'Ühtegi mänguasja ei leitud!'
+        }
       }).catch(error => {
 
       })

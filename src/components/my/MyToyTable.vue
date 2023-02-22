@@ -1,6 +1,7 @@
 <template>
   <div>
-    <table class="table table-striped box-shadow">
+    <h3>Minu mänguasjad</h3>
+    <table class="table table-striped box-shadow my-3">
       <thead>
       <tr>
         <th scope="col">Mänguasi</th>
@@ -18,7 +19,7 @@
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>
         <td>{{ toy.cityName }}</td>
-        <td><img :src="toy.picture" class="img-thumbnail" width="150px"></td>
+        <td><img :src="toy.picture" class="img-thumbnail" style="max-height: 200px"></td>
       </tr>
       </tbody>
     </table>
