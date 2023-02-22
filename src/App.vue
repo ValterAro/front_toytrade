@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-dark menu navbar-expand-lg nav-upper sticky-top">
       <div class="container-fluid">
-        <router-link to="/"><img src="@/assets/LeluVahetus2.png" alt="Logo" height="60"
+        <router-link to="/"><img src="@/assets/LeluVahetus.png" alt="Logo" height="60"
                                  class="d-inline-block align-text-top navbar-brand"></router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
                 aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,9 @@
               </router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
-              <router-link to="/trade/me">Minu profiil<span v-if="this.neededActions > 0" class="badge text-bg-danger">{{ this.neededActions }}</span>
+              <router-link to="/trade/me">Minu profiil<span v-if="this.neededActions > 0" class="badge text-bg-danger">{{
+                  this.neededActions
+                }}</span>
               </router-link>
             </li>
             <li v-if="userLoggedIn" class="nav-item">
@@ -63,7 +65,7 @@ export default {
 
     updateNavigationMenu: function () {
       this.userId = sessionStorage.getItem('userId'),
-          this.roleName = sessionStorage.getItem('roleName')
+        this.roleName = sessionStorage.getItem('roleName')
       this.userLoggedIn = this.userId !== '';
       this.isAdmin = this.roleName === 'admin'
     },
