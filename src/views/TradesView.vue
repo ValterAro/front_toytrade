@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-          <CategoriesInput class="my-3" @emitSelectedCategoriesEvent="setSelectedCategories"/>
+      <CategoriesInput class="my-3" @emitSelectedCategoriesEvent="setSelectedCategories"/>
       <div class="col col-lg-9 col-md-9 col-sm-12 py-3 ms-5">
         <ToyList ref="toyList"/>
       </div>
@@ -19,8 +19,7 @@ export default {
   name: "TradesView",
   components: {Modal, ToyList, CategoriesInput, ToyTable},
   data: function () {
-    return {
-    }
+    return {}
   },
   methods: {
     setSelectedCategories: function (selectedCategories) {

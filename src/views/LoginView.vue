@@ -1,11 +1,10 @@
 <template>
   <div class="row justify-content-center">
-
     <div class="col-2 ">
       <div class="center">
         <font-awesome-icon icon="fa-solid fa-user" class="login-icon fs-1 circle-icon"/>
         <AlertDanger :alert-message="messageError"/>
-        <form>
+        <div class="center">
           <div class="txt_field">
             <input v-model="username" type="text" required>
             <span></span>
@@ -21,7 +20,7 @@
             Pole veel kontot?
             <router-link to="/register">Registreeru</router-link>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -30,14 +29,18 @@
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: "LoginView",
-  components: {AlertDanger},
+  computed: {
+  },
+  components: {Modal, AlertDanger},
   data: function () {
 
     return {
       messageError: '',
+      showModal: false,
       loginResponse: {
         userId: '',
         roleName: '',
