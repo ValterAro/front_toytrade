@@ -3,11 +3,10 @@
     <div class="row justify-content-center">
       <div class="col-2 mx-5 pb-3 back-white box-shadow text-center h-100 my-5">
         <div>
-          <UserName @emitUserInfoEvent="emitUserInfo" />
-          <!--        <MyPoints/>-->
+          <UserInfo ref="userInfo" @emitUserInfoEvent="emitUserInfo"/>
           <div class="my-3">
-            <button id="show-modal" class="btn btn-blue"  v-on:click="showModal = true">Muudan andmeid</button>
-            <modal :show="showModal" ref="modal" @close="showModal = false" @emitUserInfoEvent="setUserInfo"></modal>
+            <UserInfoModal :show-modal="showModal" @close="showModal = false" ref="userInfoModal" @emitUserInfoEvent="setUserInfo"/>
+            <button id="show-modal" class="btn btn-blue" v-on:click="showModal = true">Muudan andmeid</button>
           </div>
           <div>
             <router-link :to="{name: 'toy'}">
@@ -27,7 +26,7 @@
         <br>
       </div>
       <div class="col-10">
-        <MyTransactionTable @emitPointChangeEvent="updatePoints"/>
+        <MyTransactionTable @emitPointChangeEvent="updatePoints" @emitNeededActionsEvent="updateActions"/>
       </div>
     </div>
   </div>
@@ -35,14 +34,14 @@
 
 <script>
 import MyToyTable from "@/components/my/MyToyTable.vue";
-import MyPoints from "@/components/my/MyPoints.vue";
 import MyTransactionTable from "@/components/my/MyTransactionTable.vue";
+import UserInfo from "@/components/my/UserInfo.vue";
+import UserInfoModal from "@/views/UserInfoModal.vue";
 import Modal from "@/components/Modal.vue";
-import UserName from "@/components/my/UserName.vue";
 
 export default {
   name: "MyView",
-  components: {UserName, Modal, MyTransactionTable, MyPoints, MyToyTable},
+  components: {Modal, UserInfoModal, UserInfo, MyTransactionTable, MyToyTable},
   data: function () {
     return {
       showModal: false,
@@ -57,25 +56,27 @@ export default {
   methods: {
     updateUser: function () {
       this.$http.put("/users/me", this.userInfo, {
-            params: {
-              userId: this.userId
-            }
+          params: {
+            userId: this.userId
           }
+        }
       ).then(response => {
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
     },
     updatePoints() {
-      this.$refs.myPoints.getMyPoints();
+      this.$refs.userInfo.getUserInfo();
     },
     setUserInfo: function (userInfo) {
       this.userInfo = userInfo
       this.updateUser()
     },
     emitUserInfo: function (userInfo) {
-      this.$refs.modal.populateInputs(userInfo)
+      this.$refs.userInfoModal.populateInputs(userInfo)
+    },
+    updateActions: function (numberOfActions) {
+      this.$emit('updateActionsEvent', numberOfActions)
     }
   }
 }

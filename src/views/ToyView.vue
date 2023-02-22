@@ -88,14 +88,10 @@ export default {
 
 
     checkIfViewOrEdit: function () {
-      console.log(this.userIdFromSession)
-      console.log(this.toyById.userId)
       if (this.userIdFromSession == this.toyById.userId) {
         this.isEdit = true;
-
       } else if (this.userIdFromSession != this.toyById.userId) {
         this.isView = true;
-
       }
     }
   },

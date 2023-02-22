@@ -107,15 +107,12 @@ export default {
     editData(user) {
       this.editedUser = user
       this.previousRoleId = user.roleId
-      console.log(this.previousRoleId)
     },
     saveData(user) {
       this.userId = user.userId
-      console.log(this.userId)
       this.user.username = user.username
 
       this.user.roleId = this.previousRoleId
-      console.log(user.roleId)
       this.user.mobile = user.mobile
       this.user.points = user.points
       this.updateUserInfo(this.userId)

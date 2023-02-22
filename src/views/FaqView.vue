@@ -1,7 +1,7 @@
 <template>
   <div class="container my-5">
 
-    <div class="col-8 mx-auto back-white box-shadow px-5">
+    <div class="col col-lg-6 col-md-12 mx-auto back-white box-shadow px-4">
       <div class="text-start py-3">
         <h3>Korduma kippuvad küsimused</h3> <br>
         <div class="my-3">
@@ -21,9 +21,6 @@
         <div class="my-3">
           <h6>Kuidas toimub mänguasjade üleandmine?</h6>Teeme koostööd Omnivaga ja mänguasjade saatmine Omniva pakiautomaati on tasuta. Kui oled mänguasja välja valinud, siis saad valida sobiva pakiautomaadi, kuhu lelu saadetakse.
         </div>
-
-
-
       </div>
     </div>
 

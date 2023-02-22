@@ -13,12 +13,14 @@
 import ToyTable from "@/components/toy/ToyTable.vue";
 import CategoriesInput from "@/components/category/CategoriesInput.vue";
 import ToyList from "@/components/toy/ToyList.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: "TradesView",
-  components: {ToyList, CategoriesInput, ToyTable},
+  components: {Modal, ToyList, CategoriesInput, ToyTable},
   data: function () {
-    return {}
+    return {
+    }
   },
   methods: {
     setSelectedCategories: function (selectedCategories) {

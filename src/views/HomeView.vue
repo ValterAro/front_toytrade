@@ -1,6 +1,6 @@
 <template>
   <div class="container home my-5">
-      <Carousel/>
+    <Carousel/>
     <HomeIntro/>
 
   </div>
