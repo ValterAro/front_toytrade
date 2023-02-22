@@ -2,7 +2,7 @@
   <div class="col-2 box-shadow text-start" id="leftMenu" >
     <nav class="navbar navbar-expand-lg">
 
-      <button class="navbar-toggler btn-outline-blue" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
+      <button class="navbar-toggler btn-outline-blue my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
         <font-awesome-icon icon="fa-solid fa-filter"/>
       </button>
       <div class="offcanvas offcanvas-start px-2" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel">

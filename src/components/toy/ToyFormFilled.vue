@@ -162,7 +162,7 @@ export default {
       this.$emit('emitPictureEvent', this.selectedToy.picture)
     },
     getMyPoints: function () {
-      this.$http.get("/trade/myPoints", {
+      this.$http.get("/users/points", {
             params: {
               userId: sessionStorage.getItem('userId'),
             }

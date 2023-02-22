@@ -78,7 +78,7 @@ export default {
           }
         }
       }
-      this.$http.post("/trade/trades", this.categories
+      this.$http.post("/trade/filter", this.categories
       ).then(response => {
         this.toys = response.data
       }).catch(error => {

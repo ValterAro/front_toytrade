@@ -5,7 +5,7 @@
         <div class="modal-header">
           <slot name="header">
             <h5>Muuda andmeid</h5>
-            <button type="button" class="btn-close float-end" v-on:click.prevent="$emit('close')" aria-label="Close"></button>
+            <button type="button" class="btn-close float-end" v-on:click="$emit('close')" aria-label="Close"></button>
           </slot>
         </div>
 
@@ -69,15 +69,15 @@ export default {
         this.$emit('close')
       }
     },
-    updateInfo: function () {
-      console.log(this.username)
-    },
+    // updateInfo: function () {
+    //   console.log(this.username)
+    // },
     populateInputs: function (userInfo) {
       this.user = userInfo
     }
   },
   beforeMount() {
-    this.updateInfo()
+    // this.updateInfo()
   }
 }
 </script>
