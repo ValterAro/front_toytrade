@@ -13,6 +13,9 @@
               <button type="button" class="btn btn-outline-blue">Lisan mänguasja</button>
             </router-link>
           </div>
+          <div class="align-baseline">
+            <MessageBox ref="messageBox" :user-id-from-query="userIdFromQuery"/>
+          </div>
         </div>
       </div>
       <div class="col-8 mx-4">

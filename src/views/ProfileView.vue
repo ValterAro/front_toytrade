@@ -1,16 +1,17 @@
 <template>
   <div class="container">
+
     <div class="row">
-      <MessageBox ref="messageBox" :user-id-from-query="userIdFromQuery"/>
-      </div>
-    <div class="row">
-      <div class="col-2 back-white px-3 my-5 py-3 text-start box-shadow">
+      <div class="col-3 back-white px-3 my-5 py-3 text-start box-shadow">
         <h5 class="text-black">Kasutajaprofiil:</h5>
         <div>Nimi: {{ userInfo.username }}</div>
         <div>Telefon: {{ userInfo.mobile }}</div>
         <button class="btn-blue my-3" v-on:click="openMessageBox">Saada sõnum</button>
+        <div class="align-baseline">
+          <MessageBox ref="messageBox" :user-id-from-query="userIdFromQuery" @closeMailEmit="closeMail" :hidden="hideMail"/>
+        </div>
       </div>
-<!--      <Inbox/>-->
+      <!--      <Inbox/>-->
       <div class="col-8">
         <MyToyTable/>
       </div>
@@ -32,6 +33,7 @@ export default {
   components: {Inbox, MyToyTable, Messaging, MessageBox},
   data: function () {
     return {
+      hideMail: true,
       showModal: false,
       userIdFromQuery: this.$route.query.otherUser,
       userIdFromSession: sessionStorage.getItem('userId'),
@@ -47,12 +49,16 @@ export default {
 
   },
   methods: {
+    closeMail: function () {
+      this.hideMail = true
+    // window.location.reload()
+    },
     getUserInfo: function () {
       this.$http.get("/users/me", {
-          params: {
-            userId: this.userIdFromQuery
+            params: {
+              userId: this.userIdFromQuery
+            }
           }
-        }
       ).then(response => {
         this.userInfo = response.data
       }).catch(error => {
@@ -60,6 +66,7 @@ export default {
       })
     },
     openMessageBox: function () {
+      this.hideMail = false
       this.$refs.messageBox.openModal()
     }
   },

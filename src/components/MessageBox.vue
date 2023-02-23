@@ -1,14 +1,18 @@
 <template>
   <div>
     <div class="mx-5 my-5">
-      <Modal class="modal-chat" :show="showModal" @close="showModal = false">
+      <Modal class="modal-chat" :show="showModal" @close="showModal = false" style="width: 650px">
         <template #header>
           <h5>Vestle kasutajaga {{ chatName }}</h5>
-          <button type="button" class="btn-close float-end bord" v-on:click="showModal = false"
+          <button type="button" class="btn-close float-end bord" v-on:click="changeValue"
                   aria-label="Close"></button>
         </template>
         <template #body>
           <div>
+            <div>
+              <font-awesome-icon icon="fa-solid fa-people-group" class="col-6"/>
+              <font-awesome-icon icon="fa-solid fa-hand-point-up" class="col-6"/>
+            </div>
             <div ref="tableContainer" class="table-container-1" :class="{'scrollable': sortedData.length > 15}">
               <table class="table table-1">
                 <thead>
@@ -66,6 +70,7 @@ export default {
   data() {
     return {
       showModal: false,
+      closeMail: true,
       currentUserId: sessionStorage.getItem('userId'),
       otherUserId: this.userIdFromQuery,
       users: [{
@@ -165,6 +170,12 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+
+    changeValue: function () {
+      this.showModal = false
+      this.closeMail = true
+      this.$emit('closeMailEmit', this.closeMail)
     },
 
     isSentMessage(index) {
