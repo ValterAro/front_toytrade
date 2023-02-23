@@ -38,12 +38,16 @@ import MyTransactionTable from "@/components/my/MyTransactionTable.vue";
 import UserInfo from "@/components/my/UserInfo.vue";
 import UserInfoModal from "@/components/my/UserInfoModal.vue";
 import Modal from "@/components/Modal.vue";
+import MessageBox from "@/components/MessageBox.vue";
 
 export default {
   name: "MyView",
-  components: {Modal, UserInfoModal, UserInfo, MyTransactionTable, MyToyTable},
+  components: {MessageBox, Modal, UserInfoModal, UserInfo, MyTransactionTable, MyToyTable},
   data: function () {
     return {
+      userIdFromQuery: this.$route.query.userId,
+      userIdFromSession: sessionStorage.getItem('userId'),
+      currentUserOnPage: false,
       showModal: false,
       userId: sessionStorage.getItem('userId'),
       userInfo: {

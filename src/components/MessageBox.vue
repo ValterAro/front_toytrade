@@ -33,18 +33,17 @@
         </template>
       </Modal>
       <div class="col-2 back-white box-shadow">
-        <div v-if="gotTheStuff" class="list-group">
-          <h2 class="py-1">Postkast</h2><span v-if="unreadMessages > 0">{{unreadMessages}}</span>
+        <div v-if="gotTheStuff" class="list-group text-start">
+          <h4 class="py-1">Postkast</h4><span v-if="unreadMessages > 0">{{ unreadMessages }}</span>
           <button v-on:click="openChat(user)" v-for="user in users" :key="user.userId"
                   class="back-white border-0 border-top" :value="user.userId">
-
-            <router-link :to="{name: 'profile', query: {userId:user.userId}}"
+            <router-link :to="{name: 'profile', query: {otherUser:user.userId}}"
                          class="d-block text-decoration-none py-2 product-name ">
-              <div v-if="messages123">
-                <span class="badge text-bg-success"> {{ user.username }}</span>
+              <div v-if="unreadSenders.includes(user.userId)">
+                <span class="badge text-bg-success fs-5"> {{ user.username }}</span>
               </div>
-              <div v-if="!messages123">
-                <span class="badge text-bg-danger"> {{ user.username }}</span>
+              <div v-else>
+                <span class="badge text-bg-secondary fs-5"> {{ user.username }}</span>
               </div>
             </router-link>
           </button>
@@ -113,7 +112,9 @@ export default {
 
       timestamp: '',
       chatName: '',
-      unreadMessages: 0
+      unreadMessages: 0,
+      senderIds: [],
+      unreadSenders: []
     }
   },
   computed: {
@@ -122,7 +123,8 @@ export default {
       return mergedArray.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
     },
     uniqueSenderIds() {
-      return [...new Set(this.allReceivedMessagesWithStatusA.map(message => message.senderId))];
+      this.senderIds = [...new Set(this.allReceivedMessagesWithStatusA.map(message => message.senderId))]
+      return this.senderIds
     },
   },
 
@@ -131,6 +133,9 @@ export default {
 
   },
   methods: {
+    openModal: function () {
+      this.showModal = true
+    },
     openChat: function (user) {
       this.chatName = user.username
       this.otherUserId = user.userId
@@ -141,6 +146,7 @@ export default {
     storeUniqueSenderIds() {
       for (const senderId of this.uniqueSenderIds) {
         // Do something with each unique sender ID, like store it in a variable
+
         const uniqueSenderId = senderId;
         this.getUserUsername(uniqueSenderId)
       }
@@ -217,7 +223,6 @@ export default {
           this.alertMessage();
         });
     },
-
     getAllMessagesReceivedByCurrentUserWithStatusA: function () {
       this.$http.get("/message/received", {
           params: {
@@ -228,13 +233,15 @@ export default {
       ).then(response => {
         this.allReceivedMessagesWithStatusA = response.data;
         let counter = 0
+        this.storeUniqueSenderIds();
         for (let i = 0; i < this.allReceivedMessagesWithStatusA.length; i++) {
           if (this.allReceivedMessagesWithStatusA[i].status === 'A') {
+            this.unreadSenders.push(this.allReceivedMessagesWithStatusA[i].senderId)
             counter += 1
           }
         }
+        this.unreadSenders = [...new Set(this.unreadSenders)]
         this.unreadMessages = counter
-        this.storeUniqueSenderIds();
       }).catch(error => {
         console.log(error)
       })
@@ -246,11 +253,11 @@ export default {
         }
       })
         .then(response => {
-            const username = response.data.username;
-            const userId = response.data.userId;
-            const userObj = {username, userId}; // create object with username and userId properties
-            this.users.push(userObj); // push the object into the users array
-            this.gotTheStuff = true;
+          const username = response.data.username;
+          const userId = response.data.userId;
+          const userObj = {username, userId}; // create object with username and userId properties
+          this.users.push(userObj); // push the object into the users array
+          this.gotTheStuff = true;
         })
         .catch(error => {
           console.log(error);

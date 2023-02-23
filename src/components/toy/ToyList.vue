@@ -20,7 +20,7 @@
           <span class="product-type">{{ toy.categoryName }}</span>
           <div class="product-type">
             Andja:
-            <router-link v-if="isLoggedIn" :to="{name: 'profile', query: {userId:toy.userId}}" class="text-decoration-none ">{{ toy.userUsername }}</router-link>
+            <router-link v-if="isLoggedIn" :to="{name: 'profile', query: {otherUser:toy.userId}}" class="text-decoration-none ">{{ toy.userUsername }}</router-link>
             <span v-else>{{ toy.userUsername }}</span>
           </div>
             <router-link :to="{name: 'toy', query: {toyId:toy.id}}" class="d-block text-dark py-2 product-name fw-bold text-decoration-none">{{ toy.name }}</router-link>

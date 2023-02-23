@@ -14,7 +14,9 @@
       </thead>
       <tbody>
       <tr v-for="toy in toys" :key="toy.id" class="text-start">
-        <td><router-link :to="{name: 'toy', query: {toyId:toy.id}}" class="fw-bold">{{ toy.name }}</router-link></td>
+        <td>
+          <router-link :to="{name: 'toy', query: {toyId:toy.id}}" class="fw-bold">{{ toy.name }}</router-link>
+        </td>
         <td>{{ toy.description }}</td>
         <td>{{ toy.categoryName }}</td>
         <td>{{ toy.conditionName }}</td>
@@ -30,6 +32,7 @@ export default {
   name: "MyToyTable",
   data: function () {
     return {
+      userId: 0,
       categories: [
         {
           categoryId: 0,
@@ -58,19 +61,25 @@ export default {
 
 
     getMyToys: function () {
+      this.getUser()
       this.$http.get("/trade/me", {
-            params: {
-              userId: sessionStorage.getItem('userId'),
-            }
+          params: {
+            userId: this.userId,
           }
+        }
       ).then(response => {
         this.toys = response.data
       }).catch(error => {
         console.log(error)
       })
     },
-
-
+    getUser: function () {
+      if (this.$route.query.userId === undefined) {
+        this.userId = sessionStorage.getItem('userId')
+      } else {
+        this.userId = this.$route.query.userId
+      }
+    }
   },
   beforeMount() {
     this.getMyToys()
