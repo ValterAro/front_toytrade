@@ -5,7 +5,7 @@
         <font-awesome-icon icon="fa-solid fa-user-plus" class="login-icon fs-1 circle-icon" />
         <AlertDanger :alert-message="messageError"/>
         <AlertSuccess :alert-message="messageSuccess"/>
-        <form>
+        <div>
           <div class="txt_field">
             <input v-model="userDto.username" type="text" required>
             <span></span>
@@ -25,7 +25,7 @@
           <div class="signup_link">
             Konto juba olemas? <router-link to="/login">Logi sisse</router-link>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

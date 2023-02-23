@@ -4,7 +4,7 @@
       <div class="center">
         <font-awesome-icon icon="fa-solid fa-user" class="login-icon fs-1 circle-icon"/>
         <AlertDanger :alert-message="messageError"/>
-        <div class="center">
+        <div>
           <div class="txt_field">
             <input v-model="username" type="text" required>
             <span></span>

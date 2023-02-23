@@ -18,7 +18,11 @@
         </div>
         <div class="product-info p-3">
           <span class="product-type">{{ toy.categoryName }}</span>
-          <div class="product-type">Andja: <router-link :to="{name: 'profile', query: {userId:toy.userId}}" class="text-decoration-none ">{{ toy.userUsername }}</router-link></div>
+          <div class="product-type">
+            Andja:
+            <router-link v-if="isLoggedIn" :to="{name: 'profile', query: {userId:toy.userId}}" class="text-decoration-none ">{{ toy.userUsername }}</router-link>
+            <span v-else>{{ toy.userUsername }}</span>
+          </div>
             <router-link :to="{name: 'toy', query: {toyId:toy.id}}" class="d-block text-dark py-2 product-name fw-bold text-decoration-none">{{ toy.name }}</router-link>
           <span class="product-price">{{ toy.conditionName }}</span>
           <div class="rating d-flex mt-1">
@@ -40,6 +44,7 @@ export default {
     return {
       messageError: '',
       loading: false,
+      isLoggedIn: false,
       categories: [
         {
           categoryId: 0,
@@ -81,6 +86,9 @@ export default {
         this.toys = response.data
         if (this.toys.length === 0) {
           this.messageError = 'Ühtegi mänguasja ei leitud!'
+        }
+        if (sessionStorage.getItem('userId') !== '') {
+          this.isLoggedIn = true
         }
       }).catch(error => {
         console.log(error)

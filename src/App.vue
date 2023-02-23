@@ -47,7 +47,7 @@
 export default {
   name: "App",
   mounted() {
-    document.title = "Mänguasjavahetus";
+    document.title = "Leluvahetus";
     this.updateNavigationMenu()
   },
   data: function () {
@@ -64,8 +64,8 @@ export default {
   methods: {
 
     updateNavigationMenu: function () {
-      this.userId = sessionStorage.getItem('userId'),
-        this.roleName = sessionStorage.getItem('roleName')
+      this.userId = sessionStorage.getItem('userId')
+      this.roleName = sessionStorage.getItem('roleName')
       this.userLoggedIn = this.userId !== '';
       this.isAdmin = this.roleName === 'admin'
     },

@@ -10,7 +10,7 @@
 
 <script>
 
-import MessageBox from "@/views/MessageBox.vue";
+import MessageBox from "@/components/MessageBox.vue";
 
 
 export default {
