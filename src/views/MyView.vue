@@ -36,7 +36,7 @@
 import MyToyTable from "@/components/my/MyToyTable.vue";
 import MyTransactionTable from "@/components/my/MyTransactionTable.vue";
 import UserInfo from "@/components/my/UserInfo.vue";
-import UserInfoModal from "@/views/UserInfoModal.vue";
+import UserInfoModal from "@/components/my/UserInfoModal.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {

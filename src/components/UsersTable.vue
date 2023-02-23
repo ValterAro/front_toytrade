@@ -11,7 +11,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="user in users" :key="user.userId" :class="{editing: user == editedUser}" v-cloak>
+      <tr v-for="user in users" :class="{editing: user == editedUser}" v-cloak>
         <td>
           <div class="view">
             {{ user.username }}
@@ -26,7 +26,7 @@
           </div>
           <div class="edit">
             <select class="form-select form-select-sm" v-model="previousRoleId">
-              <option v-for="role in roles" v-model="role.id" :key="role.id" :value="role.id" >{{role.name}}</option>
+              <option v-for="role in roles" v-model="role.id" :key="role.id" :value="role.id">{{ role.name }}</option>
             </select>
           </div>
         </td>
@@ -120,28 +120,28 @@ export default {
     },
     getAllRoles: function () {
       this.$http.get("/users/roles")
-          .then(response => {
-            this.roles = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
+        .then(response => {
+          this.roles = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     getAllUsers: function () {
       this.$http.get("/users/all")
-          .then(response => {
-            this.users = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
+        .then(response => {
+          this.users = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     updateUserInfo: function (userId) {
       this.$http.put("/users", this.user, {
-            params: {
-              userId: userId
-            }
+          params: {
+            userId: userId
           }
+        }
       ).then(response => {
         this.getAllUsers()
       }).catch(error => {
@@ -150,16 +150,16 @@ export default {
     },
     deleteUser: function (userId) {
       this.$http.delete("/users", {
-            params: {
-              userId: userId
-            }
+          params: {
+            userId: userId
           }
+        }
       ).then(response => {
         this.getAllUsers()
       }).catch(error => {
         console.log(error)
       })
-    },
+    }
   },
   beforeMount() {
     this.getAllUsers()
