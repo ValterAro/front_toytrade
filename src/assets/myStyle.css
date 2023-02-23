@@ -39,7 +39,12 @@ h1 {
     box-sizing: border-box;
 }
 
-form .txt_field {
+.center div {
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: block;
+}
+.txt_field {
     position: relative;
     border-bottom: 2px solid #adadad;
     margin: 30px 0;
@@ -247,6 +252,7 @@ input[type="number" i] {
     padding: 30px;
     border-radius: 50%;
     box-shadow: 5px 5px 10px rgb(0 0 0 / 5%);
+    z-index: 999;
 }
 
 .login-icon {
@@ -254,6 +260,7 @@ input[type="number" i] {
     color: #666;
     width: 50px;
     height: 50px;
+    z-index: 999;
 }
 
 nav a {
@@ -513,4 +520,8 @@ a {
 .carousel-caption {
 
     top: 1.5rem;
+}
+
+div.modal-chat .modal-container {
+    width: 600px !important;
 }

@@ -9,6 +9,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import MyView from "@/views/MyView.vue";
 import AdminView from "@/views/AdminView.vue";
 import ConfirmationView from "@/views/ConfirmationView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     name: 'trades',
     component: TradesView
   },
+  {path: '/profile',
+    name: 'profile',
+    component: ProfileView
+  },
+
   {
     path: '/trade/me',
     name: 'mytrades',

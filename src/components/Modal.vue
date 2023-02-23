@@ -4,37 +4,14 @@
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header">
-            <h5>Muuda andmeid</h5>
-            <button type="button" class="btn-close float-end" v-on:click="$emit('close')" aria-label="Close"></button>
           </slot>
         </div>
-
         <div class="modal-body">
           <slot name="body">
-            <AlertDanger :alert-message="messageError" />
-            <form>
-              <div class="txt_field">
-                <input v-model="user.username" type="text" required>
-                <span></span>
-                <label>Kasutajanimi</label>
-              </div>
-              <div class="txt_field">
-                <input v-model="user.password" type="password" required>
-                <span></span>
-                <label>Parool</label>
-              </div>
-              <div class="txt_field">
-                <input v-model="user.mobile" type="text" required>
-                <span></span>
-                <label>Telefon</label>
-              </div>
-            </form>
           </slot>
         </div>
-
         <div class="modal-footer">
           <slot name="footer">
-            <input type="submit" value="Muuda" v-on:click="emitUserInfo">
           </slot>
         </div>
       </div>
@@ -42,46 +19,13 @@
   </Transition>
 </template>
 <script>
-import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
-  components: {AlertDanger},
   props: {
     show: Boolean
-  },
-  data: function () {
-    return {
-      messageError: '',
-      user: {
-        username: '',
-        password: '',
-        mobile: ''
-      }
-    }
-  },
-  methods: {
-    emitUserInfo: function () {
-      this.messageError = ''
-      if (this.user.username === '' || this.user.password === '' || this.user.mobile === '') {
-        this.messageError = 'Täida kõik väljad'
-      } else {
-        this.$emit('emitUserInfoEvent', this.user)
-        this.$emit('close')
-      }
-    },
-    // updateInfo: function () {
-    //   console.log(this.username)
-    // },
-    populateInputs: function (userInfo) {
-      this.user = userInfo
-    }
-  },
-  beforeMount() {
-    // this.updateInfo()
   }
 }
 </script>
-
 
 <style>
 .modal-mask {
