@@ -9,8 +9,8 @@
 <script>
 // @ is an alias to /src
 
-import Carousel from "@/components/Carousel.vue";
-import HomeIntro from "@/components/HomeIntro.vue";
+import Carousel from "@/components/home/Carousel.vue";
+import HomeIntro from "@/components/home/HomeIntro.vue";
 
 export default {
   name: 'HomeView',

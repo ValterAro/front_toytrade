@@ -5,7 +5,7 @@
       <h3>Vana lelu uus elu</h3>
       <p>Tere tulemast meie mänguasjade vahetuse veebisaidile! Oleme rõõmsad, et otsustasid meie kogukonnaga liituda
         ja oma mänguasju vahetada.</p>
-      <p>Hoolitseme üheskoos, et täiesti korralikud mänguasjad ei lõpetaks prügimäel, vadi saaksid kellelegi teisele rõõmu valmistada.</p>
+      <p>Hoolitseme üheskoos, et täiesti korralikud lelud ei lõpetaks prügimäel, vadi saaksid kellelegi teisele rõõmu valmistada.</p>
     </div>
   </div>
   </div>
