@@ -4,7 +4,7 @@
       <Modal class="modal-chat" :show="showModal" @close="closeModalAndRefresh">
         <template #header>
           <h5>Vestle kasutajaga {{ chatName }}</h5>
-          <button type="button" class="btn-close float-end bord" v-on:click="showModal = false"
+          <button type="button" class="btn-close float-end bord" v-on:click="closeModalAndRefresh"
                   aria-label="Close"></button>
         </template>
         <template #body>
