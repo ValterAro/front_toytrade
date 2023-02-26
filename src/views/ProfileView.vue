@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <MessageBox ref="messageBox" :user-id-from-query="userIdFromQuery"/>
+      <MessageBox ref="messageBox" :user-id-from-query="userIdFromQuery":username-from-query="usernameFromQuery"/>
       </div>
     <div class="row">
       <div class="col-2 back-white px-3 my-5 py-3 text-start box-shadow">
@@ -36,6 +36,7 @@ export default {
       userIdFromQuery: this.$route.query.otherUser,
       userIdFromSession: sessionStorage.getItem('userId'),
       currentUserOnPage: false,
+      usernameFromQuery: '',
       userInfo: {
         roleId: 0,
         username: '',
@@ -54,13 +55,16 @@ export default {
           }
         }
       ).then(response => {
-        this.userInfo = response.data
+        this.userInfo = response.data,
+        this.usernameFromQuery = this.userInfo.username
+
       }).catch(error => {
         console.log(error)
       })
     },
     openMessageBox: function () {
       this.$refs.messageBox.openModal()
+      this.$refs.messageBox.scrollToBottomOnMount()
     }
   },
   beforeMount() {

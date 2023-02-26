@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Minu mänguasjad</h3>
+    <h3>Mänguasjad</h3>
     <table class="table table-striped box-shadow my-3">
       <thead>
       <tr>

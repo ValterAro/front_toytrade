@@ -84,6 +84,10 @@ export default {
     updateActions: function (numberOfActions) {
       this.$emit('updateActionsEvent', numberOfActions)
     }
+
+  },
+  beforeMount() {
+    this.$router.replace({'query': null})
   }
 }
 </script>

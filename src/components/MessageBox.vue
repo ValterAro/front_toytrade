@@ -34,7 +34,7 @@
       </Modal>
       <div class="col-2 back-white box-shadow">
         <div v-if="gotTheStuff" class="list-group text-start mx-3">
-          <h4 class="py-1">Postkast</h4><span v-if="unreadMessages > 0">{{ unreadMessages }}</span>
+          <h4 class="py-1">Postkast</h4><span v-if="unreadMessages > 0">{{ unreadMessages }} lugemata sõnumit</span>
           <button v-on:click="openChat(user)" v-for="user in users" :key="user.userId"
                   class="back-white border-0 border-top" :value="user.userId">
             <router-link :to="{name: 'mytrades', query: {otherUser:user.userId}}"
@@ -61,6 +61,7 @@ import Modal from "@/components/Modal.vue";
 export default {
   components: {Modal, UserInfo},
   props: {
+    usernameFromQuery: {},
     userIdFromQuery: {}
   },
   data() {
@@ -128,13 +129,11 @@ export default {
     },
   },
 
-  mounted() {
-    this.scrollToBottomOnMount();
 
-  },
   methods: {
     openModal: function () {
       this.otherUserId = this.$route.query.otherUser
+      this.chatName = this.usernameFromQuery
       this.showModal = true
     },
     openChat: function (user) {
@@ -301,11 +300,12 @@ export default {
       })
     },
     closeModalAndRefresh: function () {
-      this.showModal = false
+      this.showModal = false,
       this.timeoutAndReloadPage(0)
+
     },
     timeoutAndReloadPage: function (timeOut) {
-      this.changeStatusOfMessages()
+
       setTimeout(() => {
         this.$router.go(0)
       }, timeOut)
