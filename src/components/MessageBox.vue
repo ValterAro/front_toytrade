@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mx-5 my-5">
-      <Modal class="modal-chat" :show="showModal" @close="showModal = false">
+      <Modal class="modal-chat" :show="showModal" @close="closeModalAndRefresh">
         <template #header>
           <h5>Vestle kasutajaga {{ chatName }}</h5>
           <button type="button" class="btn-close float-end bord" v-on:click="showModal = false"
@@ -33,7 +33,7 @@
         </template>
       </Modal>
       <div class="col-2 back-white box-shadow">
-        <div v-if="gotTheStuff" class="list-group text-start">
+        <div v-if="gotTheStuff" class="list-group text-start mx-3">
           <h4 class="py-1">Postkast</h4><span v-if="unreadMessages > 0">{{ unreadMessages }}</span>
           <button v-on:click="openChat(user)" v-for="user in users" :key="user.userId"
                   class="back-white border-0 border-top" :value="user.userId">
@@ -134,6 +134,7 @@ export default {
   },
   methods: {
     openModal: function () {
+      this.otherUserId = this.$route.query.otherUser
       this.showModal = true
     },
     openChat: function (user) {
@@ -195,6 +196,7 @@ export default {
       this.messageDto.created_at = new Date().toISOString();
     },
     sendMessage() {
+      this.messageDto.receiverId = this.$route.query.otherUser
       this.$http.post("/message", this.messageDto)
         .then(response => {
           // add new message data to sentMessages array
@@ -232,6 +234,7 @@ export default {
         }
       ).then(response => {
         this.allReceivedMessagesWithStatusA = response.data;
+        console.log(this.allReceivedMessagesWithStatusA)
         let counter = 0
         this.storeUniqueSenderIds();
         for (let i = 0; i < this.allReceivedMessagesWithStatusA.length; i++) {
@@ -242,6 +245,7 @@ export default {
         }
         this.unreadSenders = [...new Set(this.unreadSenders)]
         this.unreadMessages = counter
+        console.log(counter)
       }).catch(error => {
         console.log(error)
       })
@@ -287,10 +291,16 @@ export default {
         }
       ).then(response => {
         this.receivedMessages = response.data
+        console.log(this.otherUserId)
+        console.log(this.currentUserId)
 
       }).catch(error => {
         console.log(error)
       })
+    },
+    closeModalAndRefresh: function () {
+      this.showModal = false
+      this.timeoutAndReloadPage(0)
     },
     timeoutAndReloadPage: function (timeOut) {
       this.changeStatusOfMessages()

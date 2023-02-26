@@ -4,8 +4,8 @@
     <ul class="nav affix-top flex-column w-100" data-spy="affix" data-offset-top="50">
       <li class="d-flex justify-content-between align-items-center"><a href="#" v-on:click.prevent="emitSelectedMenuItem" id="usersMenuItem"
              class="list-group-item list-group-item-action active align-middle">Kasutajad</a></li>
-      <li><a href="#" v-on:click.prevent="emitSelectedMenuItem" id="toysMenuItem"
-             class="list-group-item list-group-item-action">Mänguasjad</a></li>
+<!--      <li><a href="#" v-on:click.prevent="emitSelectedMenuItem" id="toysMenuItem"-->
+<!--             class="list-group-item list-group-item-action">Mänguasjad</a></li>-->
       <li><a href="#" v-on:click.prevent="emitSelectedMenuItem" id="categoriesMenuItem"
              class="list-group-item list-group-item-action">Kategooriad</a></li>
       <li><a href="#" v-on:click.prevent="emitSelectedMenuItem" id="conditionsMenuItem"
