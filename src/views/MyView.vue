@@ -12,6 +12,7 @@
             <router-link :to="{name: 'toy'}">
               <button type="button" class="btn btn-outline-blue">Lisan mänguasja</button>
             </router-link>
+            <MessageBox :user-id-from-query="userIdFromQuery"/>
           </div>
         </div>
       </div>
@@ -29,6 +30,7 @@
         <MyTransactionTable @emitPointChangeEvent="updatePoints" @emitNeededActionsEvent="updateActions"/>
       </div>
     </div>
+
   </div>
 </template>
 

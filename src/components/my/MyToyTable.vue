@@ -30,6 +30,9 @@
 <script>
 export default {
   name: "MyToyTable",
+  props: {
+    userIdFromQuery: {}
+  },
   data: function () {
     return {
       userId: 0,
@@ -74,10 +77,10 @@ export default {
       })
     },
     getUser: function () {
-      if (this.$route.query.userId === undefined) {
+      if (this.$route.query.otherUser === undefined) {
         this.userId = sessionStorage.getItem('userId')
       } else {
-        this.userId = this.$route.query.userId
+        this.userId = this.$route.query.otherUser
       }
     }
   },

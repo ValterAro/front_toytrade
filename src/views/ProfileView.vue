@@ -12,7 +12,7 @@
       </div>
 <!--      <Inbox/>-->
       <div class="col-8">
-        <MyToyTable/>
+        <MyToyTable :user-id-from-query="userIdFromQuery"/>
       </div>
 
     </div>

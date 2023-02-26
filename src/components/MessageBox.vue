@@ -37,7 +37,7 @@
           <h4 class="py-1">Postkast</h4><span v-if="unreadMessages > 0">{{ unreadMessages }}</span>
           <button v-on:click="openChat(user)" v-for="user in users" :key="user.userId"
                   class="back-white border-0 border-top" :value="user.userId">
-            <router-link :to="{name: 'profile', query: {otherUser:user.userId}}"
+            <router-link :to="{name: 'mytrades', query: {otherUser:user.userId}}"
                          class="d-block text-decoration-none py-2 product-name ">
               <div v-if="unreadSenders.includes(user.userId)">
                 <span class="badge text-bg-success fs-5"> {{ user.username }}</span>
@@ -257,7 +257,9 @@ export default {
           const userId = response.data.userId;
           const userObj = {username, userId}; // create object with username and userId properties
           this.users.push(userObj); // push the object into the users array
-          this.gotTheStuff = true;
+          if(this.otherUserId === undefined) {
+          this.gotTheStuff = true }
+
         })
         .catch(error => {
           console.log(error);
