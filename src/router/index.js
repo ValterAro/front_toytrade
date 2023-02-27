@@ -28,7 +28,6 @@ const routes = [
     name: 'profile',
     component: ProfileView
   },
-
   {
     path: '/trade/me',
     name: 'mytrades',

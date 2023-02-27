@@ -473,7 +473,12 @@ nav a.active {
 
 .back-white {
     background: rgba(255,255,255,0.75);
-    min-width: 160px;
+    min-width: 180px;
+}
+
+.button-white {
+    background: rgba(255,255,255,0.75);
+    min-width: 140px;
 }
 
 #leftMenu {

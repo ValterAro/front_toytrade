@@ -61,10 +61,12 @@ export default {
     }
   },
   methods: {
-
-
     getMyToys: function () {
-      this.getUser()
+      if (this.$route.name === 'mytrades') {
+       this.userId = sessionStorage.getItem('userId')
+      } else {
+        this.getUser()
+      }
       this.$http.get("/trade/me", {
           params: {
             userId: this.userId,

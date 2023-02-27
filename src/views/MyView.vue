@@ -87,7 +87,7 @@ export default {
 
   },
   beforeMount() {
-    this.$router.replace({'query': null})
+
   }
 }
 </script>

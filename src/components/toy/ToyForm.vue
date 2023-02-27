@@ -158,6 +158,7 @@ export default {
         this.messageSuccess = 'Mänguasi edukalt lisatud!'
         setTimeout(() => {
           this.$router.push({name: 'mytrades'})
+
         }, 2000)
       }).catch(error => {
         console.log(error)

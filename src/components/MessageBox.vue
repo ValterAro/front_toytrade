@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mx-5 my-5">
+    <div class="mx-2 my-5">
       <Modal class="modal-chat" :show="showModal" @close="closeModalAndRefresh">
         <template #header>
           <h5>Vestle kasutajaga {{ chatName }}</h5>
@@ -32,11 +32,11 @@
           </div>
         </template>
       </Modal>
-      <div class="col-2 back-white box-shadow">
-        <div v-if="gotTheStuff" class="list-group text-start mx-3">
+      <div class="col-auto">
+        <div v-if="gotTheStuff" class="list-group text-start">
           <h4 class="py-1">Postkast</h4><span v-if="unreadMessages > 0">{{ unreadMessages }} lugemata sõnumit</span>
           <button v-on:click="openChat(user)" v-for="user in users" :key="user.userId"
-                  class="back-white border-0 border-top" :value="user.userId">
+                  class="button-white border-0 border-top" :value="user.userId">
             <router-link :to="{name: 'mytrades', query: {otherUser:user.userId}}"
                          class="d-block text-decoration-none py-2 product-name ">
               <div v-if="unreadSenders.includes(user.userId)">
@@ -221,7 +221,6 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.alertMessage();
         });
     },
     getAllMessagesReceivedByCurrentUserWithStatusA: function () {
@@ -233,7 +232,6 @@ export default {
         }
       ).then(response => {
         this.allReceivedMessagesWithStatusA = response.data;
-        console.log(this.allReceivedMessagesWithStatusA)
         let counter = 0
         this.storeUniqueSenderIds();
         for (let i = 0; i < this.allReceivedMessagesWithStatusA.length; i++) {
@@ -244,7 +242,6 @@ export default {
         }
         this.unreadSenders = [...new Set(this.unreadSenders)]
         this.unreadMessages = counter
-        console.log(counter)
       }).catch(error => {
         console.log(error)
       })
@@ -292,17 +289,20 @@ export default {
         }
       ).then(response => {
         this.receivedMessages = response.data
-        console.log(this.otherUserId)
-        console.log(this.currentUserId)
-
       }).catch(error => {
         console.log(error)
       })
     },
+    getMessages: function () {
+      if (this.otherUserId !== undefined) {
+        this.getMessagesSentByCurrentUser()
+        this.getMessagesSentByOtherUser()
+      }
+
+    },
     closeModalAndRefresh: function () {
       this.showModal = false,
       this.timeoutAndReloadPage(0)
-
     },
     timeoutAndReloadPage: function (timeOut) {
 
@@ -313,8 +313,8 @@ export default {
     }
   },
   beforeMount() {
-    this.getMessagesSentByCurrentUser()
-    this.getMessagesSentByOtherUser()
+    this.getMessages()
+
     this.saveTimestamp()
     this.getAllMessagesReceivedByCurrentUserWithStatusA()
 
